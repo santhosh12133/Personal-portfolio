@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- SEO Metadata -->
+    <title>Santhosh Kumar N | Software Engineer | Backend & AI</title>
+    <meta name="description" content="Software Engineer specializing in backend development, REST APIs, databases, testing, and practical AI-powered software systems.">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Custom Cursor -->
+    <div class="cursor" id="custom-cursor">
+        <span class="cursor-text"></span>
+    </div>
+
+    <!-- Background Animation Canvas -->
+    <div class="canvas-container">
+        <canvas id="scroll-canvas"></canvas>
+        <div class="cinematic-overlay"></div>
+    </div>
+
+    <!-- Main Content -->
+    <main class="content-wrapper">
+        <!-- Navigation -->
+        <nav class="navbar" id="navbar">
+            <div class="nav-brand">SANTHOSH KUMAR N</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#education">Education</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+            <a href="https://wa.me/918495900723" target="_blank" class="nav-cta" data-cursor="hover">Let's Connect</a>
+            
+            <!-- Mobile Menu Toggle -->
+            <div class="mobile-menu-btn">
+                <span></span>
+                <span></span>
+            </div>
+        </nav>
+
+        <!-- Hero Section -->
+        <section id="home" class="hero fade-in-section">
+            <div class="hero-content">
+                <h1 class="hero-title">Software Engineer</h1>
+                <p class="hero-desc">
+                    Building scalable backend systems and AI-powered applications, with a focus on APIs, RAG pipelines, and cloud infrastructure.
+                </p>
+                <div class="hero-actions">
+                    <a href="#projects" class="btn btn-primary">View My Work &rarr;</a>
+                </div>
+            </div>
+
+            <div class="hero-visual">
+                <div class="portrait-container">
+                    <div class="portrait-glow"></div>
+                </div>
+            </div>
+        </section>
+
+
+        <!-- About Section -->
+        <section id="about" class="about section-padding fade-in-section">
+            <div class="section-number">01 / ABOUT</div>
+            <div class="about-grid">
+                <h2 class="section-title">Engineering With Purpose.</h2>
+                
+                <div class="about-content">
+                    <p class="about-narrative">
+                        I am a Software Engineer driven by the challenge of architecting robust systems that scale. My focus is on writing clean, maintainable code to solve complex engineering problems, bridging the gap between raw data and seamless digital interactions.
+                    </p>
+                    
+                    <div class="tech-summary">
+                        <div class="tech-pill">Backend Development</div>
+                        <div class="tech-pill">REST APIs</div>
+                        <div class="tech-pill">Database Engineering</div>
+                        <div class="tech-pill">Testing & Debugging</div>
+                        <div class="tech-pill">AI-powered Automation</div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="experience section-padding fade-in-section">
+            <div class="section-number">02 / EXPERIENCE</div>
+            <h2 class="section-title mb-large">Professional Journey</h2>
+            
+            <div class="timeline">
+                <!-- Role 1 -->
+                <div class="timeline-item">
+                    <div class="timeline-meta">
+                        <h3>Truyon Technologies</h3>
+                        <p class="timeline-date">Jan 2026 – Mar 2026</p>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-role">Software Developer Intern</h4>
+                        <ul class="role-highlights">
+                            <li>Architected and implemented highly available backend services to optimize data throughput.</li>
+                            <li>Engineered secure REST APIs for robust client-server communication.</li>
+                            <li>Designed relational database schemas to ensure data integrity and query efficiency.</li>
+                        </ul>
+                        <div class="tech-stack-inline">
+                            <span>Node.js</span> • <span>Express.js</span> • <span>SQL</span> • <span>REST APIs</span> • <span>Git</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Role 2 -->
+                <div class="timeline-item">
+                    <div class="timeline-meta">
+                        <h3>Rats Technologies</h3>
+                        <p class="timeline-date">May 2024 – Jun 2024</p>
+                    </div>
+                    <div class="timeline-content">
+                        <h4 class="timeline-role">Junior Web Developer Intern</h4>
+                        <ul class="role-highlights">
+                            <li>Developed reliable Python REST services for data processing pipelines.</li>
+                            <li>Maintained robust SQL databases and optimized query execution.</li>
+                            <li>Collaborated using Git/GitHub for version control and streamlined integration.</li>
+                        </ul>
+                        <div class="tech-stack-inline">
+                            <span>Python REST services</span> • <span>SQL</span> • <span>Git/GitHub</span> • <span>Responsive UI</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Education Section -->
+        <section id="education" class="education section-padding fade-in-section">
+            <div class="section-number">03 / EDUCATION</div>
+            <h2 class="section-title mb-large">Academic Foundation</h2>
+
+            <div class="education-cards">
+                <div class="edu-card">
+                    <div class="edu-meta">
+                        <span class="edu-degree">MCA</span>
+                        <span class="edu-years">2024 – 2026</span>
+                    </div>
+                    <h3 class="edu-title">Master of Computer Applications</h3>
+                    <p class="edu-institution">Nitte Meenakshi Institute of Technology, Bengaluru</p>
+                </div>
+
+                <div class="edu-card">
+                    <div class="edu-meta">
+                        <span class="edu-degree">BCA</span>
+                        <span class="edu-years">2022 – 2024</span>
+                    </div>
+                    <h3 class="edu-title">Bachelor of Computer Applications</h3>
+                    <p class="edu-institution">Sri Bhagavan Mahaveer Jain College, KGF</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Projects Section -->
+        <section id="projects" class="projects section-padding">
+            <div class="section-number fade-in-section">04 / PROJECTS</div>
+            
+            <!-- Project 01 -->
+            <div class="project-showcase fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">01</div>
+                    <h3 class="project-title">CivicFix</h3>
+                    <p class="project-subtitle">Crowdsourced Civic Issue Reporting Platform</p>
+                    
+                    <p class="project-desc">
+                        A robust software system designed to track and resolve civic issues through crowdsourcing. Engineered with a scalable backend and highly optimized REST APIs to handle concurrent reporting and real-time tracking efficiently.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Engineered reliable backend REST APIs for real-time tracking.</li>
+                            <li>Optimized PostgreSQL database for managing 1,000+ geo-tagged complaints.</li>
+                            <li>Implemented strict RBAC, image verification, and duplicate report prevention algorithms.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>React Native</span><span>Node.js</span><span>Express.js</span><span>PostgreSQL</span><span>REST APIs</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhoshkumar12133" target="_blank" class="btn btn-outline" data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+                
+                <div class="project-visual" data-cursor="explore">
+                    <div class="sys-arch-diagram fade-in-arch">
+                        <div class="sys-arch-title">CIVICFIX – SYSTEM ARCHITECTURE</div>
+                        
+                        <div class="sys-arch-grid">
+                            <!-- Clients -->
+                            <div class="sys-arch-col col-clients">
+                                <div class="col-header"><span class="icon text-red">👤</span> CLIENTS</div>
+                                
+                                <div class="sys-node outline fade-node delay-1">
+                                    <div class="node-title text-red">MOBILE APP (REACT NATIVE)</div>
+                                    <ul class="node-list">
+                                        <li>Report Issue</li>
+                                        <li>Track Status</li>
+                                        <li>View Complaints</li>
+                                        <li>Notifications</li>
+                                    </ul>
+                                </div>
+
+                                <div class="sys-node outline fade-node delay-2">
+                                    <div class="node-title text-red">ADMIN PANEL (WEB)</div>
+                                    <ul class="node-list">
+                                        <li>Dashboard</li>
+                                        <li>Manage Complaints</li>
+                                        <li>Verify Reports</li>
+                                        <li>Manage Users</li>
+                                        <li>Assign Teams</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Backend -->
+                            <div class="sys-arch-col col-backend">
+                                <div class="col-header"><span class="icon text-red">⚙️</span> BACKEND (NODE.JS + EXPRESS.JS)</div>
+                                
+                                <div class="sys-node outline border-red fade-node delay-3">
+                                    <div class="node-title">API GATEWAY / ROUTER</div>
+                                    <div class="node-desc">Request Parsing, Validation, Auth, Error Handling</div>
+                                </div>
+
+                                <div class="sys-node-row">
+                                    <div class="sys-node outline flex-1 fade-node delay-4">
+                                        <div class="node-title">AUTH & AUTHORIZATION</div>
+                                        <div class="node-desc">JWT + RBAC</div>
+                                    </div>
+                                    <div class="sys-node outline flex-1 fade-node delay-4">
+                                        <div class="node-title">COMPLAINT MANAGEMENT</div>
+                                        <div class="node-desc">CRUD, Assign Teams</div>
+                                    </div>
+                                </div>
+
+                                <div class="sys-node-row">
+                                    <div class="sys-node outline flex-1 fade-node delay-5">
+                                        <div class="node-title">IMAGE VERIFICATION</div>
+                                        <div class="node-desc">Duplicate Prevention</div>
+                                    </div>
+                                    <div class="sys-node outline flex-1 fade-node delay-5">
+                                        <div class="node-title">GEO-TAGGING SERVICE</div>
+                                        <div class="node-desc">Store Lat/Long</div>
+                                    </div>
+                                </div>
+
+                                <div class="sys-node outline fade-node delay-6">
+                                    <div class="node-title">COMPLAINT TRACKING SERVICE</div>
+                                    <div class="node-desc">Real-time Status Updates</div>
+                                </div>
+                                <div class="sys-node outline fade-node delay-6">
+                                    <div class="node-title">NOTIFICATION SERVICE</div>
+                                    <div class="node-desc">Send Alerts to Users/Admins</div>
+                                </div>
+                            </div>
+
+                            <!-- Database -->
+                            <div class="sys-arch-col col-database">
+                                <div class="col-header"><span class="icon text-red">🗄️</span> DATABASE LAYER (POSTGRESQL)</div>
+                                
+                                <div class="sys-db-list outline border-red fade-node delay-7">
+                                    <div class="sys-db-item">Users</div>
+                                    <div class="sys-db-item">Roles & Permissions</div>
+                                    <div class="sys-db-item">Complaints</div>
+                                    <div class="sys-db-item">Complaint Images</div>
+                                    <div class="sys-db-item">Locations</div>
+                                    <div class="sys-db-item">Status History</div>
+                                    <div class="sys-db-item">Teams / Departments</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- External Services -->
+                        <div class="sys-ext-row fade-node delay-8">
+                            <div class="col-header text-center"><span class="icon text-red">🌐</span> EXTERNAL SERVICES</div>
+                            <div class="sys-node-row">
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">PUSH NOTIFICATIONS</div>
+                                    <div class="node-desc">Firebase Cloud Messaging</div>
+                                </div>
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">MAPS API</div>
+                                    <div class="node-desc">Google Maps API</div>
+                                </div>
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">IMAGE VERIFICATION</div>
+                                    <div class="node-desc">OpenCV / AI-ML</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 02 -->
+            <div class="project-showcase reverse fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">02</div>
+                    <h3 class="project-title">Medical Expense Processing</h3>
+                    <p class="project-subtitle">AI-Powered Automated Pipeline</p>
+                    
+                    <p class="project-desc">
+                        An intelligent backend system leveraging OCR and NLP to automate medical claims processing. Built to reduce manual review overhead by transforming unstructured document data into validated, structured payloads.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Automated processing of 250+ medical claims per day with 90% extraction accuracy.</li>
+                            <li>Designed robust document validation pipelines using FastAPI.</li>
+                            <li>Achieved an 80% reduction in manual review effort through systematic API testing and optimization.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>FastAPI</span><span>REST APIs</span><span>OCR</span><span>NLP</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhoshkumar12133" target="_blank" class="btn btn-outline" data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+                
+                <div class="project-visual" data-cursor="explore">
+                    <div class="sys-arch-diagram fade-in-arch" style="zoom: 0.65;">
+                        <div class="sys-arch-title" style="margin-bottom: 0.5rem;">MEDICAL EXPENSE PROCESSING – SYSTEM ARCHITECTURE</div>
+                        <div class="node-desc text-red" style="margin-bottom: 2rem;">AI-Powered Automated Pipeline</div>
+                        
+                        <div class="sys-arch-grid">
+                            <!-- Users -->
+                            <div class="sys-arch-col col-clients">
+                                <div class="col-header"><span class="icon text-red">👥</span> USERS</div>
+                                
+                                <div class="sys-node outline fade-node delay-1">
+                                    <div class="node-title text-red">EMPLOYEE (Web / App)</div>
+                                    <ul class="node-list">
+                                        <li>Login</li>
+                                        <li>Upload Medical Bill</li>
+                                        <li>View Claim Status</li>
+                                    </ul>
+                                </div>
+
+                                <div class="sys-node outline fade-node delay-2">
+                                    <div class="node-title text-red">ADMIN PANEL (Web)</div>
+                                    <ul class="node-list">
+                                        <li>View Claims</li>
+                                        <li>Review Documents</li>
+                                        <li>Approve / Reject Claims</li>
+                                        <li>Manage Users</li>
+                                        <li>Reports & Analytics</li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <!-- Backend -->
+                            <div class="sys-arch-col col-backend">
+                                <div class="col-header"><span class="icon text-red">⚙️</span> BACKEND SYSTEM (FASTAPI)</div>
+                                
+                                <div class="sys-node outline border-red fade-node delay-3">
+                                    <div class="node-title">API GATEWAY / ROUTER</div>
+                                    <div class="node-desc">Parsing, Auth, Rate Limiting, Error Handling</div>
+                                </div>
+
+                                <div class="sys-node-row">
+                                    <div class="sys-node outline flex-1 fade-node delay-4">
+                                        <div class="node-title">AUTHENTICATION & AUTH</div>
+                                        <div class="node-desc">JWT Based Auth, RBAC</div>
+                                    </div>
+                                    <div class="sys-node outline flex-1 fade-node delay-4">
+                                        <div class="node-title">CLAIM MANAGEMENT</div>
+                                        <div class="node-desc">Upload, Assign, Track Status</div>
+                                    </div>
+                                </div>
+
+                                <div class="sys-node-row">
+                                    <div class="sys-node outline flex-1 fade-node delay-5">
+                                        <div class="node-title">DOCUMENT PROCESSING</div>
+                                        <div class="node-desc">OCR, Text Ext, Normalization</div>
+                                    </div>
+                                    <div class="sys-node outline flex-1 fade-node delay-5">
+                                        <div class="node-title">VALIDATION PIPELINE</div>
+                                        <div class="node-desc">Rule Based, Consistency Check</div>
+                                    </div>
+                                </div>
+
+                                <div class="sys-node-row">
+                                    <div class="sys-node outline flex-1 fade-node delay-6">
+                                        <div class="node-title">AI / NLP SERVICE</div>
+                                        <div class="node-desc">Entity Ext, Classification</div>
+                                    </div>
+                                    <div class="sys-node outline flex-1 fade-node delay-6">
+                                        <div class="node-title">CLAIM TRACKING SERVICE</div>
+                                        <div class="node-desc">Track Status, Workflow</div>
+                                    </div>
+                                </div>
+
+                                <div class="sys-node outline fade-node delay-7">
+                                    <div class="node-title">NOTIFICATION SERVICE</div>
+                                    <div class="node-desc">Email / In-App / Push, Alerts to Users</div>
+                                </div>
+                            </div>
+
+                            <!-- Database -->
+                            <div class="sys-arch-col col-database">
+                                <div class="col-header"><span class="icon text-red">🗄️</span> DATA STORAGE (POSTGRESQL)</div>
+                                
+                                <div class="sys-db-list outline border-red fade-node delay-8">
+                                    <div class="sys-db-item">Users</div>
+                                    <div class="sys-db-item">Claims</div>
+                                    <div class="sys-db-item">Documents</div>
+                                    <div class="sys-db-item">Extracted Data</div>
+                                    <div class="sys-db-item">Validation Results</div>
+                                    <div class="sys-db-item">Status History</div>
+                                    <div class="sys-db-item">Audit Logs</div>
+                                    <div class="sys-db-item text-red" style="font-weight:600;">Policy Decisions (RAG)</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- External Services -->
+                        <div class="sys-ext-row fade-node delay-9">
+                            <div class="col-header text-center"><span class="icon text-red">🌐</span> EXTERNAL SERVICES</div>
+                            <div class="sys-node-row">
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">PUSH NOTIFICATIONS</div>
+                                    <div class="node-desc">Firebase Cloud Messaging</div>
+                                </div>
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">MAPS API</div>
+                                    <div class="node-desc">Google Maps</div>
+                                </div>
+                                <div class="sys-node outline outline-ext flex-1">
+                                    <div class="node-title">AI / NLP SERVICES</div>
+                                    <div class="node-desc">OCR, NLP Models</div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- RAG Pipeline -->
+                        <div class="sys-ext-row fade-node delay-10" style="margin-top: 1.5rem; border-color: rgba(204,0,0,0.3);">
+                            <div class="col-header text-center"><span class="icon text-red">🧠</span> RAG POLICY VERIFICATION PIPELINE (PHASE 2)</div>
+                            
+                            <div class="rag-flow">
+                                <!-- 1. Policy Ingestion -->
+                                <div class="rag-section">
+                                    <div class="rag-sec-title">1. POLICY INGESTION PIPELINE</div>
+                                    <div class="sys-node-row">
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Policy PDF</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">PDF Parsing</div>
+                                            <div class="node-desc">(PyPDF2)</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Chunking</div>
+                                            <div class="node-desc">(Splitter)</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Embeddings</div>
+                                            <div class="node-desc">(MiniLM)</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">ChromaDB</div>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <!-- 2. Claim Verification -->
+                                <div class="rag-section" style="margin-top:1rem;">
+                                    <div class="rag-sec-title">2. CLAIM VERIFICATION (RAG FLOW)</div>
+                                    <div class="sys-node-row">
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Claim Data</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Query Embed</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Top-K Retrieval</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline flex-1" style="padding: 0.5rem; text-align:center;">
+                                            <div class="node-title">Policy Match</div>
+                                        </div>
+                                        <div class="arch-flow-horizontal">&rarr;</div>
+                                        <div class="sys-node outline border-red flex-1" style="padding: 0.5rem; text-align:center; background: rgba(0, 150, 0, 0.1);">
+                                            <div class="node-title" style="color: #4CAF50;">Decision</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Technical Skills Section -->
+        <section id="skills" class="skills section-padding fade-in-section">
+            <div class="section-number">04 / SKILLS</div>
+            <h2 class="section-title mb-large">Technical Capabilities</h2>
+            
+            <div class="skill-cards">
+                <div class="skill-card">
+                    <h3 class="skill-title">Languages</h3>
+                    <ul class="skill-list">
+                        <li>Java</li>
+                        <li>Python</li>
+                        <li>JavaScript</li>
+                        <li>SQL</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Backend & APIs</h3>
+                    <ul class="skill-list">
+                        <li>Node.js</li>
+                        <li>Express.js</li>
+                        <li>REST APIs</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Databases</h3>
+                    <ul class="skill-list">
+                        <li>MySQL</li>
+                        <li>PostgreSQL</li>
+                        <li>MongoDB</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Testing</h3>
+                    <ul class="skill-list">
+                        <li>Manual Testing</li>
+                        <li>Functional & Regression</li>
+                        <li>API Testing</li>
+                        <li>UAT & STLC</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">DevOps & CI/CD</h3>
+                    <ul class="skill-list">
+                        <li>Git & GitHub</li>
+                        <li>Jenkins</li>
+                        <li>CI/CD</li>
+                        <li>Docker</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">Engineering</h3>
+                    <ul class="skill-list">
+                        <li>SDLC & Agile</li>
+                        <li>Scrum</li>
+                        <li>Debugging</li>
+                    </ul>
+                </div>
+                <div class="skill-card">
+                    <h3 class="skill-title">AI & Intelligent Systems</h3>
+                    <ul class="skill-list">
+                        <li>OCR & Document Processing</li>
+                        <li>NLP</li>
+                        <li>RAG Pipelines</li>
+                        <li>AI Automation</li>
+                        <li>Embeddings</li>
+                        <li>ChromaDB</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- What I Work With Section -->
+        <section class="workflow section-padding fade-in-section">
+            <h2 class="section-title mb-large text-center">What I Work With</h2>
+            
+            <div class="workflow-grid">
+                <div class="workflow-card">
+                    <h3 class="workflow-title">BUILD</h3>
+                    <p>Backend APIs</p>
+                    <p>Application Logic</p>
+                    <p>Database Systems</p>
+                </div>
+                <div class="workflow-card">
+                    <h3 class="workflow-title">TEST</h3>
+                    <p>API Testing</p>
+                    <p>Functional Testing</p>
+                    <p>Regression Testing</p>
+                    <p>Debugging</p>
+                </div>
+                <div class="workflow-card">
+                    <h3 class="workflow-title">SHIP</h3>
+                    <p>Git / GitHub</p>
+                    <p>Jenkins / Docker</p>
+                    <p>CI/CD Pipelines</p>
+                </div>
+                <div class="workflow-card accent-card">
+                    <h3 class="workflow-title">SOLVE</h3>
+                    <p>Automation</p>
+                    <p>Document Processing</p>
+                    <p>Data Validation</p>
+                    <p>Real-world Software Problems</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Research & Credentials Section -->
+        <section id="research" class="credentials section-padding fade-in-section">
+            <div class="section-number">05 / RESEARCH & CREDENTIALS</div>
+            
+            <div class="credentials-grid">
+                <!-- Publications -->
+                <div class="publications">
+                    <h2 class="section-title mb-medium">Research & Publications</h2>
+                    
+                    <div class="pub-item">
+                        <p class="pub-title">"DT-MR-FALCON: Digital Twin-Assisted Mixed Reality Emergency Corridor Optimization for Intelligent Ambulance Navigation"</p>
+                        <p class="pub-meta">IEEE ICECCC 2026</p>
+                    </div>
+                    
+                    <div class="pub-item">
+                        <p class="pub-title">"Automated Urban Issue Management Using YOLOv8 and Dynamic Team Dispatch Optimization"</p>
+                        <p class="pub-meta">IEEE ICISCN 2026 • IEEE Xplore</p>
+                        <div class="pub-metrics">
+                            <span>92% detection accuracy</span>
+                            <span>69% reduction in resolution time</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Certifications -->
+                <div class="certifications">
+                    <h2 class="section-title mb-medium">Certifications</h2>
+                    
+                    <ul class="cert-list">
+                        <li>
+                            <span class="cert-name">Oracle Certified Foundations Associate</span>
+                            <span class="cert-org">Agentic AI</span>
+                        </li>
+                        <li>
+                            <span class="cert-name">SAP Certified</span>
+                            <span class="cert-org">SAP Generative AI Developer</span>
+                        </li>
+                        <li>
+                            <span class="cert-name">Microsoft Azure Fundamentals (AZ-900)</span>
+                            <span class="cert-org">Udemy</span>
+                        </li>
+                        <li>
+                            <span class="cert-name">Artificial Intelligence</span>
+                            <span class="cert-org">Qualcomm</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact section-padding fade-in-section">
+            <div class="section-number">06 / CONTACT</div>
+            
+            <div class="contact-content">
+                <h2 class="huge-title">Let's Build<br>Something<br><span class="accent-text">Meaningful.</span></h2>
+                
+                <p class="contact-desc">
+                    I'm open to software engineering opportunities, technical conversations, and projects where thoughtful engineering can create real impact.
+                </p>
+                
+                <div class="contact-actions">
+                    <a href="https://wa.me/918495900723" target="_blank" class="btn btn-primary" data-cursor="hover">Let's Connect</a>
+                </div>
+
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="footer">
+            <div class="footer-inner">
+                <div class="footer-top-bar">
+                    <div class="footer-identity">
+                        <span class="footer-name">Santhosh Kumar N</span>
+                        <span class="footer-pipe">|</span>
+                        <span class="footer-role">Software Engineer · Backend & AI</span>
+                    </div>
+                    <nav class="footer-links">
+                        <a href="#about">About</a>
+                        <a href="#experience">Experience</a>
+                        <a href="#education">Education</a>
+                        <a href="#projects">Projects</a>
+                        <a href="#skills">Skills</a>
+                        <a href="#contact">Contact</a>
+                    </nav>
+                </div>
+
+                <div class="footer-divider"></div>
+
+                <div class="footer-bottom-bar">
+                    <p class="footer-copy">&copy; 2026 Santhosh Kumar N. All rights reserved.</p>
+                    <div class="footer-socials">
+                        <a href="https://www.linkedin.com/in/santhosh-kumar-n-4b4b84310" target="_blank">LinkedIn</a>
+                        <a href="https://github.com/santhosh12133" target="_blank">GitHub</a>
+                        <a href="https://wa.me/918495900723" target="_blank">WhatsApp</a>
+                        <a href="mailto:santhoshkumar12133@gmail.com">Email</a>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </main>
+
+    <script>
+        // Custom Cursor Logic
+        const cursor = document.getElementById('custom-cursor');
+        const cursorText = cursor.querySelector('.cursor-text');
+        
+        // Only enable custom cursor for non-touch devices
+        if (window.matchMedia("(pointer: fine)").matches) {
+            document.addEventListener('mousemove', (e) => {
+                cursor.style.transform = `translate(${e.clientX}px, ${e.clientY}px)`;
+            });
+
+            document.querySelectorAll('[data-cursor]').forEach(elem => {
+                elem.addEventListener('mouseenter', (e) => {
+                    const type = e.target.getAttribute('data-cursor');
+                    cursor.classList.add('cursor-active');
+                    if(type === 'explore') {
+                        cursor.classList.add('cursor-explore');
+                        cursorText.textContent = 'EXPLORE';
+                    } else if (type === 'project') {
+                        cursor.classList.add('cursor-explore');
+                        cursorText.textContent = 'VIEW';
+                    }
+                });
+                
+                elem.addEventListener('mouseleave', () => {
+                    cursor.classList.remove('cursor-active', 'cursor-explore');
+                    cursorText.textContent = '';
+                });
+            });
+        } else {
+            cursor.style.display = 'none'; // Hide on mobile
+        }
+
+        // Background Animation Logic (Retained & Optimized)
+        const canvas = document.getElementById("scroll-canvas");
+        const context = canvas.getContext("2d", { alpha: false });
+        const frameCount = 240;
+        
+        const currentFrame = index => (
+            `./video_frames_24fps/video_frames_24fps/frame_${index.toString().padStart(4, '0')}.png`
+        );
+
+        const images = [];
+        let imagesLoaded = 0;
+        
+        const preloadImages = () => {
+            for (let i = 1; i <= frameCount; i++) {
+                const img = new Image();
+                img.src = currentFrame(i);
+                img.onload = () => {
+                    imagesLoaded++;
+                    // Draw first frame when ready
+                    if (i === 1) {
+                        canvas.width = img.width;
+                        canvas.height = img.height;
+                        context.drawImage(img, 0, 0);
+                    }
+                };
+                images.push(img);
+            }
+        };
+
+        const updateImage = index => {
+            if(images[index-1] && images[index-1].complete) {
+                context.drawImage(images[index-1], 0, 0);
+            }
+        };
+
+        let ticking = false;
+        window.addEventListener('scroll', () => {  
+            if (!ticking) {
+                window.requestAnimationFrame(() => {
+                    const html = document.documentElement;
+                    const scrollTop = html.scrollTop;
+                    const maxScrollTop = html.scrollHeight - window.innerHeight;
+                    
+                    const scrollFraction = scrollTop / maxScrollTop;
+                    const frameIndex = Math.min(
+                        frameCount - 1,
+                        Math.ceil(scrollFraction * frameCount)
+                    );
+                    
+                    updateImage(frameIndex + 1);
+                    ticking = false;
+                });
+                ticking = true;
+            }
+        }, { passive: true });
+
+        preloadImages();
+
+        // Intersection Observer for Scroll Animations
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('is-visible');
+                    // Stop observing once animated to preserve performance
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in-section').forEach(section => {
+            observer.observe(section);
+        });
+
+        // Navbar scroll effect
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('nav-scrolled');
+            } else {
+                navbar.classList.remove('nav-scrolled');
+            }
+        }, { passive: true });
+    </script>
+</body>
+</html>
