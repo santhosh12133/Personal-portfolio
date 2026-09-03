@@ -940,16 +940,27 @@
         backgroundVideo.src = './background-animation.webm';
         backgroundVideo.muted = true;
         backgroundVideo.playsInline = true;
-        backgroundVideo.preload = 'auto';
+        // Detect mobile/touch devices for lower-cost rendering
+        const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+        // Use metadata preload on mobile to avoid downloading the full video on page load
+        backgroundVideo.preload = isMobile ? 'metadata' : 'auto';
         const backgroundVideoDuration = 10;
         const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let targetBackgroundTime = 0;
         let renderedBackgroundTime = 0;
         let backgroundFrameRequest = null;
+        let scrollTicking = false;
+        let resizeTimeout = null;
+
+        // Cap DPR on mobile to reduce canvas size and GPU load
+        const getDPR = () => {
+            if (prefersReducedMotion) return 1;
+            return isMobile ? Math.min(window.devicePixelRatio || 1, 1.5) : (window.devicePixelRatio || 1);
+        };
 
         const resizeCanvas = () => {
             const rect = canvas.getBoundingClientRect();
-            const dpr = window.devicePixelRatio || 1;
+            const dpr = getDPR();
             canvas.width = Math.round(rect.width * dpr);
             canvas.height = Math.round(rect.height * dpr);
             context.setTransform(dpr, 0, 0, dpr, 0, 0);
@@ -986,10 +997,12 @@
                 renderedBackgroundTime = targetBackgroundTime;
             }
 
+            // Only seek when the difference is significant — reduces expensive video seeks on mobile
+            const seekThreshold = isMobile ? 0.1 : 0.025;
             if (
                 backgroundVideo.readyState >= 1 &&
                 !backgroundVideo.seeking &&
-                Math.abs(backgroundVideo.currentTime - renderedBackgroundTime) > 0.025
+                Math.abs(backgroundVideo.currentTime - renderedBackgroundTime) > seekThreshold
             ) {
                 backgroundVideo.currentTime = renderedBackgroundTime;
             }
@@ -1026,18 +1039,45 @@
             requestBackgroundFrame();
         };
 
+        // Throttle scroll updates to one per animation frame
+        const onScroll = () => {
+            if (scrollTicking) return;
+            scrollTicking = true;
+            window.requestAnimationFrame(() => {
+                updateBackgroundFrame();
+                scrollTicking = false;
+            });
+        };
+
+        // Debounce resize to avoid excessive canvas resizes
+        const onResize = () => {
+            clearTimeout(resizeTimeout);
+            resizeTimeout = window.setTimeout(() => {
+                resizeCanvas();
+                updateBackgroundFrame();
+            }, 150);
+        };
+
         resizeCanvas();
         updateBackgroundFrame();
-        window.addEventListener('resize', () => {
-            resizeCanvas();
-            updateBackgroundFrame();
-        });
-        window.addEventListener('scroll', updateBackgroundFrame, { passive: true });
+        window.addEventListener('resize', onResize);
+        window.addEventListener('scroll', onScroll, { passive: true });
         backgroundVideo.addEventListener('loadedmetadata', updateBackgroundFrame, { once: true });
         backgroundVideo.addEventListener('loadeddata', drawVideoFrame, { once: true });
         backgroundVideo.addEventListener('seeked', drawVideoFrame);
         backgroundVideo.pause();
-        backgroundVideo.load();
+
+        // Defer video loading to avoid blocking the main thread during page load
+        if (prefersReducedMotion) {
+            canvas.style.visibility = 'hidden';
+        } else {
+            const loadVideo = () => backgroundVideo.load();
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(loadVideo, { timeout: 2000 });
+            } else {
+                window.setTimeout(loadVideo, 0);
+            }
+        }
 
         // Intersection Observer for Scroll Animations
         const observerOptions = {
@@ -1174,7 +1214,8 @@
         });
 
         let previousScrollY = window.scrollY;
-        window.addEventListener('scroll', () => {
+        let navScrollTicking = false;
+        const updateNavbarAndProgress = () => {
             const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
             scrollProgress.style.transform = `scaleX(${scrollRange > 0 ? window.scrollY / scrollRange : 0})`;
             const scrollingDown = window.scrollY > previousScrollY;
@@ -1186,6 +1227,12 @@
             } else {
                 navbar.classList.remove('nav-scrolled');
             }
+            navScrollTicking = false;
+        };
+        window.addEventListener('scroll', () => {
+            if (navScrollTicking) return;
+            navScrollTicking = true;
+            window.requestAnimationFrame(updateNavbarAndProgress);
         }, { passive: true });
     </script>
 </body>

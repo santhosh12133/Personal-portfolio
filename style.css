@@ -55,6 +55,11 @@ body {
         transition-duration: 0.01ms !important;
         scroll-behavior: auto !important;
     }
+
+    /* Hide the scroll-driven background animation entirely for reduced-motion users */
+    .canvas-container {
+        display: none;
+    }
 }
 
 /* Typography Hierarchy */
