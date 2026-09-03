@@ -8,6 +8,19 @@
     <title>Santhosh Kumar N | Software Engineer | Backend & AI</title>
     <meta name="description"
         content="Software Engineer specializing in backend development, REST APIs, databases, testing, and practical AI-powered software systems.">
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <meta property="og:title" content="Santhosh Kumar N | Software Engineer">
+    <meta property="og:description"
+        content="Software Engineer specializing in backend development, REST APIs, databases, testing, and practical AI-powered software systems.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://github.com/santhosh12133/Personal-portfolio">
+    <meta property="og:image" content="https://raw.githubusercontent.com/santhosh12133/Personal-portfolio/main/54ae41f975c65f1c4ec74a15f829a242.jpg">
+    <meta property="og:image:alt" content="Santhosh Kumar N portfolio preview">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Santhosh Kumar N | Software Engineer">
+    <meta name="twitter:description"
+        content="Software Engineer specializing in backend development, REST APIs, databases, testing, and practical AI-powered software systems.">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/santhosh12133/Personal-portfolio/main/54ae41f975c65f1c4ec74a15f829a242.jpg">
 
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -34,7 +47,7 @@
         <!-- Navigation -->
         <nav class="navbar" id="navbar">
             <div class="nav-brand">SANTHOSH KUMAR N</div>
-            <ul class="nav-links">
+            <ul class="nav-links" id="nav-links">
                 <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
@@ -46,11 +59,32 @@
             <a href="https://wa.me/918495900723" target="_blank" class="nav-cta" data-cursor="hover">Let's Connect</a>
 
             <!-- Mobile Menu Toggle -->
-            <div class="mobile-menu-btn">
+            <button class="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
                 <span></span>
                 <span></span>
-            </div>
+            </button>
         </nav>
+        <div class="scroll-progress" id="scroll-progress" aria-hidden="true"></div>
+        <dialog class="quick-nav" id="quick-nav" aria-labelledby="quick-nav-title">
+            <form method="dialog" class="quick-nav-panel">
+                <div class="quick-nav-heading">
+                    <strong id="quick-nav-title">Quick navigation</strong>
+                    <button class="quick-nav-close" type="submit" value="cancel" aria-label="Close quick navigation">&times;</button>
+                </div>
+                <label class="quick-nav-label" for="quick-nav-input">Jump to a section</label>
+                <input class="quick-nav-input" id="quick-nav-input" type="search" autocomplete="off" placeholder="Search sections">
+                <div class="quick-nav-results" id="quick-nav-results"></div>
+            </form>
+        </dialog>
+        <dialog class="architecture-details" id="architecture-details" aria-labelledby="architecture-details-title">
+            <div class="architecture-details-panel">
+                <div class="quick-nav-heading">
+                    <strong id="architecture-details-title">Architecture node</strong>
+                    <button class="quick-nav-close" id="architecture-details-close" type="button" aria-label="Close architecture details">&times;</button>
+                </div>
+                <p class="architecture-details-copy" id="architecture-details-copy"></p>
+            </div>
+        </dialog>
 
         <!-- Hero Section -->
         <section id="home" class="hero fade-in-section">
@@ -211,113 +245,16 @@
                 </div>
 
                 <div class="project-visual" data-cursor="explore">
-                    <div class="sys-arch-diagram fade-in-arch">
-                        <div class="sys-arch-title">CIVICFIX – SYSTEM ARCHITECTURE</div>
-
-                        <div class="sys-arch-grid">
-                            <!-- Clients -->
-                            <div class="sys-arch-col col-clients">
-                                <div class="col-header"><span class="icon text-red">👤</span> CLIENTS</div>
-
-                                <div class="sys-node outline fade-node delay-1">
-                                    <div class="node-title text-red">MOBILE APP (REACT NATIVE)</div>
-                                    <ul class="node-list">
-                                        <li>Report Issue</li>
-                                        <li>Track Status</li>
-                                        <li>View Complaints</li>
-                                        <li>Notifications</li>
-                                    </ul>
-                                </div>
-
-                                <div class="sys-node outline fade-node delay-2">
-                                    <div class="node-title text-red">ADMIN PANEL (WEB)</div>
-                                    <ul class="node-list">
-                                        <li>Dashboard</li>
-                                        <li>Manage Complaints</li>
-                                        <li>Verify Reports</li>
-                                        <li>Manage Users</li>
-                                        <li>Assign Teams</li>
-                                    </ul>
-                                </div>
-                            </div>
-
-                            <!-- Backend -->
-                            <div class="sys-arch-col col-backend">
-                                <div class="col-header"><span class="icon text-red">⚙️</span> BACKEND (NODE.JS +
-                                    EXPRESS.JS)</div>
-
-                                <div class="sys-node outline border-red fade-node delay-3">
-                                    <div class="node-title">API GATEWAY / ROUTER</div>
-                                    <div class="node-desc">Request Parsing, Validation, Auth, Error Handling</div>
-                                </div>
-
-                                <div class="sys-node-row">
-                                    <div class="sys-node outline flex-1 fade-node delay-4">
-                                        <div class="node-title">AUTH & AUTHORIZATION</div>
-                                        <div class="node-desc">JWT + RBAC</div>
-                                    </div>
-                                    <div class="sys-node outline flex-1 fade-node delay-4">
-                                        <div class="node-title">COMPLAINT MANAGEMENT</div>
-                                        <div class="node-desc">CRUD, Assign Teams</div>
-                                    </div>
-                                </div>
-
-                                <div class="sys-node-row">
-                                    <div class="sys-node outline flex-1 fade-node delay-5">
-                                        <div class="node-title">IMAGE VERIFICATION</div>
-                                        <div class="node-desc">Duplicate Prevention</div>
-                                    </div>
-                                    <div class="sys-node outline flex-1 fade-node delay-5">
-                                        <div class="node-title">GEO-TAGGING SERVICE</div>
-                                        <div class="node-desc">Store Lat/Long</div>
-                                    </div>
-                                </div>
-
-                                <div class="sys-node outline fade-node delay-6">
-                                    <div class="node-title">COMPLAINT TRACKING SERVICE</div>
-                                    <div class="node-desc">Real-time Status Updates</div>
-                                </div>
-                                <div class="sys-node outline fade-node delay-6">
-                                    <div class="node-title">NOTIFICATION SERVICE</div>
-                                    <div class="node-desc">Send Alerts to Users/Admins</div>
-                                </div>
-                            </div>
-
-                            <!-- Database -->
-                            <div class="sys-arch-col col-database">
-                                <div class="col-header"><span class="icon text-red">🗄️</span> DATABASE LAYER
-                                    (POSTGRESQL)</div>
-
-                                <div class="sys-db-list outline border-red fade-node delay-7">
-                                    <div class="sys-db-item">Users</div>
-                                    <div class="sys-db-item">Roles & Permissions</div>
-                                    <div class="sys-db-item">Complaints</div>
-                                    <div class="sys-db-item">Complaint Images</div>
-                                    <div class="sys-db-item">Locations</div>
-                                    <div class="sys-db-item">Status History</div>
-                                    <div class="sys-db-item">Teams / Departments</div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- External Services -->
-                        <div class="sys-ext-row fade-node delay-8">
-                            <div class="col-header text-center"><span class="icon text-red">🌐</span> EXTERNAL SERVICES
-                            </div>
-                            <div class="sys-node-row">
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">PUSH NOTIFICATIONS</div>
-                                    <div class="node-desc">Firebase Cloud Messaging</div>
-                                </div>
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">MAPS API</div>
-                                    <div class="node-desc">Google Maps API</div>
-                                </div>
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">IMAGE VERIFICATION</div>
-                                    <div class="node-desc">OpenCV / AI-ML</div>
-                                </div>
-                            </div>
+                    <div class="architecture civicfix-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">CIVICFIX / SYSTEM ARCHITECTURE</span><span class="architecture-status">01 / 02</span></div>
+                        <div class="architecture-flow">
+                            <div class="architecture-stage"><span class="stage-label">01 / ACTORS</span><div class="architecture-node"><strong>Citizen / Officer</strong><span>Mobile and operational users</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">02 / CLIENT</span><div class="architecture-node"><strong>React Native + Expo</strong><span>Mobile app</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">03 / API</span><div class="architecture-node"><strong>Node.js + Express</strong><span>Backend</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">04 / PROCESSING</span><div class="architecture-node"><strong>Issue Processing</strong><span>Authentication &amp; Authorization<br>Issue Management<br>Image Upload — Multer<br>EXIF Validation<br>pHash Duplicate Detection</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">05 / AI</span><div class="architecture-node"><strong>AI Verification</strong><span>Python<br>TensorFlow / Keras<br>Custom CNN<br>Pothole / Non-Pothole<br>Confidence Score</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">06 / DATA</span><div class="architecture-node"><strong>PostgreSQL + Sequelize</strong><span>Users<br>Issues<br>Images<br>Verification<br>Status History</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">07 / OPERATIONS</span><div class="architecture-node"><strong>Officer / Admin Dashboard</strong><span>Review Issues<br>Update Status<br>Assign &amp; Resolve</span></div></div>
                         </div>
                     </div>
                 </div>
@@ -356,198 +293,385 @@
                 </div>
 
                 <div class="project-visual" data-cursor="explore">
-                    <div class="sys-arch-diagram fade-in-arch" style="zoom: 0.65;">
-                        <div class="sys-arch-title" style="margin-bottom: 0.5rem;">MEDICAL EXPENSE PROCESSING – SYSTEM
-                            ARCHITECTURE</div>
-                        <div class="node-desc text-red" style="margin-bottom: 2rem;">AI-Powered Automated Pipeline</div>
+                    <div class="architecture medical-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">MEDICAL CLAIM AI / SYSTEM ARCHITECTURE</span><span class="architecture-status">02 / 02</span></div>
+                        <div class="architecture-flow">
+                            <div class="architecture-stage"><span class="stage-label">01 / ACTOR</span><div class="architecture-node"><strong>Employee</strong><span>Claim submitter</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">02 / CLIENT</span><div class="architecture-node"><strong>React + Vite</strong><span>Frontend</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">03 / API</span><div class="architecture-node"><strong>FastAPI</strong><span>Backend</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">04 / PROCESSING</span><div class="architecture-node"><strong>Claim Processing</strong><span>Authentication<br>Medical Bill Upload<br>OCR Extraction<br>pytesseract<br>Pillow<br>Rule / Regex Validation<br>Claim Status</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">05 / DATA</span><div class="architecture-node"><strong>PostgreSQL</strong><span>via SQLAlchemy</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">06 / OPERATIONS</span><div class="architecture-node"><strong>Admin Dashboard</strong><span>View Claims<br>Approve Claims<br>Reject Claims</span></div></div>
+                        </div>
+                        <div class="phase-two-pipeline"><div class="phase-two-heading"><strong>PHASE 2 — RAG POLICY VERIFICATION</strong><span>Planned capability</span></div><div class="phase-two-flow">
+                            <div class="architecture-node"><strong>Policy PDF</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>PDF Parsing</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>Chunking</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>all-MiniLM-L6-v2 Embeddings</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>ChromaDB</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>Claim Query Embedding</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>Top-K Policy Retrieval</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>Rule Parsing</strong></div><span class="architecture-arrow">&rarr;</span><div class="architecture-node"><strong>Explainable Decision</strong></div>
+                        </div></div>
+                    </div>
+                </div>
+            </div>
 
-                        <div class="sys-arch-grid">
-                            <!-- Users -->
-                            <div class="sys-arch-col col-clients">
-                                <div class="col-header"><span class="icon text-red">👥</span> USERS</div>
+            <!-- Project 03 -->
+            <div class="project-showcase fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">03</div>
+                    <h3 class="project-title">Learnato Discussion Forum — Microservice</h3>
+                    <p class="project-subtitle">Real-Time Discussion Forum for E-Learning Platforms</p>
 
-                                <div class="sys-node outline fade-node delay-1">
-                                    <div class="node-title text-red">EMPLOYEE (Web / App)</div>
-                                    <ul class="node-list">
-                                        <li>Login</li>
-                                        <li>Upload Medical Bill</li>
-                                        <li>View Claim Status</li>
-                                    </ul>
-                                </div>
+                    <p class="project-desc">
+                        A real-time, browser-based discussion forum for learners and instructors, enabling questions,
+                        answers, collaborative knowledge sharing, and real-time discussions as a modular microservice
+                        for e-learning platforms.
+                    </p>
 
-                                <div class="sys-node outline fade-node delay-2">
-                                    <div class="node-title text-red">ADMIN PANEL (Web)</div>
-                                    <ul class="node-list">
-                                        <li>View Claims</li>
-                                        <li>Review Documents</li>
-                                        <li>Approve / Reject Claims</li>
-                                        <li>Manage Users</li>
-                                        <li>Reports & Analytics</li>
-                                    </ul>
-                                </div>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Create and publish discussion posts.</li>
+                            <li>Dynamic search and sorting.</li>
+                            <li>Real-time replies using Socket.io.</li>
+                            <li>Upvote posts and mark posts as Answered.</li>
+                            <li>Responsive interface and REST APIs.</li>
+                            <li>Dockerized frontend, backend, and MongoDB.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>React (Vite)</span><span>Tailwind CSS</span><span>Node.js</span><span>Express.js</span><span>MongoDB</span><span>Socket.io</span><span>Docker</span><span>Docker Compose</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/learnato-forum" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture learnato-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">LEARNATO FORUM / MICROSERVICE ARCHITECTURE</span><span class="architecture-status">03 / 03</span></div>
+                        <div class="learnato-layer-label">01 / CLIENT / UI</div>
+                        <div class="learnato-node-row">
+                            <div class="architecture-node"><strong>React + Vite + Tailwind CSS</strong><span>Responsive discussion interface</span></div>
+                        </div>
+                        <div class="learnato-connector">&darr;</div>
+                        <div class="learnato-layer-label">02 / API &amp; MICROSERVICE</div>
+                        <div class="learnato-node-row">
+                            <div class="architecture-node learnato-service-node"><strong>REST API + Socket.io</strong><span>HTTP endpoints and realtime events</span></div>
+                        </div>
+                        <div class="learnato-connector">&darr;</div>
+                        <div class="learnato-node-row">
+                            <div class="architecture-node learnato-service-node"><strong>Learnato Forum Microservice</strong><span>Node.js + Express.js</span></div>
+                        </div>
+                        <div class="learnato-branch-connector">&#8627;</div>
+                        <div class="learnato-layer-label">03 / REAL-TIME &amp; DATA PERSISTENCE</div>
+                        <div class="learnato-branch">
+                            <div class="architecture-node"><strong>MongoDB</strong><span>Data persistence</span></div>
+                            <div class="architecture-node"><strong>Real-time Engine</strong><span>Socket.io</span></div>
+                        </div>
+                        <div class="learnato-connector">&darr;</div>
+                        <div class="architecture-node learnato-output-node"><strong>Posts &bull; Replies &bull; Votes &bull; Answered Status</strong></div>
+                        <div class="learnato-container">
+                            <span class="learnato-layer-label">04 / CONTAINERIZATION</span>
+                            <div class="learnato-container-copy"><strong>Docker / Docker Compose</strong><span>Frontend &bull; Backend &bull; MongoDB</span></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 04 -->
+            <div class="project-showcase reverse fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">04</div>
+                    <h3 class="project-title">Task App — AI-Powered Task Management</h3>
+                    <p class="project-subtitle">Full-Stack Realtime Task Management Application</p>
+
+                    <p class="project-desc">
+                        A full-stack AI-powered task management application with realtime task synchronization, notes,
+                        dashboard modules, authentication, and AI assistant capabilities.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Task management with status, ordering, and realtime synchronization.</li>
+                            <li>Notes and dashboard modules.</li>
+                            <li>JWT authentication and Google Sign-In.</li>
+                            <li>AI assistant endpoints.</li>
+                            <li>User-scoped realtime events with Socket.IO.</li>
+                            <li>API validation, security middleware, responsive frontend, and test suites.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>React 19</span><span>Vite</span><span>Tailwind CSS</span><span>Node.js</span><span>Express 5</span><span>MongoDB</span><span>Mongoose</span><span>Socket.IO</span><span>JWT</span><span>Google Sign-In</span><span>Zod</span><span>Recharts</span><span>React Hook Form</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/task-app" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture task-app-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">TASK APP / TECHNICAL ARCHITECTURE</span><span class="architecture-status">04 / 04</span></div>
+                        <div class="architecture-flow">
+                            <div class="architecture-stage"><span class="stage-label">01 / CLIENT LAYER</span><div class="architecture-node"><strong>React + Vite + Tailwind</strong><span>Responsive frontend</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">02 / API &amp; BACKEND</span><div class="architecture-node"><strong>REST API + Socket.IO</strong><span>Realtime task events</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage"><span class="stage-label">03 / SERVICE</span><div class="architecture-node"><strong>Node.js + Express</strong><span>API routes and middleware</span></div></div>
+                        </div>
+                        <div class="architecture-flow task-app-module-flow">
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">04 / APPLICATION MODULES</span><div class="architecture-node"><strong>API Routes</strong><span>Authentication<br>Tasks<br>Notes<br>Dashboard<br>AI Assistant</span></div></div><span class="architecture-arrow">&rarr;</span>
+                            <div class="architecture-stage architecture-stage-tall"><span class="stage-label">05 / DATA LAYER</span><div class="architecture-node"><strong>MongoDB + Mongoose</strong><span>Tasks<br>Notes<br>User data</span></div></div>
+                        </div>
+                        <div class="task-app-integrations"><span class="stage-label">06 / EXTERNAL INTEGRATIONS</span><div class="task-app-integration-list"><span>JWT + Google token verification</span><span>Socket.IO realtime task events</span><span>OpenAI API</span><span>Zod + security middleware</span></div></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 05 -->
+            <div class="project-showcase fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">05</div>
+                    <h3 class="project-title">Telco Customer Churn Dashboard</h3>
+                    <p class="project-subtitle">Telecom Churn Analysis with Python and Power BI</p>
+
+                    <p class="project-desc">
+                        An interactive telecom churn analysis project using Python and Power BI to identify churn
+                        patterns, customer segments, and factors associated with customer churn.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Data cleaning, preprocessing, and missing-value handling.</li>
+                            <li>Categorical encoding and SMOTE-based class balancing.</li>
+                            <li>Random Forest churn model with accuracy and ROC-AUC evaluation.</li>
+                            <li>Confusion matrix visualization.</li>
+                            <li>Interactive Power BI churn dashboard.</li>
+                            <li>Churn and customer-segment analysis.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>Python</span><span>Pandas</span><span>NumPy</span><span>Matplotlib</span><span>Seaborn</span><span>Scikit-learn</span><span>Imbalanced-learn (SMOTE)</span><span>Random Forest</span><span>Power BI</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/Telco-Customer-Churn-Dashboard" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture telco-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">TELCO CHURN / DATA &amp; ML PIPELINE</span><span class="architecture-status">05 / 05</span></div>
+                        <div class="telco-pipeline-label">01 / DATA SOURCE</div>
+                        <div class="telco-pipeline">
+                            <div class="architecture-node"><strong>Raw Telco Dataset</strong></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Python Data Processing</strong></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Cleaning + Preprocessing</strong></div><span class="telco-arrow">&darr;</span>
+                        </div>
+                        <div class="telco-pipeline-label">02 / DATA PREPARATION</div>
+                        <div class="telco-pipeline">
+                            <div class="architecture-node"><strong>Encoding + Missing Value Handling</strong></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>SMOTE Class Balancing</strong></div>
+                        </div>
+                        <div class="telco-pipeline-label">03 / ML PIPELINE</div>
+                        <div class="telco-pipeline">
+                            <div class="architecture-node telco-highlight-node"><strong>Random Forest Classifier</strong></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Model Evaluation</strong><span>Accuracy<br>ROC-AUC<br>Confusion Matrix</span></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Cleaned Churn Dataset</strong></div>
+                        </div>
+                        <div class="telco-pipeline-label">04 / BI &amp; VISUALIZATION</div>
+                        <div class="telco-pipeline">
+                            <div class="architecture-node"><strong>Power BI Dashboard</strong></div><span class="telco-arrow">&darr;</span>
+                            <div class="architecture-node telco-highlight-node"><strong>Churn Insights &amp; Customer Segments</strong></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Project 06 -->
+            <div class="project-showcase reverse fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">06</div>
+                    <h3 class="project-title">E-Commerce Platform</h3>
+                    <p class="project-subtitle">PHP-Based Customer and Admin Commerce System</p>
+
+                    <p class="project-desc">
+                        A full-stack PHP-based e-commerce website with separate customer and admin modules for product
+                        browsing, cart management, authentication, and product administration.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>User registration, login, and logout.</li>
+                            <li>Product browsing with details and images.</li>
+                            <li>Add, update, and remove cart items with total calculation.</li>
+                            <li>Admin authentication and role-based access.</li>
+                            <li>Admin dashboard with product management and image uploads.</li>
+                            <li>Password hashing with password_hash() and PHP session-based access control.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>PHP</span><span>MySQL</span><span>HTML</span><span>CSS</span><span>JavaScript</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/e-commerce" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture ecommerce-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">E-COMMERCE PLATFORM / SYSTEM ARCHITECTURE</span><span class="architecture-status">06 / 06</span></div>
+                        <div class="ecommerce-layer-label">01 / CUSTOMER &amp; ADMIN FLOWS</div>
+                        <div class="ecommerce-flow-grid">
+                            <div class="ecommerce-flow-column">
+                                <span class="stage-label">CUSTOMER FLOW</span>
+                                <div class="architecture-node"><strong>Registration / Login</strong></div>
+                                <div class="ecommerce-arrow">&darr;</div>
+                                <div class="architecture-node"><strong>Product Browsing</strong></div>
+                                <div class="ecommerce-arrow">&darr;</div>
+                                <div class="architecture-node"><strong>Add / Update / Remove Cart</strong></div>
                             </div>
-
-                            <!-- Backend -->
-                            <div class="sys-arch-col col-backend">
-                                <div class="col-header"><span class="icon text-red">⚙️</span> BACKEND SYSTEM (FASTAPI)
-                                </div>
-
-                                <div class="sys-node outline border-red fade-node delay-3">
-                                    <div class="node-title">API GATEWAY / ROUTER</div>
-                                    <div class="node-desc">Parsing, Auth, Rate Limiting, Error Handling</div>
-                                </div>
-
-                                <div class="sys-node-row">
-                                    <div class="sys-node outline flex-1 fade-node delay-4">
-                                        <div class="node-title">AUTHENTICATION & AUTH</div>
-                                        <div class="node-desc">JWT Based Auth, RBAC</div>
-                                    </div>
-                                    <div class="sys-node outline flex-1 fade-node delay-4">
-                                        <div class="node-title">CLAIM MANAGEMENT</div>
-                                        <div class="node-desc">Upload, Assign, Track Status</div>
-                                    </div>
-                                </div>
-
-                                <div class="sys-node-row">
-                                    <div class="sys-node outline flex-1 fade-node delay-5">
-                                        <div class="node-title">DOCUMENT PROCESSING</div>
-                                        <div class="node-desc">OCR, Text Ext, Normalization</div>
-                                    </div>
-                                    <div class="sys-node outline flex-1 fade-node delay-5">
-                                        <div class="node-title">VALIDATION PIPELINE</div>
-                                        <div class="node-desc">Rule Based, Consistency Check</div>
-                                    </div>
-                                </div>
-
-                                <div class="sys-node-row">
-                                    <div class="sys-node outline flex-1 fade-node delay-6">
-                                        <div class="node-title">AI / NLP SERVICE</div>
-                                        <div class="node-desc">Entity Ext, Classification</div>
-                                    </div>
-                                    <div class="sys-node outline flex-1 fade-node delay-6">
-                                        <div class="node-title">CLAIM TRACKING SERVICE</div>
-                                        <div class="node-desc">Track Status, Workflow</div>
-                                    </div>
-                                </div>
-
-                                <div class="sys-node outline fade-node delay-7">
-                                    <div class="node-title">NOTIFICATION SERVICE</div>
-                                    <div class="node-desc">Email / In-App / Push, Alerts to Users</div>
-                                </div>
-                            </div>
-
-                            <!-- Database -->
-                            <div class="sys-arch-col col-database">
-                                <div class="col-header"><span class="icon text-red">🗄️</span> DATA STORAGE (POSTGRESQL)
-                                </div>
-
-                                <div class="sys-db-list outline border-red fade-node delay-8">
-                                    <div class="sys-db-item">Users</div>
-                                    <div class="sys-db-item">Claims</div>
-                                    <div class="sys-db-item">Documents</div>
-                                    <div class="sys-db-item">Extracted Data</div>
-                                    <div class="sys-db-item">Validation Results</div>
-                                    <div class="sys-db-item">Status History</div>
-                                    <div class="sys-db-item">Audit Logs</div>
-                                    <div class="sys-db-item text-red" style="font-weight:600;">Policy Decisions (RAG)
-                                    </div>
-                                </div>
+                            <div class="ecommerce-flow-column">
+                                <span class="stage-label">ADMIN FLOW</span>
+                                <div class="architecture-node"><strong>Admin Login</strong></div>
+                                <div class="ecommerce-arrow">&darr;</div>
+                                <div class="architecture-node"><strong>Admin Dashboard</strong></div>
+                                <div class="ecommerce-arrow">&darr;</div>
+                                <div class="architecture-node"><strong>Manage Products</strong></div>
                             </div>
                         </div>
+                        <div class="ecommerce-arrow">&darr;</div>
+                        <div class="ecommerce-layer-label">02 / APPLICATION &amp; DATA</div>
+                        <div class="ecommerce-node-row"><div class="architecture-node ecommerce-wide-node"><strong>PHP Application</strong></div></div>
+                        <div class="ecommerce-arrow">&darr;</div>
+                        <div class="ecommerce-node-row"><div class="architecture-node ecommerce-wide-node"><strong>Authentication + Sessions</strong></div></div>
+                        <div class="ecommerce-arrow">&darr;</div>
+                        <div class="architecture-node ecommerce-database-node"><strong>MySQL</strong><span>users &nbsp;&bull;&nbsp; products &nbsp;&bull;&nbsp; cart</span></div>
+                        <div class="ecommerce-security"><span class="ecommerce-layer-label">03 / SECURITY</span><strong>password_hash() &nbsp;&bull;&nbsp; Session Management &nbsp;&bull;&nbsp; Role-based Admin Access</strong></div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- External Services -->
-                        <div class="sys-ext-row fade-node delay-9">
-                            <div class="col-header text-center"><span class="icon text-red">🌐</span> EXTERNAL SERVICES
-                            </div>
-                            <div class="sys-node-row">
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">PUSH NOTIFICATIONS</div>
-                                    <div class="node-desc">Firebase Cloud Messaging</div>
-                                </div>
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">MAPS API</div>
-                                    <div class="node-desc">Google Maps</div>
-                                </div>
-                                <div class="sys-node outline outline-ext flex-1">
-                                    <div class="node-title">AI / NLP SERVICES</div>
-                                    <div class="node-desc">OCR, NLP Models</div>
-                                </div>
-                            </div>
+            <!-- Project 07 -->
+            <div class="project-showcase fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">07</div>
+                    <h3 class="project-title">Smart Bookmark App</h3>
+                    <p class="project-subtitle">Production-Ready Bookmark Management Platform</p>
+
+                    <p class="project-desc">
+                        A production-ready full-stack bookmark management application built with Next.js, Supabase, and
+                        Tailwind CSS, featuring Google OAuth, secure user-level data isolation, bookmark CRUD, filtering,
+                        sorting, favorites, and dashboard analytics.
+                    </p>
+
+                    <div class="project-highlights">
+                        <ul>
+                            <li>Google OAuth authentication with protected routes and secure sessions.</li>
+                            <li>Bookmark CRUD with search, filtering, sorting, and favorites.</li>
+                            <li>User-level data isolation with Row Level Security.</li>
+                            <li>Optimistic UI updates and dashboard analytics.</li>
+                            <li>Loading skeletons and smooth page transitions.</li>
+                            <li>Production deployment on Vercel.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>Next.js 16</span><span>App Router</span><span>TypeScript</span><span>React</span><span>Tailwind CSS</span><span>Supabase PostgreSQL</span><span>Supabase Auth</span><span>Google OAuth</span><span>Vercel</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/smart-bookmark-app" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture smart-bookmark-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">SMART BOOKMARK APP / TECHNICAL ARCHITECTURE</span><span class="architecture-status">07 / 07</span></div>
+                        <div class="smart-bookmark-layer-label">01 / CLIENT / FRONTEND</div>
+                        <div class="smart-bookmark-node-row"><div class="architecture-node"><strong>User</strong></div></div>
+                        <div class="smart-bookmark-arrow">&darr;</div>
+                        <div class="smart-bookmark-node-row"><div class="architecture-node smart-bookmark-wide-node"><strong>Next.js 16 + React + TypeScript</strong><span>App Router / UI</span></div></div>
+                        <div class="smart-bookmark-arrow">&darr;</div>
+                        <div class="smart-bookmark-layer-label">02 / AUTHENTICATION &amp; DATA LAYER</div>
+                        <div class="smart-bookmark-branch">
+                            <div class="architecture-node"><strong>Supabase Client / Auth</strong><span>Google OAuth<br>Auth Session</span></div>
+                            <div class="architecture-node"><strong>Database</strong><span>PostgreSQL</span></div>
                         </div>
+                        <div class="smart-bookmark-arrow">&darr;</div>
+                        <div class="architecture-node smart-bookmark-security-node"><strong>Row Level Security</strong><span>auth.uid() = user_id</span></div>
+                        <div class="smart-bookmark-arrow">&darr;</div>
+                        <div class="architecture-node smart-bookmark-wide-node"><strong>User Bookmarks</strong><span>CRUD + Search + Filters + Sorting + Favorites</span></div>
+                        <div class="smart-bookmark-arrow">&darr;</div>
+                        <div class="architecture-node smart-bookmark-wide-node"><strong>Dashboard Analytics</strong></div>
+                        <div class="smart-bookmark-deployment"><span class="smart-bookmark-layer-label">03 / DEPLOYMENT</span><strong>Vercel</strong><span>Next.js production hosting</span></div>
+                    </div>
+                </div>
+            </div>
 
-                        <!-- RAG Pipeline -->
-                        <div class="sys-ext-row fade-node delay-10"
-                            style="margin-top: 1.5rem; border-color: rgba(204,0,0,0.3);">
-                            <div class="col-header text-center"><span class="icon text-red">🧠</span> RAG POLICY
-                                VERIFICATION PIPELINE (PHASE 2)</div>
+            <!-- Project 08 -->
+            <div class="project-showcase reverse fade-in-section">
+                <div class="project-meta">
+                    <div class="project-num">08</div>
+                    <h3 class="project-title">FNOL Claims Processing Agent</h3>
+                    <p class="project-subtitle">Deterministic Insurance Claims Triage Pipeline</p>
 
-                            <div class="rag-flow">
-                                <!-- 1. Policy Ingestion -->
-                                <div class="rag-section">
-                                    <div class="rag-sec-title">1. POLICY INGESTION PIPELINE</div>
-                                    <div class="sys-node-row">
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Policy PDF</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">PDF Parsing</div>
-                                            <div class="node-desc">(PyPDF2)</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Chunking</div>
-                                            <div class="node-desc">(Splitter)</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Embeddings</div>
-                                            <div class="node-desc">(MiniLM)</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">ChromaDB</div>
-                                        </div>
-                                    </div>
-                                </div>
+                    <p class="project-desc">
+                        A lightweight insurance claims processing agent that extracts key fields from FNOL documents,
+                        detects missing or inconsistent data, and routes claims to the appropriate workflow with a
+                        plain-English explanation. Available through both CLI and a browser-based triage desk.
+                    </p>
 
-                                <!-- 2. Claim Verification -->
-                                <div class="rag-section" style="margin-top:1rem;">
-                                    <div class="rag-sec-title">2. CLAIM VERIFICATION (RAG FLOW)</div>
-                                    <div class="sys-node-row">
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Claim Data</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Query Embed</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Top-K Retrieval</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline flex-1"
-                                            style="padding: 0.5rem; text-align:center;">
-                                            <div class="node-title">Policy Match</div>
-                                        </div>
-                                        <div class="arch-flow-horizontal">&rarr;</div>
-                                        <div class="sys-node outline border-red flex-1"
-                                            style="padding: 0.5rem; text-align:center; background: rgba(0, 150, 0, 0.1);">
-                                            <div class="node-title" style="color: #4CAF50;">Decision</div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="project-highlights">
+                        <ul>
+                            <li>FNOL .txt and .pdf document processing.</li>
+                            <li>Label-based regex field extraction.</li>
+                            <li>Missing-field detection and data-quality inconsistency checks.</li>
+                            <li>Deterministic claim routing with explainable decisions.</li>
+                            <li>CLI and browser-based interface with REST-style JSON endpoints.</li>
+                            <li>Batch document processing and 23 automated tests.</li>
+                        </ul>
+                    </div>
+
+                    <div class="tech-tags">
+                        <span>Python</span><span>Flask</span><span>Regex</span><span>pdfplumber</span><span>JSON</span><span>pytest</span>
+                    </div>
+
+                    <div class="project-links">
+                        <a href="https://github.com/santhosh12133/FNOL-Claims-Processing-Agent" target="_blank" class="btn btn-outline"
+                            data-cursor="project">View Project &rarr;</a>
+                    </div>
+                </div>
+
+                <div class="project-visual" data-cursor="explore">
+                    <div class="architecture fnol-architecture fade-in-arch">
+                        <div class="architecture-heading"><span class="architecture-kicker">FNOL CLAIMS / DETERMINISTIC PROCESSING</span><span class="architecture-status">08 / 08</span></div>
+                        <div class="fnol-layer-label">01 / INPUT &amp; INTERFACES</div>
+                        <div class="fnol-interface-row">
+                            <div class="architecture-node"><strong>FNOL Document</strong><span>.txt / .pdf</span></div>
+                            <div class="architecture-node"><strong>CLI</strong><span>CLI &rarr; Pipeline</span></div>
+                            <div class="architecture-node"><strong>Flask Web UI</strong><span>Web UI &rarr; Pipeline</span></div>
                         </div>
+                        <div class="fnol-arrow">&darr;</div>
+                        <div class="fnol-layer-label">02 / EXTRACTION &amp; VALIDATION</div>
+                        <div class="fnol-pipeline">
+                            <div class="architecture-node"><strong>Document Extraction</strong><span>extractor.py + pdfplumber</span></div><span class="fnol-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Field Validation</strong><span>validator.py</span></div>
+                        </div>
+                        <div class="fnol-arrow">&darr;</div>
+                        <div class="fnol-layer-label">03 / ROUTING &amp; RESULT</div>
+                        <div class="fnol-pipeline">
+                            <div class="architecture-node fnol-highlight-node"><strong>Routing Engine</strong><span>router.py<br>Deterministic rule-based routing</span></div><span class="fnol-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>Pipeline Orchestrator</strong><span>pipeline.py</span></div><span class="fnol-arrow">&darr;</span>
+                            <div class="architecture-node"><strong>JSON Claim Result</strong><span>Plain-English explanation</span></div>
+                        </div>
+                        <div class="fnol-arrow">&darr;</div>
+                        <div class="architecture-node fnol-output-node"><strong>Recommended Workflow</strong><span>Manual Review &nbsp;&bull;&nbsp; Investigation Flag &nbsp;&bull;&nbsp; Specialist Queue &nbsp;&bull;&nbsp; Fast-Track &nbsp;&bull;&nbsp; Standard Review</span></div>
+                        <div class="fnol-response">Flask Web UI &rarr; JSON / API Response</div>
                     </div>
                 </div>
             </div>
@@ -731,7 +855,7 @@
         </section>
 
         <!-- Footer -->
-        <footer class="footer">
+        <footer class="footer fade-in-section">
             <div class="footer-inner">
                 <div class="footer-top-bar">
                     <div class="footer-identity">
@@ -754,11 +878,22 @@
                 <div class="footer-bottom-bar">
                     <p class="footer-copy">&copy; 2026 Santhosh Kumar N. All rights reserved.</p>
                     <div class="footer-socials">
-                        <a href="https://www.linkedin.com/in/santhosh-kumar-n-4b4b84310" target="_blank">LinkedIn</a>
-                        <a href="https://github.com/santhosh12133" target="_blank">GitHub</a>
-                        <a href="https://wa.me/918495900723" target="_blank">WhatsApp</a>
-                        <a href="mailto:santhoshkumar12133@gmail.com">Email</a>
+                        <a href="https://www.linkedin.com/in/santhosh-kumar-n-4b4b84310" target="_blank" aria-label="LinkedIn" title="LinkedIn">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6.5 8.5V21H2.5V8.5H6.5ZM4.5 3C5.9 3 6.8 3.9 6.8 5.1C6.8 6.3 5.9 7.2 4.5 7.2C3.1 7.2 2.2 6.3 2.2 5.1C2.2 3.9 3.1 3 4.5 3ZM9 8.5H12.8V10.2H12.9C13.4 9.2 14.7 8 16.8 8C21 8 21.5 10.8 21.5 14.4V21H17.5V15.1C17.5 13.7 17.5 11.9 15.5 11.9C13.5 11.9 13.2 13.4 13.2 14.9V21H9V8.5Z" /></svg>
+                        </a>
+                        <a href="https://github.com/santhosh12133" target="_blank" aria-label="GitHub" title="GitHub">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5A9.5 9.5 0 0 0 9 21.1c.5.1.7-.2.7-.5v-1.8c-2.8.6-3.4-1.2-3.4-1.2-.5-1.2-1.1-1.5-1.1-1.5-.9-.6.1-.6.1-.6 1 .1 1.5 1 1.5 1 .9 1.5 2.3 1.1 2.9.8.1-.7.4-1.1.7-1.4-2.2-.3-4.5-1.1-4.5-4.9 0-1.1.4-2 1-2.7-.1-.3-.4-1.3.1-2.7 0 0 .8-.3 2.8 1a9.7 9.7 0 0 1 5.1 0c2-1.3 2.8-1 2.8-1 .5 1.4.2 2.4.1 2.7.6.7 1 1.6 1 2.7 0 3.8-2.3 4.6-4.5 4.9.4.3.7 1 .7 1.9v2.8c0 .3.2.6.7.5A9.5 9.5 0 0 0 12 2.5Z" /></svg>
+                        </a>
+                        <a href="https://wa.me/918495900723" target="_blank" aria-label="WhatsApp" title="WhatsApp">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5a9.3 9.3 0 0 0-8 14.1L2.8 21l4.5-1.2A9.3 9.3 0 1 0 12 2.5Zm0 16.8c-1.3 0-2.6-.4-3.7-1l-.3-.2-2.7.7.7-2.6-.2-.3a7.7 7.7 0 1 1 6.2 3.4Zm4.2-5.7c-.2-.1-1.3-.7-1.5-.8-.2-.1-.4-.1-.6.1l-.7.9c-.1.1-.3.1-.5 0a6.1 6.1 0 0 1-1.8-1.1 6.7 6.7 0 0 1-1.2-1.5c-.1-.2 0-.3.1-.4l.4-.5c.1-.1.1-.3.1-.4l-.7-1.6c-.1-.2-.3-.2-.5-.2h-.4c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.3c.1.1 1.6 2.5 4 3.5 2.4.9 2.4.6 2.8.6.4 0 1.3-.5 1.5-1 .2-.5.2-.9.1-1s-.2-.1-.4-.2Z" /></svg>
+                        </a>
+                        <a href="mailto:santhoshkumar12133@gmail.com" aria-label="Email" title="Email">
+                            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 5.5h18A1.5 1.5 0 0 1 22.5 7v10A1.5 1.5 0 0 1 21 18.5H3A1.5 1.5 0 0 1 1.5 17V7A1.5 1.5 0 0 1 3 5.5Zm0 2v.4l9 5.7 9-5.7v-.4H3Zm18 9V10l-8.5 5.4a1 1 0 0 1-1 0L3 10v6.5h18Z" /></svg>
+                        </a>
+                        <button class="copy-contact" type="button" data-copy="santhoshkumar12133@gmail.com" aria-label="Copy email address" title="Copy email address">Copy</button>
+                        <button class="copy-contact" type="button" data-copy="918495900723" aria-label="Copy phone number" title="Copy phone number">Phone</button>
                     </div>
+                    <a class="footer-top-link" href="#home">Back to top &uarr;</a>
                 </div>
             </div>
         </footer>
@@ -797,63 +932,112 @@
             cursor.style.display = 'none'; // Hide on mobile
         }
 
-        // Background Animation Logic (Retained & Optimized)
+        // Background Animation Logic
         const canvas = document.getElementById("scroll-canvas");
         const context = canvas.getContext("2d", { alpha: false });
-        const frameCount = 240;
+        const homeSection = document.getElementById('home');
+        const backgroundVideo = document.createElement('video');
+        backgroundVideo.src = './background-animation.webm';
+        backgroundVideo.muted = true;
+        backgroundVideo.playsInline = true;
+        backgroundVideo.preload = 'auto';
+        const backgroundVideoDuration = 10;
+        const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let targetBackgroundTime = 0;
+        let renderedBackgroundTime = 0;
+        let backgroundFrameRequest = null;
 
-        const currentFrame = index => (
-            `./video_frames_24fps/video_frames_24fps/frame_${index.toString().padStart(4, '0')}.png`
-        );
+        const resizeCanvas = () => {
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            canvas.width = Math.round(rect.width * dpr);
+            canvas.height = Math.round(rect.height * dpr);
+            context.setTransform(dpr, 0, 0, dpr, 0, 0);
+            drawVideoFrame();
+        };
 
-        const images = [];
-        let imagesLoaded = 0;
+        const drawVideoFrame = () => {
+            const canvasWidth = canvas.clientWidth;
+            const canvasHeight = canvas.clientHeight;
+            const videoWidth = backgroundVideo.videoWidth;
+            const videoHeight = backgroundVideo.videoHeight;
 
-        const preloadImages = () => {
-            for (let i = 1; i <= frameCount; i++) {
-                const img = new Image();
-                img.src = currentFrame(i);
-                img.onload = () => {
-                    imagesLoaded++;
-                    // Draw first frame when ready
-                    if (i === 1) {
-                        canvas.width = img.width;
-                        canvas.height = img.height;
-                        context.drawImage(img, 0, 0);
-                    }
-                };
-                images.push(img);
+            if (videoWidth && videoHeight) {
+                const scale = Math.max(canvasWidth / videoWidth, canvasHeight / videoHeight);
+                const drawWidth = videoWidth * scale;
+                const drawHeight = videoHeight * scale;
+                const drawX = (canvasWidth - drawWidth) / 2;
+                const drawY = (canvasHeight - drawHeight) / 2;
+
+                context.drawImage(backgroundVideo, drawX, drawY, drawWidth, drawHeight);
             }
         };
 
-        const updateImage = index => {
-            if (images[index - 1] && images[index - 1].complete) {
-                context.drawImage(images[index - 1], 0, 0);
+        const animateBackgroundFrame = () => {
+            backgroundFrameRequest = null;
+
+            if (canvas.style.visibility === 'hidden' || prefersReducedMotion) {
+                return;
+            }
+
+            renderedBackgroundTime += (targetBackgroundTime - renderedBackgroundTime) * 0.12;
+
+            if (Math.abs(targetBackgroundTime - renderedBackgroundTime) < 0.015) {
+                renderedBackgroundTime = targetBackgroundTime;
+            }
+
+            if (
+                backgroundVideo.readyState >= 1 &&
+                !backgroundVideo.seeking &&
+                Math.abs(backgroundVideo.currentTime - renderedBackgroundTime) > 0.025
+            ) {
+                backgroundVideo.currentTime = renderedBackgroundTime;
+            }
+
+            if (Math.abs(targetBackgroundTime - renderedBackgroundTime) > 0.001 || backgroundVideo.seeking) {
+                backgroundFrameRequest = window.requestAnimationFrame(animateBackgroundFrame);
             }
         };
 
-        let ticking = false;
-        window.addEventListener('scroll', () => {
-            if (!ticking) {
-                window.requestAnimationFrame(() => {
-                    const html = document.documentElement;
-                    const scrollTop = html.scrollTop;
-                    const maxScrollTop = html.scrollHeight - window.innerHeight;
-
-                    const scrollFraction = scrollTop / maxScrollTop;
-                    const frameIndex = Math.min(
-                        frameCount - 1,
-                        Math.ceil(scrollFraction * frameCount)
-                    );
-
-                    updateImage(frameIndex + 1);
-                    ticking = false;
-                });
-                ticking = true;
+        const requestBackgroundFrame = () => {
+            if (!backgroundFrameRequest && !prefersReducedMotion) {
+                backgroundFrameRequest = window.requestAnimationFrame(animateBackgroundFrame);
             }
-        }, { passive: true });
+        };
 
-        preloadImages();
+        const updateBackgroundFrame = () => {
+            const sectionTop = homeSection.offsetTop;
+            const sectionHeight = homeSection.offsetHeight;
+            const sectionBottom = sectionTop + sectionHeight;
+            const isInHome = window.scrollY >= sectionTop && window.scrollY < sectionBottom;
+
+            canvas.style.visibility = isInHome ? 'visible' : 'hidden';
+
+            if (!isInHome) {
+                if (backgroundFrameRequest) {
+                    window.cancelAnimationFrame(backgroundFrameRequest);
+                    backgroundFrameRequest = null;
+                }
+                return;
+            }
+
+            const scrollFraction = sectionHeight > 0 ? (window.scrollY - sectionTop) / sectionHeight : 0;
+            targetBackgroundTime = Math.min(backgroundVideoDuration, Math.max(0, scrollFraction * backgroundVideoDuration));
+            requestBackgroundFrame();
+        };
+
+        resizeCanvas();
+        updateBackgroundFrame();
+        window.addEventListener('resize', () => {
+            resizeCanvas();
+            updateBackgroundFrame();
+        });
+        window.addEventListener('scroll', updateBackgroundFrame, { passive: true });
+        backgroundVideo.addEventListener('loadedmetadata', updateBackgroundFrame, { once: true });
+        backgroundVideo.addEventListener('loadeddata', drawVideoFrame, { once: true });
+        backgroundVideo.addEventListener('seeked', drawVideoFrame);
+        backgroundVideo.pause();
+        backgroundVideo.load();
 
         // Intersection Observer for Scroll Animations
         const observerOptions = {
@@ -878,7 +1062,125 @@
 
         // Navbar scroll effect
         const navbar = document.getElementById('navbar');
+        const mobileMenuButton = document.querySelector('.mobile-menu-btn');
+        const navLinks = document.getElementById('nav-links');
+        const scrollProgress = document.getElementById('scroll-progress');
+        const quickNav = document.getElementById('quick-nav');
+        const quickNavInput = document.getElementById('quick-nav-input');
+        const quickNavResults = document.getElementById('quick-nav-results');
+        const architectureDetails = document.getElementById('architecture-details');
+        const architectureDetailsTitle = document.getElementById('architecture-details-title');
+        const architectureDetailsCopy = document.getElementById('architecture-details-copy');
+
+        mobileMenuButton.addEventListener('click', () => {
+            const isOpen = navbar.classList.toggle('nav-open');
+            mobileMenuButton.setAttribute('aria-expanded', isOpen);
+            mobileMenuButton.setAttribute('aria-label', isOpen ? 'Close navigation menu' : 'Open navigation menu');
+        });
+
+        navLinks.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                navbar.classList.remove('nav-open');
+                mobileMenuButton.setAttribute('aria-expanded', 'false');
+                mobileMenuButton.setAttribute('aria-label', 'Open navigation menu');
+            });
+        });
+
+        const sectionLinks = [...navLinks.querySelectorAll('a')];
+        const sections = sectionLinks
+            .map(link => document.querySelector(link.getAttribute('href')))
+            .filter(Boolean);
+
+        const activeSectionObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    sectionLinks.forEach(link => link.classList.toggle('is-active', link.getAttribute('href') === `#${entry.target.id}`));
+                }
+            });
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+
+        sections.forEach(section => activeSectionObserver.observe(section));
+
+        sectionLinks.forEach(link => {
+            link.addEventListener('click', event => {
+                const target = document.querySelector(link.getAttribute('href'));
+
+                if (target && !prefersReducedMotion) {
+                    event.preventDefault();
+                    target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    history.pushState(null, '', link.getAttribute('href'));
+                }
+            });
+        });
+
+        const quickNavLinks = sectionLinks.map(link => link.cloneNode(true));
+        quickNavLinks.forEach(link => {
+            link.addEventListener('click', () => quickNav.close());
+            quickNavResults.append(link);
+        });
+
+        quickNavInput.addEventListener('input', () => {
+            const query = quickNavInput.value.trim().toLowerCase();
+            quickNavLinks.forEach(link => {
+                link.hidden = query && !link.textContent.toLowerCase().includes(query);
+            });
+        });
+
+        document.addEventListener('keydown', event => {
+            if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
+                event.preventDefault();
+                quickNav.showModal();
+                quickNavInput.value = '';
+                quickNavLinks.forEach(link => { link.hidden = false; });
+                quickNavInput.focus();
+            }
+        });
+
+        document.querySelectorAll('.architecture-node').forEach(node => {
+            node.setAttribute('role', 'button');
+            node.setAttribute('tabindex', '0');
+
+            const showArchitectureDetails = () => {
+                const title = node.querySelector('strong');
+                const details = node.querySelector('span');
+                architectureDetailsTitle.textContent = title ? title.textContent : 'Architecture node';
+                architectureDetailsCopy.textContent = details ? details.textContent : 'Technical component in the system flow.';
+                architectureDetails.showModal();
+            };
+
+            node.addEventListener('click', showArchitectureDetails);
+            node.addEventListener('keydown', event => {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    showArchitectureDetails();
+                }
+            });
+        });
+
+        document.getElementById('architecture-details-close').addEventListener('click', () => architectureDetails.close());
+
+        document.querySelectorAll('.copy-contact').forEach(button => {
+            button.addEventListener('click', async () => {
+                const originalLabel = button.textContent;
+                try {
+                    await navigator.clipboard.writeText(button.dataset.copy);
+                    button.textContent = 'Copied';
+                    window.setTimeout(() => { button.textContent = originalLabel; }, 1400);
+                } catch {
+                    button.textContent = 'Unavailable';
+                    window.setTimeout(() => { button.textContent = originalLabel; }, 1400);
+                }
+            });
+        });
+
+        let previousScrollY = window.scrollY;
         window.addEventListener('scroll', () => {
+            const scrollRange = document.documentElement.scrollHeight - window.innerHeight;
+            scrollProgress.style.transform = `scaleX(${scrollRange > 0 ? window.scrollY / scrollRange : 0})`;
+            const scrollingDown = window.scrollY > previousScrollY;
+            navbar.classList.toggle('nav-hidden', scrollingDown && window.scrollY > 100);
+            if (!scrollingDown) navbar.classList.remove('nav-hidden');
+            previousScrollY = window.scrollY;
             if (window.scrollY > 50) {
                 navbar.classList.add('nav-scrolled');
             } else {
