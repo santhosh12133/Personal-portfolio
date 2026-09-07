@@ -5,6 +5,9 @@
     const ready = () => {
         document.body.classList.add('premium-ready');
 
+        // Remove any legacy theme toggle from previously deployed versions.
+        document.querySelectorAll('.theme-toggle').forEach(element => element.remove());
+
         const transition = document.createElement('div');
         transition.className = 'section-transition';
         transition.setAttribute('aria-hidden', 'true');
