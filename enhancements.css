@@ -1,0 +1,155 @@
+:root {
+    --premium-ease: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* Premium section-to-section transition */
+.section-transition {
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    pointer-events: none;
+    background: linear-gradient(90deg, transparent 0%, rgba(204, 0, 0, 0.18) 48%, rgba(255, 255, 255, 0.06) 50%, transparent 52%);
+    opacity: 0;
+    transform: scaleX(0.08);
+    transform-origin: center;
+}
+
+.section-transition.is-running {
+    animation: sectionTransition 0.72s var(--premium-ease) both;
+}
+
+@keyframes sectionTransition {
+    0% { opacity: 0; transform: scaleX(0.08); }
+    25% { opacity: 1; transform: scaleX(0.42); }
+    60% { opacity: 0.8; transform: scaleX(1); }
+    100% { opacity: 0; transform: scaleX(1.08); }
+}
+
+/* Active section indicator */
+.nav-links a.is-active {
+    color: var(--text-main);
+}
+
+.nav-links a.is-active::after {
+    opacity: 1;
+    transform: scaleX(1);
+}
+
+/* Scroll-to-top control */
+.scroll-top-control {
+    position: fixed;
+    right: 1.5rem;
+    bottom: 1.5rem;
+    width: 44px;
+    height: 44px;
+    border: 1px solid var(--border-subtle);
+    border-radius: 50%;
+    background: rgba(8, 8, 8, 0.78);
+    color: var(--text-main);
+    display: grid;
+    place-items: center;
+    opacity: 0;
+    transform: translateY(14px) scale(0.9);
+    pointer-events: none;
+    transition: opacity .35s ease, transform .45s var(--premium-ease), border-color .3s ease, background .3s ease;
+    backdrop-filter: blur(12px);
+    z-index: 98;
+    cursor: pointer;
+}
+
+.scroll-top-control.is-visible {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    pointer-events: auto;
+}
+
+.scroll-top-control:hover {
+    border-color: var(--accent-red);
+    background: rgba(204, 0, 0, 0.14);
+    transform: translateY(-3px) scale(1.04);
+}
+
+/* Subtle premium depth on project visuals */
+.premium-tilt {
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform .55s var(--premium-ease);
+}
+
+/* Contact form injected by enhancements.js */
+.premium-contact-form {
+    margin-top: 3rem;
+    padding: clamp(1.25rem, 3vw, 2rem);
+    border: 1px solid var(--border-subtle);
+    background: linear-gradient(145deg, rgba(18,18,18,.72), rgba(5,5,5,.46));
+    backdrop-filter: blur(14px);
+    box-shadow: 0 24px 70px rgba(0,0,0,.22);
+}
+
+.premium-contact-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1.25rem;
+}
+
+.premium-contact-field {
+    display: grid;
+    gap: .55rem;
+}
+
+.premium-contact-field.full {
+    grid-column: 1 / -1;
+}
+
+.premium-contact-field label {
+    color: var(--text-muted);
+    font-size: .72rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+}
+
+.premium-contact-field input,
+.premium-contact-field textarea {
+    width: 100%;
+    border: 1px solid var(--border-subtle);
+    background: rgba(0,0,0,.34);
+    color: var(--text-main);
+    padding: .95rem 1rem;
+    border-radius: 3px;
+    outline: none;
+    font: inherit;
+    resize: vertical;
+    transition: border-color .3s ease, box-shadow .3s ease, background .3s ease;
+}
+
+.premium-contact-field input:focus,
+.premium-contact-field textarea:focus {
+    border-color: var(--accent-red);
+    background: rgba(204,0,0,.035);
+    box-shadow: 0 0 0 3px rgba(204,0,0,.08);
+}
+
+.premium-contact-actions {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1.25rem;
+    flex-wrap: wrap;
+}
+
+.premium-contact-status {
+    color: var(--text-muted);
+    font-size: .8rem;
+}
+
+@media (max-width: 700px) {
+    .premium-contact-grid { grid-template-columns: 1fr; }
+    .premium-contact-field.full { grid-column: auto; }
+    .scroll-top-control { right: 1rem; bottom: 1rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .section-transition { display: none; }
+    .premium-tilt { transform: none !important; transition: none; }
+    .scroll-top-control { transition: none; }
+}
