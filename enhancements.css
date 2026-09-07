@@ -54,6 +54,9 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 .cursor.premium-cursor-context.cursor-context-project { width:76px; height:76px; background:rgba(204,0,0,.88); border:1px solid rgba(255,255,255,.28); box-shadow:0 0 45px rgba(204,0,0,.18); mix-blend-mode:normal; }
 .cursor.premium-cursor-context .cursor-text { letter-spacing:.12em; font-size:.56rem; }
 
+/* Remove the project showcase side accent introduced by the project choreography layer. */
+.project-showcase.premium-project-choreography::after { display:none !important; }
+
 /* Professional contact form */
 .premium-contact-form { width:min(100%,1080px); margin:3.5rem auto 0; padding:clamp(1.5rem,4vw,2.75rem); border:1px solid rgba(255,255,255,.10); border-radius:10px; background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012) 55%,rgba(204,0,0,.025)),rgba(8,8,8,.72); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 30px 90px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035); }
 .premium-contact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
