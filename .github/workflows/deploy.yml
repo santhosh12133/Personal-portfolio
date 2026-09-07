@@ -76,6 +76,17 @@ jobs:
               html = html.replace('</body>', f'    {js}\n</body>', 1)
           path.write_text(html, encoding='utf-8')
 
+      - name: Enable mobile presentation
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+          css = '<link rel="stylesheet" href="mobile.css?v=20260907-mobile1">'
+          if 'href="mobile.css"' not in html and 'href="mobile.css?v=' not in html:
+              html = html.replace('</head>', f'    {css}\n</head>', 1)
+          path.write_text(html, encoding='utf-8')
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
