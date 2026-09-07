@@ -36,11 +36,11 @@
 
 .hero.hero-reference .hero-title {
     margin: 0 0 1.6rem;
-    max-width: 780px;
-    font-size: clamp(3.7rem, 7vw, 7.25rem);
+    max-width: 680px;
+    font-size: clamp(3.7rem, 6.15vw, 6.35rem);
     line-height: .91;
     font-weight: 700;
-    letter-spacing: -.065em;
+    letter-spacing: -.06em;
     color: var(--text-main);
 }
 
@@ -51,6 +51,7 @@
 
 .hero.hero-reference .hero-title .hero-name {
     color: #ff2b2b;
+    max-width: 680px;
 }
 
 .hero.hero-reference .hero-desc {
@@ -125,6 +126,7 @@
     }
 
     .hero.hero-reference .hero-title {
+        max-width: 620px;
         font-size: clamp(3.2rem, 10vw, 5.6rem);
     }
 }
@@ -151,6 +153,7 @@
     }
 
     .hero.hero-reference .hero-title {
+        max-width: 100%;
         font-size: clamp(3rem, 14vw, 4.8rem);
         letter-spacing: -.055em;
     }
