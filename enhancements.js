@@ -44,100 +44,71 @@
             sections.forEach(section => sectionObserver.observe(section));
         }
 
-        // Cinematic project-by-project scroll experience.
-        const projectSection = document.querySelector('#projects');
-        const projectItems = projectSection ? [...projectSection.querySelectorAll('.project-showcase')] : [];
-        if (projectItems.length) {
+        // Premium page-by-page section progress. Uses the navigation sections
+        // themselves, so the indicator stays consistent across the entire site.
+        if (sections.length) {
             const rail = document.createElement('div');
-            rail.className = 'project-scroll-rail';
+            rail.className = 'page-scroll-rail';
             rail.setAttribute('aria-hidden', 'true');
 
             const counter = document.createElement('span');
-            counter.className = 'project-scroll-counter';
+            counter.className = 'page-scroll-counter';
             rail.appendChild(counter);
 
-            const dots = projectItems.map((item, index) => {
+            const dots = sections.map((section, index) => {
                 const dot = document.createElement('span');
-                dot.className = 'project-scroll-dot';
-                dot.dataset.projectIndex = index;
+                dot.className = 'page-scroll-dot';
+                dot.dataset.sectionIndex = index;
                 rail.appendChild(dot);
                 return dot;
             });
-            projectSection.appendChild(rail);
+
+            document.body.appendChild(rail);
 
             let activeIndex = -1;
-            const setActiveProject = index => {
-                if (index < 0 || index >= projectItems.length || index === activeIndex) return;
+            const setActiveSection = index => {
+                if (index < 0 || index >= sections.length || index === activeIndex) return;
                 activeIndex = index;
-                projectItems.forEach((item, itemIndex) => {
-                    item.classList.toggle('project-scroll-active', itemIndex === index);
-                    item.classList.toggle('project-scroll-muted', !reduceMotion && itemIndex !== index);
-                });
                 dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
                 const number = String(index + 1).padStart(2, '0');
-                const total = String(projectItems.length).padStart(2, '0');
+                const total = String(sections.length).padStart(2, '0');
                 counter.innerHTML = `<strong>${number}</strong> / ${total}`;
             };
 
-            // Use the project whose center is closest to the viewport center.
-            // This is much more reliable than IntersectionObserver for projects
-            // that are taller than the observer's intersection area.
-            const updateActiveProject = () => {
-                const viewportCenter = window.innerHeight * 0.5;
+            const updateActiveSection = () => {
+                const anchor = window.innerHeight * 0.5;
                 let closestIndex = 0;
                 let closestDistance = Infinity;
 
-                projectItems.forEach((item, index) => {
-                    const rect = item.getBoundingClientRect();
-                    const center = rect.top + rect.height * 0.5;
-                    const distance = Math.abs(center - viewportCenter);
+                sections.forEach((section, index) => {
+                    const rect = section.getBoundingClientRect();
+                    const distance = Math.abs((rect.top + Math.min(rect.height, window.innerHeight) * 0.5) - anchor);
                     if (distance < closestDistance) {
                         closestDistance = distance;
                         closestIndex = index;
                     }
                 });
 
-                setActiveProject(closestIndex);
+                setActiveSection(closestIndex);
             };
 
             if (!reduceMotion) {
                 let ticking = false;
-                const updateProjectState = () => {
-                    const viewportCenter = window.innerHeight * 0.5;
-                    let closestIndex = 0;
-                    let closestDistance = Infinity;
-
-                    projectItems.forEach((item, index) => {
-                        const rect = item.getBoundingClientRect();
-                        const center = rect.top + rect.height * 0.5;
-                        const distance = Math.abs(center - viewportCenter);
-                        if (distance < closestDistance) {
-                            closestDistance = distance;
-                            closestIndex = index;
-                        }
-
-                        const normalized = (center - viewportCenter) / Math.max(window.innerHeight, 1);
-                        const clamped = Math.max(-1, Math.min(1, normalized));
-                        const lift = Math.abs(clamped) < 0.7 ? (1 - Math.abs(clamped) / 0.7) * 7 : 0;
-                        item.style.setProperty('--project-depth', `${lift.toFixed(2)}px`);
-                        item.style.setProperty('--project-progress', `${(1 - Math.min(1, Math.abs(clamped))).toFixed(2)}`);
-                    });
-
-                    setActiveProject(closestIndex);
+                const updatePageState = () => {
+                    updateActiveSection();
                     ticking = false;
                 };
 
                 window.addEventListener('scroll', () => {
                     if (!ticking) {
-                        requestAnimationFrame(updateProjectState);
+                        requestAnimationFrame(updatePageState);
                         ticking = true;
                     }
                 }, { passive: true });
-
-                window.addEventListener('resize', updateActiveProject, { passive: true });
-                updateProjectState();
+                window.addEventListener('resize', updateActiveSection, { passive: true });
+                updateActiveSection();
             } else {
-                setActiveProject(0);
+                setActiveSection(0);
             }
         }
 
