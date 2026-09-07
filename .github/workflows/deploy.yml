@@ -36,6 +36,62 @@ jobs:
           html_path = root / 'index.html'
           html = html_path.read_text(encoding='utf-8')
 
+          # Deploy-time optimization: keep the original source unchanged while
+          # preventing the background video from loading during initial page load.
+          html = html.replace(
+              "        backgroundVideo.src = './background-animation.webm';\n",
+              ""
+          )
+          html = html.replace(
+              "        // Use metadata preload on mobile to avoid downloading the full video on page load\n        backgroundVideo.preload = isMobile ? 'metadata' : 'auto';",
+              "        // Do not load the background video until the hero is actually needed.\n        backgroundVideo.preload = 'none';"
+          )
+          old_video_loader = """        // Defer video loading to avoid blocking the main thread during page load
+        if (prefersReducedMotion) {
+            canvas.style.visibility = 'hidden';
+        } else {
+            const loadVideo = () => backgroundVideo.load();
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(loadVideo, { timeout: 2000 });
+            } else {
+                window.setTimeout(loadVideo, 0);
+            }
+        }
+"""
+          new_video_loader = """        // Lazy-load the background video only when the hero enters the viewport.
+        if (prefersReducedMotion) {
+            canvas.style.visibility = 'hidden';
+        } else {
+            let backgroundVideoLoaded = false;
+
+            const loadVideo = () => {
+                if (backgroundVideoLoaded || prefersReducedMotion) return;
+                backgroundVideoLoaded = true;
+                backgroundVideo.src = './background-animation.webm';
+                backgroundVideo.load();
+            };
+
+            const deferVideoLoad = () => {
+                if ('requestIdleCallback' in window) {
+                    window.requestIdleCallback(loadVideo, { timeout: 2000 });
+                } else {
+                    window.setTimeout(loadVideo, 0);
+                }
+            };
+
+            const backgroundObserver = new IntersectionObserver(entries => {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    deferVideoLoad();
+                    backgroundObserver.disconnect();
+                }
+            }, { rootMargin: '200px 0px' });
+
+            backgroundObserver.observe(homeSection);
+        }
+"""
+          if old_video_loader in html:
+              html = html.replace(old_video_loader, new_video_loader, 1)
+
           css = r'''
           /* Deploy-time enhancement layer. Original HTML/CSS/JS/theme remain untouched. */
           .page-loader{position:fixed;inset:0;z-index:10000;display:grid;place-items:center;background:#050505;opacity:1;visibility:visible;transition:opacity .7s cubic-bezier(.16,1,.3,1),visibility .7s}
