@@ -5,7 +5,6 @@
     const ready = () => {
         document.body.classList.add('premium-ready');
 
-        // Remove any legacy theme toggle from previously deployed versions.
         document.querySelectorAll('.theme-toggle').forEach(element => element.remove());
 
         const transition = document.createElement('div');
@@ -18,7 +17,6 @@
             .map(link => document.querySelector(link.getAttribute('href')))
             .filter(Boolean);
 
-        // Smooth section-to-section navigation with a lightweight transition layer.
         navLinks.forEach(link => {
             link.addEventListener('click', event => {
                 const target = document.querySelector(link.getAttribute('href'));
@@ -36,7 +34,6 @@
             });
         });
 
-        // Keep the navigation state synchronized with the section currently in view.
         if (sections.length) {
             const sectionObserver = new IntersectionObserver(entries => {
                 entries.forEach(entry => {
@@ -68,7 +65,10 @@
             });
             projectSection.appendChild(rail);
 
+            let activeIndex = -1;
             const setActiveProject = index => {
+                if (index < 0 || index >= projectItems.length || index === activeIndex) return;
+                activeIndex = index;
                 projectItems.forEach((item, itemIndex) => {
                     item.classList.toggle('project-scroll-active', itemIndex === index);
                     item.classList.toggle('project-scroll-muted', !reduceMotion && itemIndex !== index);
@@ -79,43 +79,68 @@
                 counter.innerHTML = `<strong>${number}</strong> / ${total}`;
             };
 
-            if (!reduceMotion) {
-                const projectObserver = new IntersectionObserver(entries => {
-                    const visible = entries
-                        .filter(entry => entry.isIntersecting)
-                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
-                    if (visible) setActiveProject(projectItems.indexOf(visible.target));
-                }, { rootMargin: '-24% 0px -44% 0px', threshold: [0.1, 0.3, 0.55, 0.75] });
-                projectItems.forEach(item => projectObserver.observe(item));
+            // Use the project whose center is closest to the viewport center.
+            // This is much more reliable than IntersectionObserver for projects
+            // that are taller than the observer's intersection area.
+            const updateActiveProject = () => {
+                const viewportCenter = window.innerHeight * 0.5;
+                let closestIndex = 0;
+                let closestDistance = Infinity;
 
-                // Add a restrained depth shift while each project travels through the viewport.
+                projectItems.forEach((item, index) => {
+                    const rect = item.getBoundingClientRect();
+                    const center = rect.top + rect.height * 0.5;
+                    const distance = Math.abs(center - viewportCenter);
+                    if (distance < closestDistance) {
+                        closestDistance = distance;
+                        closestIndex = index;
+                    }
+                });
+
+                setActiveProject(closestIndex);
+            };
+
+            if (!reduceMotion) {
                 let ticking = false;
-                const updateProjectDepth = () => {
+                const updateProjectState = () => {
                     const viewportCenter = window.innerHeight * 0.5;
-                    projectItems.forEach(item => {
+                    let closestIndex = 0;
+                    let closestDistance = Infinity;
+
+                    projectItems.forEach((item, index) => {
                         const rect = item.getBoundingClientRect();
                         const center = rect.top + rect.height * 0.5;
-                        const distance = (center - viewportCenter) / Math.max(window.innerHeight, 1);
-                        const clamped = Math.max(-1, Math.min(1, distance));
+                        const distance = Math.abs(center - viewportCenter);
+                        if (distance < closestDistance) {
+                            closestDistance = distance;
+                            closestIndex = index;
+                        }
+
+                        const normalized = (center - viewportCenter) / Math.max(window.innerHeight, 1);
+                        const clamped = Math.max(-1, Math.min(1, normalized));
                         const lift = Math.abs(clamped) < 0.7 ? (1 - Math.abs(clamped) / 0.7) * 7 : 0;
                         item.style.setProperty('--project-depth', `${lift.toFixed(2)}px`);
                         item.style.setProperty('--project-progress', `${(1 - Math.min(1, Math.abs(clamped))).toFixed(2)}`);
                     });
+
+                    setActiveProject(closestIndex);
                     ticking = false;
                 };
+
                 window.addEventListener('scroll', () => {
                     if (!ticking) {
-                        requestAnimationFrame(updateProjectDepth);
+                        requestAnimationFrame(updateProjectState);
                         ticking = true;
                     }
                 }, { passive: true });
-                updateProjectDepth();
+
+                window.addEventListener('resize', updateActiveProject, { passive: true });
+                updateProjectState();
             } else {
                 setActiveProject(0);
             }
         }
 
-        // Premium back-to-top control.
         const topButton = document.createElement('button');
         topButton.className = 'scroll-top-control';
         topButton.type = 'button';
@@ -128,7 +153,6 @@
         syncTopButton();
         topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
 
-        // Subtle 3D depth on project visuals; disabled for touch/reduced-motion users.
         if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
             document.querySelectorAll('.project-visual').forEach(card => {
                 card.classList.add('premium-tilt');
@@ -142,7 +166,6 @@
             });
         }
 
-        // Add the professional contact form without changing the existing portfolio markup.
         const contact = document.querySelector('#contact');
         if (contact && !document.querySelector('#contact-form')) {
             const form = document.createElement('form');
