@@ -47,6 +47,74 @@
             sections.forEach(section => sectionObserver.observe(section));
         }
 
+        // Cinematic project-by-project scroll experience.
+        const projectSection = document.querySelector('#projects');
+        const projectItems = projectSection ? [...projectSection.querySelectorAll('.project-showcase')] : [];
+        if (projectItems.length) {
+            const rail = document.createElement('div');
+            rail.className = 'project-scroll-rail';
+            rail.setAttribute('aria-hidden', 'true');
+
+            const counter = document.createElement('span');
+            counter.className = 'project-scroll-counter';
+            rail.appendChild(counter);
+
+            const dots = projectItems.map((item, index) => {
+                const dot = document.createElement('span');
+                dot.className = 'project-scroll-dot';
+                dot.dataset.projectIndex = index;
+                rail.appendChild(dot);
+                return dot;
+            });
+            projectSection.appendChild(rail);
+
+            const setActiveProject = index => {
+                projectItems.forEach((item, itemIndex) => {
+                    item.classList.toggle('project-scroll-active', itemIndex === index);
+                    item.classList.toggle('project-scroll-muted', !reduceMotion && itemIndex !== index);
+                });
+                dots.forEach((dot, dotIndex) => dot.classList.toggle('is-active', dotIndex === index));
+                const number = String(index + 1).padStart(2, '0');
+                const total = String(projectItems.length).padStart(2, '0');
+                counter.innerHTML = `<strong>${number}</strong> / ${total}`;
+            };
+
+            if (!reduceMotion) {
+                const projectObserver = new IntersectionObserver(entries => {
+                    const visible = entries
+                        .filter(entry => entry.isIntersecting)
+                        .sort((a, b) => b.intersectionRatio - a.intersectionRatio)[0];
+                    if (visible) setActiveProject(projectItems.indexOf(visible.target));
+                }, { rootMargin: '-24% 0px -44% 0px', threshold: [0.1, 0.3, 0.55, 0.75] });
+                projectItems.forEach(item => projectObserver.observe(item));
+
+                // Add a restrained depth shift while each project travels through the viewport.
+                let ticking = false;
+                const updateProjectDepth = () => {
+                    const viewportCenter = window.innerHeight * 0.5;
+                    projectItems.forEach(item => {
+                        const rect = item.getBoundingClientRect();
+                        const center = rect.top + rect.height * 0.5;
+                        const distance = (center - viewportCenter) / Math.max(window.innerHeight, 1);
+                        const clamped = Math.max(-1, Math.min(1, distance));
+                        const lift = Math.abs(clamped) < 0.7 ? (1 - Math.abs(clamped) / 0.7) * 7 : 0;
+                        item.style.setProperty('--project-depth', `${lift.toFixed(2)}px`);
+                        item.style.setProperty('--project-progress', `${(1 - Math.min(1, Math.abs(clamped))).toFixed(2)}`);
+                    });
+                    ticking = false;
+                };
+                window.addEventListener('scroll', () => {
+                    if (!ticking) {
+                        requestAnimationFrame(updateProjectDepth);
+                        ticking = true;
+                    }
+                }, { passive: true });
+                updateProjectDepth();
+            } else {
+                setActiveProject(0);
+            }
+        }
+
         // Premium back-to-top control.
         const topButton = document.createElement('button');
         topButton.className = 'scroll-top-control';
