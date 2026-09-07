@@ -34,6 +34,8 @@
 
         const brand = document.querySelector('.nav-brand');
         if (brand) brand.textContent = 'Santhosh Kumar.';
+
+        desc.textContent = 'What’s worth building? I’m here to find out.';
     };
 
     if (document.readyState === 'loading') {
