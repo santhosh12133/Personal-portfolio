@@ -33,7 +33,9 @@
         title.setAttribute('aria-label', 'Hi, I’m Santhosh');
 
         const brand = document.querySelector('.nav-brand');
-        if (brand) brand.textContent = 'Santhosh Kumar.';
+        if (brand) {
+            brand.innerHTML = 'Santhosh Kumar<span class="brand-dot">.</span>';
+        }
 
         desc.textContent = 'What’s worth building? I’m here to find out.';
     };
