@@ -21,23 +21,16 @@
         title.insertAdjacentElement('beforebegin', tagline);
 
         title.innerHTML = '';
-        const question = document.createElement('span');
-        question.className = 'hero-question';
-        question.textContent = 'What happens when real-world problems become too complex for manual work?';
+        const greeting = document.createElement('span');
+        greeting.className = 'hero-greeting';
+        greeting.textContent = 'Hi, I’m';
 
-        title.appendChild(question);
-        title.setAttribute('aria-label', question.textContent);
+        const name = document.createElement('span');
+        name.className = 'hero-name';
+        name.textContent = 'Santhosh';
 
-        desc.innerHTML = '';
-        const solution = document.createElement('span');
-        solution.className = 'hero-solution';
-        solution.textContent = 'I build software that can understand them, process them, and turn them into action.';
-        desc.appendChild(solution);
-
-        const focus = document.createElement('div');
-        focus.className = 'hero-reference-focus';
-        focus.textContent = 'Backend systems · AI · APIs · RAG · Automation';
-        desc.insertAdjacentElement('afterend', focus);
+        title.append(greeting, name);
+        title.setAttribute('aria-label', 'Hi, I’m Santhosh');
 
         const brand = document.querySelector('.nav-brand');
         if (brand) brand.textContent = 'Santhosh Kumar.';
