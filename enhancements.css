@@ -57,6 +57,40 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 /* Remove the project showcase side accent introduced by the project choreography layer. */
 .project-showcase.premium-project-choreography::after { display:none !important; }
 
+/* Phase 3 / Skills: editorial capability cards without changing the original content. */
+.workflow.section-padding { position:relative; overflow:hidden; }
+.workflow.section-padding::before { content:''; position:absolute; width:42rem; height:42rem; top:4rem; right:-18rem; border-radius:50%; background:radial-gradient(circle,rgba(204,0,0,.075),transparent 68%); pointer-events:none; }
+.workflow.section-padding .section-title { position:relative; z-index:1; max-width:900px; margin-left:0; margin-right:auto; text-align:left; font-size:clamp(3.2rem,7vw,6.6rem); letter-spacing:-.055em; line-height:.94; }
+.workflow-grid { position:relative; z-index:1; gap:1px; background:rgba(255,255,255,.08); border:1px solid rgba(255,255,255,.08); }
+.workflow-card { position:relative; min-height:28rem; padding:2.75rem 2.5rem; border:0; border-radius:0; background:rgba(7,7,7,.72); overflow:hidden; isolation:isolate; transition:transform .6s var(--premium-ease),background .45s ease,box-shadow .45s ease; }
+.workflow-card::before { content:''; position:absolute; inset:0; background:linear-gradient(145deg,rgba(255,255,255,.035),transparent 42%,rgba(204,0,0,.045)); opacity:0; transition:opacity .5s ease; z-index:-1; }
+.workflow-card::after { content:''; position:absolute; left:2.5rem; right:2.5rem; bottom:0; height:2px; background:var(--accent-red); transform:scaleX(0); transform-origin:left; transition:transform .65s var(--premium-ease); }
+.workflow-card:hover { z-index:2; transform:translateY(-8px); background:rgba(12,12,12,.94); box-shadow:0 24px 60px rgba(0,0,0,.3); }
+.workflow-card:hover::before { opacity:1; }
+.workflow-card:hover::after { transform:scaleX(1); }
+.workflow-title { position:relative; margin:0 0 3.5rem; color:rgba(255,255,255,.58); font-size:.78rem; font-weight:600; letter-spacing:.2em; }
+.workflow-title::before { content:'0' counter(workflow-card); counter-increment:workflow-card; position:absolute; top:-.15rem; right:0; color:rgba(255,255,255,.13); font-size:3.8rem; font-weight:500; letter-spacing:-.06em; line-height:1; }
+.workflow-grid { counter-reset:workflow-card; }
+.workflow-card p { position:relative; margin:0; padding:.78rem 0; color:rgba(255,255,255,.86); font-size:clamp(1rem,1.2vw,1.16rem); line-height:1.35; border-bottom:1px solid rgba(255,255,255,.055); transition:color .3s ease,transform .45s var(--premium-ease); }
+.workflow-card p:last-child { border-bottom:0; }
+.workflow-card:hover p { color:#fff; transform:translateX(5px); }
+.workflow-card:hover .workflow-title { color:var(--accent-red); }
+.workflow-card:first-child:hover,.workflow-card:last-child:hover { background:linear-gradient(145deg,rgba(20,7,7,.96),rgba(8,8,8,.94)); }
+
+@media (max-width:900px) {
+    .workflow.section-padding .section-title { font-size:clamp(2.8rem,9vw,5rem); }
+    .workflow-card { min-height:24rem; padding:2.25rem 2rem; }
+}
+
+@media (max-width:700px) {
+    .workflow.section-padding .section-title { font-size:clamp(2.6rem,13vw,4rem); }
+    .workflow-grid { gap:1px; }
+    .workflow-card { min-height:auto; padding:2rem 1.5rem; }
+    .workflow-title { margin-bottom:2.5rem; }
+    .workflow-title::before { font-size:3rem; }
+    .workflow-card::after { left:1.5rem; right:1.5rem; }
+}
+
 /* Professional contact form */
 .premium-contact-form { width:min(100%,1080px); margin:3.5rem auto 0; padding:clamp(1.5rem,4vw,2.75rem); border:1px solid rgba(255,255,255,.10); border-radius:10px; background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012) 55%,rgba(204,0,0,.025)),rgba(8,8,8,.72); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 30px 90px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035); }
 .premium-contact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
@@ -106,4 +140,8 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
     .scroll-top-control { transition:none; }
     .premium-contact-actions .btn-primary { transition:none; }
     .cursor.premium-cursor-context { transition:none; }
+    .workflow-card { transition:none; }
+    .workflow-card:hover { transform:none; box-shadow:none; }
+    .workflow-card::before,.workflow-card::after { display:none; }
+    .workflow-card p { transition:none; }
 }
