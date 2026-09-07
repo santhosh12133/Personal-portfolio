@@ -173,6 +173,40 @@
                     element.style.transform = '';
                 });
             });
+
+            // Contextual states extend the original custom cursor; the original cursor remains the source of truth.
+            const cursor = document.getElementById('custom-cursor');
+            const cursorText = cursor ? cursor.querySelector('.cursor-text') : null;
+            if (cursor && cursorText) {
+                const clearCursorContext = () => {
+                    cursor.classList.remove('premium-cursor-context', 'cursor-context-link', 'cursor-context-project');
+                    cursorText.textContent = '';
+                };
+
+                const contextTargets = [
+                    ...document.querySelectorAll('.project-visual'),
+                    ...document.querySelectorAll('.nav-links a, .btn, .footer-links a, .footer-socials a, .footer-top-link, .copy-contact')
+                ].filter((element, index, list) => list.indexOf(element) === index);
+
+                contextTargets.forEach(element => {
+                    element.addEventListener('pointerenter', () => {
+                        cursor.classList.add('premium-cursor-context');
+                        cursor.classList.remove('cursor-context-link', 'cursor-context-project');
+
+                        if (element.closest('#projects') && element.classList.contains('project-visual')) {
+                            cursor.classList.add('cursor-context-project');
+                            cursorText.textContent = 'VIEW';
+                        } else if (element.classList.contains('btn-primary') || element.classList.contains('nav-cta')) {
+                            cursor.classList.add('cursor-context-link');
+                            cursorText.textContent = 'OPEN';
+                        } else {
+                            cursor.classList.add('cursor-context-link');
+                            cursorText.textContent = 'LINK';
+                        }
+                    });
+                    element.addEventListener('pointerleave', clearCursorContext);
+                });
+            }
         }
 
         const contact = document.querySelector('#contact');
