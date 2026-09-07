@@ -18,9 +18,9 @@
     inset: 0;
     pointer-events: none;
     background:
-        linear-gradient(90deg, rgba(4,4,4,.78) 0%, rgba(4,4,4,.48) 38%, rgba(4,4,4,.12) 66%, transparent 82%),
-        radial-gradient(circle at 70% 48%, rgba(204,0,0,.12), transparent 31%),
-        linear-gradient(180deg, rgba(0,0,0,.12) 0%, transparent 38%, rgba(0,0,0,.32) 100%);
+        linear-gradient(90deg, rgba(4,4,4,.42) 0%, rgba(4,4,4,.24) 34%, rgba(4,4,4,.07) 60%, transparent 82%),
+        radial-gradient(circle at 70% 48%, rgba(204,0,0,.10), transparent 31%),
+        linear-gradient(180deg, rgba(0,0,0,.08) 0%, transparent 42%, rgba(0,0,0,.20) 100%);
     z-index: 0;
 }
 
@@ -61,6 +61,7 @@
     letter-spacing: -.065em;
     color: var(--text-main);
     text-wrap: balance;
+    text-shadow: 0 2px 28px rgba(0,0,0,.22);
 }
 
 .hero.hero-reference .hero-title .hero-greeting,
@@ -71,16 +72,17 @@
 .hero.hero-reference .hero-title .hero-name {
     color: #ff2b2b;
     max-width: 680px;
-    text-shadow: 0 10px 42px rgba(204,0,0,.1);
+    text-shadow: 0 10px 42px rgba(204,0,0,.12);
 }
 
 .hero.hero-reference .hero-desc {
     max-width: 650px;
     margin: 0 0 2.15rem;
-    color: rgba(255,255,255,.64);
+    color: rgba(255,255,255,.68);
     font-size: clamp(1rem, 1.35vw, 1.2rem);
     line-height: 1.7;
     letter-spacing: -.012em;
+    text-shadow: 0 2px 18px rgba(0,0,0,.28);
 }
 
 .hero-reference-tagline {
@@ -88,7 +90,7 @@
     align-items: center;
     gap: .9rem;
     margin-bottom: 1.8rem;
-    color: rgba(255,255,255,.58);
+    color: rgba(255,255,255,.62);
     font-size: .74rem;
     font-weight: 600;
     letter-spacing: .22em;
@@ -114,12 +116,12 @@
     font-size: .92rem;
     font-weight: 650;
     letter-spacing: .045em;
-    border: 1px solid rgba(255,255,255,.06);
-    box-shadow: 0 16px 40px rgba(204,0,0,.14);
+    border: 1px solid rgba(255,255,255,.10);
+    box-shadow: 0 16px 40px rgba(204,0,0,.12);
 }
 
 .hero.hero-reference .btn-primary:hover {
-    box-shadow: 0 20px 48px rgba(204,0,0,.2);
+    box-shadow: 0 20px 48px rgba(204,0,0,.18);
 }
 
 .hero-reference-section-marker {
@@ -172,8 +174,8 @@
 
     .hero.hero-reference::before {
         background:
-            linear-gradient(180deg, rgba(5,5,5,.44) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.84) 100%),
-            radial-gradient(circle at 65% 42%, rgba(204,0,0,.1), transparent 34%);
+            linear-gradient(180deg, rgba(5,5,5,.28) 0%, rgba(5,5,5,.18) 40%, rgba(5,5,5,.62) 100%),
+            radial-gradient(circle at 65% 42%, rgba(204,0,0,.08), transparent 34%);
     }
 
     .hero.hero-reference .hero-content {
