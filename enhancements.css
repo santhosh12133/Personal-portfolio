@@ -13,19 +13,9 @@
 @keyframes transitionSweep { 0%{left:-22%;opacity:0} 18%{opacity:1} 58%{left:42%;opacity:1} 100%{left:104%;opacity:0} }
 @keyframes transitionLine { 0%{transform:translate(-50%,-50%) scaleY(.15);opacity:0} 35%{transform:translate(-50%,-50%) scaleY(1);opacity:1} 100%{transform:translate(-50%,-50%) scaleY(.2);opacity:0} }
 
-/* Premium page-by-page scrolling */
-html { scroll-behavior:smooth; scroll-padding-top:76px; scroll-snap-type:y mandatory; scrollbar-gutter:stable; }
+/* Keep normal browser scrolling; do not force sections to snap. */
+html { scroll-behavior:smooth; scroll-padding-top:76px; scrollbar-gutter:stable; }
 body { scroll-behavior:smooth; overscroll-behavior-y:none; }
-.content-wrapper > section { scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:76px; }
-.content-wrapper > section + section { scroll-margin-top:76px; }
-.content-wrapper > section.fade-in-section { transition:opacity .9s var(--premium-ease),transform .9s var(--premium-ease),filter .9s var(--premium-ease); filter:blur(0); }
-.content-wrapper > section.fade-in-section:not(.is-visible) { filter:blur(2px); }
-
-/* Keep the footer reachable as the final snap destination. */
-.content-wrapper > footer { scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:76px; }
-
-/* The contact section is the last full-page section. Allow the scroll to pass its end so the footer can become the next snap destination. */
-#contact { scroll-snap-stop:normal; }
 
 /* Remove the page progress rail completely */
 .page-scroll-rail { display:none !important; }
@@ -41,6 +31,10 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 
 /* Subtle premium depth on project visuals */
 .premium-tilt { transform-style:preserve-3d; will-change:transform; transition:transform .55s var(--premium-ease); }
+
+/* Project numbers: gray by default, red only for the project currently in view. */
+.project-num { color:var(--border-subtle); transition:color .3s ease; }
+.project-showcase.project-current .project-num { color:var(--accent-red); }
 
 /* Professional contact form */
 .premium-contact-form { width:min(100%,1080px); margin:3.5rem auto 0; padding:clamp(1.5rem,4vw,2.75rem); border:1px solid rgba(255,255,255,.10); border-radius:10px; background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012) 55%,rgba(204,0,0,.025)),rgba(8,8,8,.72); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 30px 90px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035); }
@@ -75,8 +69,6 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 }
 
 @media (max-width:700px) {
-    html { scroll-snap-type:y proximity; }
-    .content-wrapper > section { scroll-snap-stop:normal; }
     .premium-contact-form { margin-top:2.5rem; padding:1.25rem; border-radius:8px; }
     .premium-contact-grid { grid-template-columns:1fr; gap:1.15rem; }
     .premium-contact-field.full { grid-column:auto; }
@@ -86,7 +78,7 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 }
 
 @media (prefers-reduced-motion:reduce) {
-    html,body { scroll-behavior:auto; scroll-snap-type:none; }
+    html,body { scroll-behavior:auto; }
     .section-transition { display:none; }
     .premium-tilt { transform:none !important; transition:none; }
     .scroll-top-control { transition:none; }
