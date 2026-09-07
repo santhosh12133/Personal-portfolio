@@ -1,0 +1,19 @@
+/* Phase 2 — editorial hero entrance. Isolated from the original stylesheet. */
+.phase2-hero { position:relative; }
+.phase2-hero .phase2-title-word { display:inline-block; opacity:0; transform:translate3d(0,1.1em,0) rotateX(-18deg); transform-origin:50% 100%; filter:blur(5px); animation:phase2WordIn .9s cubic-bezier(.16,1,.3,1) forwards; animation-delay:var(--phase2-delay,0s); }
+.phase2-hero .phase2-desc-line { opacity:0; transform:translate3d(0,16px,0); filter:blur(3px); animation:phase2DescIn .8s cubic-bezier(.16,1,.3,1) forwards; animation-delay:var(--phase2-delay,0s); }
+.phase2-hero .phase2-action { opacity:0; transform:translate3d(0,14px,0); animation:phase2ActionIn .75s cubic-bezier(.16,1,.3,1) forwards; animation-delay:var(--phase2-delay,0s); }
+.phase2-hero .phase2-visual { opacity:0; transform:translate3d(28px,0,0) scale(.965); filter:grayscale(.2) brightness(.78); animation:phase2VisualIn 1.2s cubic-bezier(.16,1,.3,1) .45s forwards; }
+.phase2-hero .phase2-visual::after { content:''; position:absolute; inset:12%; border:1px solid rgba(204,0,0,.18); opacity:0; transform:scale(.9); animation:phase2FrameIn 1s cubic-bezier(.16,1,.3,1) 1s forwards; pointer-events:none; }
+@keyframes phase2WordIn { 0%{opacity:0;transform:translate3d(0,1.1em,0) rotateX(-18deg);filter:blur(5px)} 100%{opacity:1;transform:translate3d(0,0,0) rotateX(0);filter:blur(0)} }
+@keyframes phase2DescIn { 0%{opacity:0;transform:translate3d(0,16px,0);filter:blur(3px)} 100%{opacity:1;transform:translate3d(0,0,0);filter:blur(0)} }
+@keyframes phase2ActionIn { 0%{opacity:0;transform:translate3d(0,14px,0)} 100%{opacity:1;transform:translate3d(0,0,0)} }
+@keyframes phase2VisualIn { 0%{opacity:0;transform:translate3d(28px,0,0) scale(.965);filter:grayscale(.2) brightness(.78)} 100%{opacity:1;transform:translate3d(0,0,0) scale(1);filter:grayscale(0) brightness(1)} }
+@keyframes phase2FrameIn { 0%{opacity:0;transform:scale(.9)} 100%{opacity:1;transform:scale(1)} }
+@media (max-width:700px) {
+  .phase2-hero .phase2-visual { transform:translate3d(0,20px,0) scale(.98); }
+  .phase2-hero .phase2-visual::after { inset:8%; }
+}
+@media (prefers-reduced-motion:reduce) {
+  .phase2-hero .phase2-title-word,.phase2-hero .phase2-desc-line,.phase2-hero .phase2-action,.phase2-hero .phase2-visual,.phase2-hero .phase2-visual::after { animation:none; opacity:1; transform:none; filter:none; }
+}
