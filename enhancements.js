@@ -70,14 +70,22 @@
 
         if (!reduceMotion && window.matchMedia('(pointer: fine)').matches) {
             document.querySelectorAll('.project-visual').forEach(card => {
-                card.classList.add('premium-tilt');
+                card.classList.add('premium-tilt', 'premium-spotlight');
                 card.addEventListener('pointermove', event => {
                     const rect = card.getBoundingClientRect();
-                    const x = (event.clientX - rect.left) / rect.width - 0.5;
-                    const y = (event.clientY - rect.top) / rect.height - 0.5;
-                    card.style.transform = `perspective(1100px) rotateX(${(-y * 2.2).toFixed(2)}deg) rotateY(${(x * 2.2).toFixed(2)}deg) translateY(-3px)`;
+                    const x = (event.clientX - rect.left) / rect.width;
+                    const y = (event.clientY - rect.top) / rect.height;
+                    card.style.setProperty('--spotlight-x', `${(x * 100).toFixed(1)}%`);
+                    card.style.setProperty('--spotlight-y', `${(y * 100).toFixed(1)}%`);
+                    const tiltX = y - 0.5;
+                    const tiltY = x - 0.5;
+                    card.style.transform = `perspective(1100px) rotateX(${(-tiltX * 2.2).toFixed(2)}deg) rotateY(${(tiltY * 2.2).toFixed(2)}deg) translateY(-3px)`;
                 });
-                card.addEventListener('pointerleave', () => { card.style.transform = ''; });
+                card.addEventListener('pointerleave', () => {
+                    card.style.transform = '';
+                    card.style.removeProperty('--spotlight-x');
+                    card.style.removeProperty('--spotlight-y');
+                });
             });
         }
 
