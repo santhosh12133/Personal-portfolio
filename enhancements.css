@@ -24,6 +24,9 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 /* Keep the footer reachable as the final snap destination. */
 .content-wrapper > footer { scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:76px; }
 
+/* The contact section is the last full-page section. Allow the scroll to pass its end so the footer can become the next snap destination. */
+#contact { scroll-snap-stop:normal; }
+
 /* Remove the page progress rail completely */
 .page-scroll-rail { display:none !important; }
 
