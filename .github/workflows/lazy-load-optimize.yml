@@ -1,0 +1,93 @@
+name: Apply lazy-loading optimization
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  optimize:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply lazy-loading change
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          text = p.read_text(encoding='utf-8')
+          old = """        const backgroundVideo = document.createElement('video');
+        backgroundVideo.src = './background-animation.webm';
+        backgroundVideo.muted = true;
+        backgroundVideo.playsInline = true;
+        // Detect mobile/touch devices for lower-cost rendering
+        const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+        // Use metadata preload on mobile to avoid downloading the full video on page load
+        backgroundVideo.preload = isMobile ? 'metadata' : 'auto';"""
+          new = """        const backgroundVideo = document.createElement('video');
+        backgroundVideo.muted = true;
+        backgroundVideo.playsInline = true;
+        // Detect mobile/touch devices for lower-cost rendering
+        const isMobile = window.matchMedia('(pointer: coarse)').matches || window.innerWidth <= 768;
+        // Keep the background video unloaded until it is actually needed.
+        backgroundVideo.preload = 'none';"""
+          if old not in text:
+              raise SystemExit('Expected background video initialization was not found.')
+          text = text.replace(old, new, 1)
+          old = """        // Defer video loading to avoid blocking the main thread during page load
+        if (prefersReducedMotion) {
+            canvas.style.visibility = 'hidden';
+        } else {
+            const loadVideo = () => backgroundVideo.load();
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(loadVideo, { timeout: 2000 });
+            } else {
+                window.setTimeout(loadVideo, 0);
+            }
+        }"""
+          new = """        // Defer video loading until the hero is actually needed, then load during idle time.
+        if (prefersReducedMotion) {
+            canvas.style.visibility = 'hidden';
+        } else {
+            let backgroundVideoLoaded = false;
+            const loadVideo = () => {
+                if (backgroundVideoLoaded || prefersReducedMotion) return;
+                backgroundVideoLoaded = true;
+                backgroundVideo.src = './background-animation.webm';
+                backgroundVideo.load();
+            };
+
+            const deferVideoLoad = () => {
+                if ('requestIdleCallback' in window) {
+                    window.requestIdleCallback(loadVideo, { timeout: 2000 });
+                } else {
+                    window.setTimeout(loadVideo, 0);
+                }
+            };
+
+            const backgroundObserver = new IntersectionObserver(entries => {
+                if (entries.some(entry => entry.isIntersecting)) {
+                    deferVideoLoad();
+                    backgroundObserver.disconnect();
+                }
+            }, { rootMargin: '200px 0px' });
+
+            backgroundObserver.observe(homeSection);
+        }"""
+          if old not in text:
+              raise SystemExit('Expected deferred video loading block was not found.')
+          text = text.replace(old, new, 1)
+          p.write_text(text, encoding='utf-8')
+          PY
+      - name: Commit optimization and remove workflow
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          rm -f .github/workflows/lazy-load-optimize.yml
+          git add index.html .github/workflows/lazy-load-optimize.yml
+          git diff --cached --quiet && exit 0
+          git commit -m "perf: defer background video loading"
+          git push
