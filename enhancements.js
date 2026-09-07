@@ -44,6 +44,18 @@
             sections.forEach(section => sectionObserver.observe(section));
         }
 
+        // Highlight only the project currently being viewed.
+        const projects = [...document.querySelectorAll('#projects .project-showcase')];
+        if (projects.length) {
+            const projectObserver = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) entry.target.classList.add('project-current');
+                    else entry.target.classList.remove('project-current');
+                });
+            }, { rootMargin: '-35% 0px -45% 0px', threshold: 0 });
+            projects.forEach(project => projectObserver.observe(project));
+        }
+
         const topButton = document.createElement('button');
         topButton.className = 'scroll-top-control';
         topButton.type = 'button';
