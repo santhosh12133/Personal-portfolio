@@ -32,14 +32,8 @@
         title.append(greeting, name);
         title.setAttribute('aria-label', 'Hi, I’m Santhosh Kumar');
 
-        const marker = document.createElement('div');
-        marker.className = 'hero-reference-section-marker';
-        marker.textContent = '01 / ABOUT';
-        marker.setAttribute('aria-hidden', 'true');
-        hero.appendChild(marker);
-
         const brand = document.querySelector('.nav-brand');
-        if (brand) brand.textContent = 'Santhosh.';
+        if (brand) brand.textContent = 'Santhosh Kumar';
     };
 
     if (document.readyState === 'loading') {
