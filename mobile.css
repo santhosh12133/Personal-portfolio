@@ -1,0 +1,101 @@
+/* Mobile presentation layer — preserves the desktop design and original content. */
+
+@media (max-width: 700px) {
+    html { font-size: 15px; scroll-padding-top: 68px; }
+    body { cursor: auto; overflow-x: hidden; }
+    .cursor { display: none !important; }
+
+    .navbar,
+    .nav-scrolled { padding: 1rem 1.15rem; }
+    .nav-brand { font-size: .9rem; letter-spacing: .07em; }
+    .nav-links { gap: 1.15rem; }
+    .nav-links a { font-size: .72rem; }
+    .nav-cta { display: none; }
+    .mobile-menu-btn { display: flex; }
+
+    .section-padding { width: 100%; padding: 5.5rem 1.15rem; }
+    .section-number { font-size: .66rem; margin-bottom: 1.15rem; letter-spacing: .12em; }
+    .section-title { font-size: clamp(2.25rem, 11vw, 3.35rem); line-height: .98; margin-bottom: 2.25rem; }
+    .huge-title { font-size: clamp(3rem, 15vw, 4.6rem); line-height: .92; margin-bottom: 1.5rem; }
+
+    .hero.hero-reference { min-height: 100svh; padding: 7rem 1.15rem 3rem; align-items: flex-end; }
+    .hero.hero-reference .hero-content { width: 100%; max-width: none; margin: 0 0 3vh; }
+    .hero.hero-reference .hero-title { max-width: 100%; margin-bottom: 1.2rem; font-size: clamp(3.25rem, 15.5vw, 5.3rem); line-height: .91; letter-spacing: -.065em; }
+    .hero.hero-reference .hero-desc { max-width: 100%; margin-bottom: 1.5rem; font-size: .98rem; line-height: 1.6; }
+    .hero-reference-tagline { margin-bottom: 1rem; font-size: .62rem; letter-spacing: .14em; }
+    .hero.hero-reference .btn-primary { width: 100%; min-width: 0; min-height: 52px; padding: .9rem 1.2rem; text-align: center; }
+    .hero.hero-reference::before { background: linear-gradient(180deg, rgba(5,5,5,.1) 20%, rgba(5,5,5,.52) 55%, rgba(5,5,5,.94) 100%); }
+
+    .about-content,
+    .credentials-grid,
+    .contact { grid-template-columns: 1fr; }
+    .about-content { gap: 2rem; }
+
+    .project-showcase,
+    .project-showcase.reverse { grid-template-columns: 1fr; gap: 2rem; }
+    .project-showcase.reverse .project-meta,
+    .project-showcase.reverse .project-visual { order: initial; }
+    .project-meta { min-width: 0; }
+    .project-num { font-size: 3rem; margin-bottom: .75rem; }
+    .project-title { font-size: clamp(1.75rem, 8vw, 2.5rem); line-height: 1.02; }
+    .project-subtitle { margin-bottom: 1.2rem; font-size: .86rem; }
+    .project-desc { margin-bottom: 1.35rem; font-size: .92rem; line-height: 1.65; }
+    .project-highlights { margin-bottom: 1.35rem; }
+    .project-highlights li { margin-bottom: .6rem; font-size: .88rem; }
+    .tech-tags { gap: .4rem; margin-bottom: 1.5rem; }
+    .tech-tags span { font-size: .67rem; padding: .32rem .55rem; }
+    .project-links .btn { width: 100%; text-align: center; }
+
+    .project-visual { height: auto; min-height: 360px; max-height: 520px; }
+    .architecture { padding: .85rem; overflow-y: auto; -webkit-overflow-scrolling: touch; }
+    .architecture-heading { gap: .5rem; flex-wrap: wrap; }
+    .architecture-kicker { font-size: .52rem; }
+    .architecture-status { font-size: .52rem; }
+    .architecture-node { padding: .65rem; }
+    .architecture-node strong { font-size: .62rem; }
+    .architecture-node span { font-size: .54rem; }
+
+    .credentials-grid { gap: 3rem; }
+    .credentials .section-title { font-size: clamp(2.35rem, 12vw, 3.3rem); max-width: 100%; margin-bottom: 1.75rem; }
+    .pub-item { margin-bottom: 2rem; }
+    .pub-title { font-size: .98rem; line-height: 1.5; }
+    .pub-meta { font-size: .76rem; margin-bottom: .8rem; }
+    .pub-metrics { flex-wrap: wrap; gap: .5rem; }
+    .pub-metrics span { font-size: .65rem; padding: .32rem .5rem; }
+    .cert-list li { padding: 1.15rem 0; }
+    .cert-name { font-size: .92rem; line-height: 1.4; }
+    .cert-org { font-size: .76rem; }
+
+    .workflow.section-padding .section-title { font-size: clamp(2.65rem, 13vw, 4rem); margin-bottom: 2rem; }
+    .workflow-grid { grid-template-columns: 1fr; }
+    .workflow-card { min-height: 0; padding: 2rem 1.35rem; }
+    .workflow-title { margin-bottom: 2rem; }
+    .workflow-title::before { font-size: 3rem; }
+    .workflow-card p { font-size: .95rem; padding: .68rem 0; }
+
+    #contact .premium-contact-form { position: relative; top: auto; right: auto; width: 100%; margin: 2rem 0 0; }
+    .contact-desc { max-width: 100%; font-size: 1rem; line-height: 1.65; margin-bottom: 1.75rem; }
+    .contact-actions { margin-bottom: 2rem; }
+    .contact-actions .btn { width: 100%; text-align: center; }
+    .premium-contact-form { padding: 1rem; }
+    .premium-contact-field textarea { min-height: 105px; }
+
+    .footer { padding: 3rem 1.15rem 2rem; }
+    .footer-inner, .footer-top-bar, .footer-bottom-bar { gap: 1rem; }
+    .footer-top-bar, .footer-bottom-bar { flex-direction: column; align-items: flex-start; }
+}
+
+@media (max-width: 420px) {
+    .section-padding { padding-left: 1rem; padding-right: 1rem; }
+    .hero.hero-reference { padding-left: 1rem; padding-right: 1rem; }
+    .hero.hero-reference .hero-title { font-size: clamp(3rem, 15.5vw, 4.35rem); }
+    .project-visual { min-height: 330px; }
+    .architecture { padding: .7rem; }
+    .workflow-card { padding: 1.75rem 1.15rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .project-showcase.is-visible .project-visual:hover,
+    .workflow-card:hover,
+    .premium-contact-actions .btn-primary:hover { transform: none; }
+}
