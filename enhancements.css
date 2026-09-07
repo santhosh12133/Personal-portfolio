@@ -21,6 +21,9 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 .content-wrapper > section.fade-in-section { transition:opacity .9s var(--premium-ease),transform .9s var(--premium-ease),filter .9s var(--premium-ease); filter:blur(0); }
 .content-wrapper > section.fade-in-section:not(.is-visible) { filter:blur(2px); }
 
+/* Keep the footer reachable as the final snap destination. */
+.content-wrapper > footer { scroll-snap-align:start; scroll-snap-stop:always; scroll-margin-top:76px; }
+
 /* Remove the page progress rail completely */
 .page-scroll-rail { display:none !important; }
 
