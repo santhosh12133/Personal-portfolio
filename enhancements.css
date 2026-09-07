@@ -48,6 +48,12 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 .premium-magnetic:hover { z-index:2; }
 .premium-magnetic.is-magnetic-active { box-shadow:0 14px 34px rgba(0,0,0,.22); }
 
+/* Phase 1 cursor context: extend the existing custom cursor without replacing it. */
+.cursor.premium-cursor-context { transition:width .35s var(--premium-ease),height .35s var(--premium-ease),background-color .3s ease,border-color .3s ease,box-shadow .35s ease; }
+.cursor.premium-cursor-context.cursor-context-link { width:38px; height:38px; background:rgba(204,0,0,.08); border:1px solid rgba(204,0,0,.7); box-shadow:0 0 0 7px rgba(204,0,0,.05); mix-blend-mode:normal; }
+.cursor.premium-cursor-context.cursor-context-project { width:76px; height:76px; background:rgba(204,0,0,.88); border:1px solid rgba(255,255,255,.28); box-shadow:0 0 45px rgba(204,0,0,.18); mix-blend-mode:normal; }
+.cursor.premium-cursor-context .cursor-text { letter-spacing:.12em; font-size:.56rem; }
+
 /* Professional contact form */
 .premium-contact-form { width:min(100%,1080px); margin:3.5rem auto 0; padding:clamp(1.5rem,4vw,2.75rem); border:1px solid rgba(255,255,255,.10); border-radius:10px; background:linear-gradient(145deg,rgba(255,255,255,.045),rgba(255,255,255,.012) 55%,rgba(204,0,0,.025)),rgba(8,8,8,.72); backdrop-filter:blur(18px); -webkit-backdrop-filter:blur(18px); box-shadow:0 30px 90px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.035); }
 .premium-contact-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:1.5rem; }
@@ -96,4 +102,5 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
     .premium-spotlight::after,.premium-spotlight::before { display:none; }
     .scroll-top-control { transition:none; }
     .premium-contact-actions .btn-primary { transition:none; }
+    .cursor.premium-cursor-context { transition:none; }
 }
