@@ -54,6 +54,68 @@
                 });
             }, { rootMargin: '-35% 0px -45% 0px', threshold: 0 });
             projects.forEach(project => projectObserver.observe(project));
+
+            // Isolated project-cover choreography: a restrained editorial reveal as each project enters view.
+            if (!reduceMotion) {
+                const choreographyStyle = document.createElement('style');
+                choreographyStyle.textContent = `
+                    #projects .project-showcase.premium-project-choreography .project-visual {
+                        clip-path: inset(0 0 0 9% round 2px);
+                        transform: translate3d(26px, 0, 0) scale(.985);
+                        transition: clip-path .9s var(--premium-ease), transform .9s var(--premium-ease), filter .9s ease;
+                        filter: saturate(.82) brightness(.88);
+                    }
+                    #projects .project-showcase.premium-project-choreography.reverse .project-visual {
+                        clip-path: inset(0 9% 0 0 round 2px);
+                        transform: translate3d(-26px, 0, 0) scale(.985);
+                    }
+                    #projects .project-showcase.premium-project-choreography.is-premium-entered .project-visual,
+                    #projects .project-showcase.premium-project-choreography.reverse.is-premium-entered .project-visual {
+                        clip-path: inset(0 0 0 0 round 2px);
+                        transform: translate3d(0, 0, 0) scale(1);
+                        filter: saturate(1) brightness(1);
+                    }
+                    #projects .project-showcase.premium-project-choreography::after {
+                        content:'';
+                        position:absolute;
+                        left:0;
+                        top:10%;
+                        bottom:10%;
+                        width:1px;
+                        background:linear-gradient(180deg, transparent, rgba(204,0,0,.7), transparent);
+                        opacity:0;
+                        transform:scaleY(.25);
+                        transform-origin:center;
+                        transition:opacity .7s ease .12s, transform .8s var(--premium-ease) .12s;
+                        pointer-events:none;
+                    }
+                    #projects .project-showcase.premium-project-choreography.is-premium-entered::after {
+                        opacity:1;
+                        transform:scaleY(1);
+                    }
+                    @media (max-width: 700px) {
+                        #projects .project-showcase.premium-project-choreography .project-visual,
+                        #projects .project-showcase.premium-project-choreography.reverse .project-visual {
+                            clip-path: inset(0 0 0 0 round 2px);
+                            transform: translate3d(0, 18px, 0) scale(.99);
+                        }
+                        #projects .project-showcase.premium-project-choreography.is-premium-entered .project-visual,
+                        #projects .project-showcase.premium-project-choreography.reverse.is-premium-entered .project-visual {
+                            transform: translate3d(0, 0, 0) scale(1);
+                        }
+                    }
+                `;
+                document.head.appendChild(choreographyStyle);
+
+                projects.forEach(project => project.classList.add('premium-project-choreography'));
+
+                const choreographyObserver = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) entry.target.classList.add('is-premium-entered');
+                    });
+                }, { rootMargin: '-12% 0px -38% 0px', threshold: 0.05 });
+                projects.forEach(project => choreographyObserver.observe(project));
+            }
         }
 
         const topButton = document.createElement('button');
