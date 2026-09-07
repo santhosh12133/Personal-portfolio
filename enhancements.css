@@ -21,13 +21,8 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
 .content-wrapper > section.fade-in-section { transition:opacity .9s var(--premium-ease),transform .9s var(--premium-ease),filter .9s var(--premium-ease); filter:blur(0); }
 .content-wrapper > section.fade-in-section:not(.is-visible) { filter:blur(2px); }
 
-/* Site-wide page progress rail */
-.page-scroll-rail { position:fixed; right:clamp(1rem,2.2vw,2rem); top:50%; transform:translateY(-50%); width:52px; min-height:240px; display:flex; flex-direction:column; align-items:center; justify-content:center; gap:9px; pointer-events:none; z-index:95; }
-.page-scroll-rail::before { content:''; position:absolute; top:4px; bottom:4px; width:1px; background:linear-gradient(180deg,transparent,rgba(255,255,255,.13) 18%,rgba(255,255,255,.13) 82%,transparent); }
-.page-scroll-dot { position:relative; width:3px; height:22px; border:0; border-radius:4px; background:rgba(255,255,255,.18); transform-origin:center; transition:height .45s var(--premium-ease),background .35s ease,box-shadow .35s ease,transform .45s var(--premium-ease),opacity .35s ease; }
-.page-scroll-dot.is-active { height:38px; background:var(--accent-red); box-shadow:0 0 16px rgba(204,0,0,.38); transform:scaleX(1.25); }
-.page-scroll-counter { position:absolute; right:58px; top:50%; transform:translateY(-50%); min-width:62px; color:rgba(255,255,255,.42); font-size:.62rem; letter-spacing:.14em; text-align:right; white-space:nowrap; }
-.page-scroll-counter strong { color:var(--text-main); font-size:.84rem; font-weight:500; }
+/* Remove the page progress rail completely */
+.page-scroll-rail { display:none !important; }
 
 /* Active section indicator */
 .nav-links a.is-active { color:var(--text-main); }
@@ -82,7 +77,6 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
     .premium-contact-actions { align-items:stretch; flex-direction:column; }
     .premium-contact-actions .btn-primary { width:100%; }
     .scroll-top-control { right:1rem; bottom:1rem; }
-    .page-scroll-rail { display:none; }
 }
 
 @media (prefers-reduced-motion:reduce) {
@@ -91,5 +85,4 @@ body { scroll-behavior:smooth; overscroll-behavior-y:none; }
     .premium-tilt { transform:none !important; transition:none; }
     .scroll-top-control { transition:none; }
     .premium-contact-actions .btn-primary { transition:none; }
-    .page-scroll-rail { display:none; }
 }
