@@ -1,0 +1,185 @@
+/* Hero reference redesign — clean cinematic composition, no decorative frames or UI boxes. */
+.hero.hero-reference {
+    min-height: 100svh;
+    max-width: none;
+    width: 100%;
+    margin: 0;
+    padding: 8.5rem 5% 4rem;
+    display: flex;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.hero.hero-reference::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: linear-gradient(90deg, rgba(5,5,5,.58) 0%, rgba(5,5,5,.28) 42%, transparent 72%);
+    z-index: 0;
+}
+
+.hero.hero-reference .hero-content {
+    width: min(760px, 58vw);
+    position: relative;
+    z-index: 2;
+    margin-top: -1rem;
+}
+
+/* The photographic portrait already comes from the portfolio's background layer. */
+.hero.hero-reference .hero-visual,
+.hero.hero-reference .portrait-container,
+.hero.hero-reference .portrait-glow {
+    display: none !important;
+}
+
+.hero.hero-reference .hero-title {
+    margin: 0 0 1.6rem;
+    max-width: 780px;
+    font-size: clamp(3.7rem, 7vw, 7.25rem);
+    line-height: .91;
+    font-weight: 700;
+    letter-spacing: -.065em;
+    color: var(--text-main);
+}
+
+.hero.hero-reference .hero-title .hero-greeting,
+.hero.hero-reference .hero-title .hero-name {
+    display: block;
+}
+
+.hero.hero-reference .hero-title .hero-name {
+    color: #ff2b2b;
+}
+
+.hero.hero-reference .hero-desc {
+    max-width: 690px;
+    margin: 0 0 2rem;
+    color: rgba(255,255,255,.68);
+    font-size: clamp(1rem, 1.45vw, 1.3rem);
+    line-height: 1.65;
+}
+
+.hero-reference-tagline {
+    display: flex;
+    align-items: center;
+    gap: .9rem;
+    margin-bottom: 1.8rem;
+    color: rgba(255,255,255,.62);
+    font-size: .78rem;
+    font-weight: 500;
+    letter-spacing: .2em;
+    text-transform: uppercase;
+}
+
+.hero-reference-tagline::before {
+    content: '';
+    width: 3.1rem;
+    height: 2px;
+    flex: 0 0 auto;
+    background: #ff2020;
+}
+
+.hero.hero-reference .hero-actions {
+    margin-top: .2rem;
+}
+
+.hero.hero-reference .btn-primary {
+    min-width: 278px;
+    padding: 1.15rem 2.35rem;
+    font-size: 1rem;
+    font-weight: 600;
+    box-shadow: 0 14px 34px rgba(204,0,0,.12);
+}
+
+.hero-reference-section-marker {
+    position: absolute;
+    left: 5%;
+    bottom: 2.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,.58);
+    font-size: .76rem;
+    letter-spacing: .16em;
+    z-index: 3;
+}
+
+.hero-reference-section-marker::after {
+    content: '';
+    width: 17rem;
+    height: 1px;
+    background: rgba(255,255,255,.24);
+}
+
+@media (max-width: 900px) {
+    .hero.hero-reference {
+        padding-top: 8rem;
+        align-items: flex-end;
+    }
+
+    .hero.hero-reference .hero-content {
+        width: min(720px, 90vw);
+        margin-bottom: 7rem;
+    }
+
+    .hero.hero-reference .hero-title {
+        font-size: clamp(3.2rem, 10vw, 5.6rem);
+    }
+}
+
+@media (max-width: 700px) {
+    .hero.hero-reference {
+        min-height: 100svh;
+        padding: 7rem 6% 2rem;
+        align-items: flex-end;
+    }
+
+    .hero.hero-reference::before {
+        background: linear-gradient(180deg, rgba(5,5,5,.42) 0%, rgba(5,5,5,.32) 42%, rgba(5,5,5,.78) 100%);
+    }
+
+    .hero.hero-reference .hero-content {
+        width: 100%;
+        margin: 0 0 5.8rem;
+    }
+
+    .hero-reference-tagline {
+        margin-bottom: 1.25rem;
+        font-size: .68rem;
+    }
+
+    .hero.hero-reference .hero-title {
+        font-size: clamp(3rem, 14vw, 4.8rem);
+        letter-spacing: -.055em;
+    }
+
+    .hero.hero-reference .hero-desc {
+        font-size: .98rem;
+        line-height: 1.55;
+        max-width: 36rem;
+    }
+
+    .hero.hero-reference .btn-primary {
+        min-width: 0;
+        width: auto;
+        padding: 1rem 1.35rem;
+    }
+
+    .hero-reference-section-marker {
+        left: 6%;
+        bottom: 1.6rem;
+        font-size: .68rem;
+    }
+
+    .hero-reference-section-marker::after {
+        width: min(12rem, 30vw);
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .hero.hero-reference::before {
+        transition: none;
+    }
+}
