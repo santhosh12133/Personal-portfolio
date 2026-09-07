@@ -30,6 +30,20 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
+      - name: Enable premium portfolio enhancements
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+          css = '<link rel="stylesheet" href="enhancements.css">'
+          js = '<script src="enhancements.js" defer></script>'
+          if css not in html:
+              html = html.replace('</head>', f'    {css}\n</head>', 1)
+          if js not in html:
+              html = html.replace('</body>', f'    {js}\n</body>', 1)
+          path.write_text(html, encoding='utf-8')
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
