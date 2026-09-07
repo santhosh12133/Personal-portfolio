@@ -9,6 +9,7 @@
     align-items: center;
     position: relative;
     overflow: hidden;
+    isolation: isolate;
 }
 
 .hero.hero-reference::before {
@@ -16,12 +17,29 @@
     position: absolute;
     inset: 0;
     pointer-events: none;
-    background: linear-gradient(90deg, rgba(5,5,5,.58) 0%, rgba(5,5,5,.28) 42%, transparent 72%);
+    background:
+        linear-gradient(90deg, rgba(4,4,4,.78) 0%, rgba(4,4,4,.48) 38%, rgba(4,4,4,.12) 66%, transparent 82%),
+        radial-gradient(circle at 70% 48%, rgba(204,0,0,.12), transparent 31%),
+        linear-gradient(180deg, rgba(0,0,0,.12) 0%, transparent 38%, rgba(0,0,0,.32) 100%);
     z-index: 0;
 }
 
+.hero.hero-reference::after {
+    content: 'SCROLL TO EXPLORE';
+    position: absolute;
+    right: 5%;
+    bottom: 2.7rem;
+    padding-left: 3.5rem;
+    color: rgba(255,255,255,.32);
+    font-size: .62rem;
+    font-weight: 600;
+    letter-spacing: .2em;
+    white-space: nowrap;
+    z-index: 2;
+}
+
 .hero.hero-reference .hero-content {
-    width: min(760px, 58vw);
+    width: min(700px, 57vw);
     position: relative;
     z-index: 2;
     margin-top: -1rem;
@@ -35,13 +53,14 @@
 }
 
 .hero.hero-reference .hero-title {
-    margin: 0 0 1.6rem;
+    margin: 0 0 1.55rem;
     max-width: 680px;
     font-size: clamp(3.7rem, 6.15vw, 6.35rem);
-    line-height: .91;
+    line-height: .9;
     font-weight: 700;
-    letter-spacing: -.06em;
+    letter-spacing: -.065em;
     color: var(--text-main);
+    text-wrap: balance;
 }
 
 .hero.hero-reference .hero-title .hero-greeting,
@@ -52,14 +71,16 @@
 .hero.hero-reference .hero-title .hero-name {
     color: #ff2b2b;
     max-width: 680px;
+    text-shadow: 0 10px 42px rgba(204,0,0,.1);
 }
 
 .hero.hero-reference .hero-desc {
-    max-width: 690px;
-    margin: 0 0 2rem;
-    color: rgba(255,255,255,.68);
-    font-size: clamp(1rem, 1.45vw, 1.3rem);
-    line-height: 1.65;
+    max-width: 650px;
+    margin: 0 0 2.15rem;
+    color: rgba(255,255,255,.64);
+    font-size: clamp(1rem, 1.35vw, 1.2rem);
+    line-height: 1.7;
+    letter-spacing: -.012em;
 }
 
 .hero-reference-tagline {
@@ -67,10 +88,10 @@
     align-items: center;
     gap: .9rem;
     margin-bottom: 1.8rem;
-    color: rgba(255,255,255,.62);
-    font-size: .78rem;
-    font-weight: 500;
-    letter-spacing: .2em;
+    color: rgba(255,255,255,.58);
+    font-size: .74rem;
+    font-weight: 600;
+    letter-spacing: .22em;
     text-transform: uppercase;
 }
 
@@ -80,6 +101,7 @@
     height: 2px;
     flex: 0 0 auto;
     background: #ff2020;
+    box-shadow: 0 0 18px rgba(255,32,32,.28);
 }
 
 .hero.hero-reference .hero-actions {
@@ -87,11 +109,17 @@
 }
 
 .hero.hero-reference .btn-primary {
-    min-width: 278px;
-    padding: 1.15rem 2.35rem;
-    font-size: 1rem;
-    font-weight: 600;
-    box-shadow: 0 14px 34px rgba(204,0,0,.12);
+    min-width: 258px;
+    padding: 1.08rem 2rem;
+    font-size: .92rem;
+    font-weight: 650;
+    letter-spacing: .045em;
+    border: 1px solid rgba(255,255,255,.06);
+    box-shadow: 0 16px 40px rgba(204,0,0,.14);
+}
+
+.hero.hero-reference .btn-primary:hover {
+    box-shadow: 0 20px 48px rgba(204,0,0,.2);
 }
 
 .hero-reference-section-marker {
@@ -120,6 +148,10 @@
         align-items: flex-end;
     }
 
+    .hero.hero-reference::after {
+        display: none;
+    }
+
     .hero.hero-reference .hero-content {
         width: min(720px, 90vw);
         margin-bottom: 7rem;
@@ -139,7 +171,9 @@
     }
 
     .hero.hero-reference::before {
-        background: linear-gradient(180deg, rgba(5,5,5,.42) 0%, rgba(5,5,5,.32) 42%, rgba(5,5,5,.78) 100%);
+        background:
+            linear-gradient(180deg, rgba(5,5,5,.44) 0%, rgba(5,5,5,.3) 40%, rgba(5,5,5,.84) 100%),
+            radial-gradient(circle at 65% 42%, rgba(204,0,0,.1), transparent 34%);
     }
 
     .hero.hero-reference .hero-content {
@@ -150,6 +184,7 @@
     .hero-reference-tagline {
         margin-bottom: 1.25rem;
         font-size: .68rem;
+        letter-spacing: .17em;
     }
 
     .hero.hero-reference .hero-title {
@@ -159,9 +194,10 @@
     }
 
     .hero.hero-reference .hero-desc {
-        font-size: .98rem;
-        line-height: 1.55;
+        font-size: .96rem;
+        line-height: 1.58;
         max-width: 36rem;
+        margin-bottom: 1.65rem;
     }
 
     .hero.hero-reference .btn-primary {
@@ -182,7 +218,8 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-    .hero.hero-reference::before {
+    .hero.hero-reference::before,
+    .hero.hero-reference .btn-primary {
         transition: none;
     }
 }
