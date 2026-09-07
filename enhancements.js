@@ -107,7 +107,10 @@
                 `;
                 document.head.appendChild(choreographyStyle);
 
-                projects.forEach(project => project.classList.add('premium-project-choreography'));
+                projects.forEach((project, index) => {
+                    project.classList.add('premium-project-choreography');
+                    if (index % 2 === 1) project.classList.add('reverse');
+                });
 
                 const choreographyObserver = new IntersectionObserver(entries => {
                     entries.forEach(entry => {
@@ -147,6 +150,27 @@
                     card.style.transform = '';
                     card.style.removeProperty('--spotlight-x');
                     card.style.removeProperty('--spotlight-y');
+                });
+            });
+
+            // Magnetic controls stay deliberately subtle so buttons never feel difficult to click.
+            const magneticTargets = [
+                ...document.querySelectorAll('.btn-primary, .btn-outline, .nav-cta')
+            ].filter((element, index, list) => list.indexOf(element) === index);
+
+            magneticTargets.forEach(element => {
+                element.classList.add('premium-magnetic');
+                element.addEventListener('pointermove', event => {
+                    const rect = element.getBoundingClientRect();
+                    const x = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
+                    const y = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
+                    const strength = element.classList.contains('nav-cta') ? 7 : 9;
+                    element.classList.add('is-magnetic-active');
+                    element.style.transform = `translate3d(${(x * strength).toFixed(2)}px, ${(y * strength).toFixed(2)}px, 0)`;
+                });
+                element.addEventListener('pointerleave', () => {
+                    element.classList.remove('is-magnetic-active');
+                    element.style.transform = '';
                 });
             });
         }
