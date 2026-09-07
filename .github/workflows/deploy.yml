@@ -68,8 +68,8 @@ jobs:
           from pathlib import Path
           path = Path('index.html')
           html = path.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="hero-reference.css?v=20260907-p3hero64">'
-          js = '<script src="hero-reference.js?v=20260907-p3hero64" defer></script>'
+          css = '<link rel="stylesheet" href="hero-reference.css?v=20260907-p3hero-64">'
+          js = '<script src="hero-reference.js?v=20260907-p3hero-64" defer></script>'
           if 'href="hero-reference.css"' not in html and 'href="hero-reference.css?v=' not in html:
               html = html.replace('</head>', f'    {css}\n</head>', 1)
           if 'src="hero-reference.js"' not in html and 'src="hero-reference.js?v=' not in html:
