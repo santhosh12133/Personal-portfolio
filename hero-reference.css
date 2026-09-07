@@ -35,39 +35,31 @@
 }
 
 .hero.hero-reference .hero-title {
-    margin: 0 0 1.45rem;
-    max-width: 720px;
-    font-size: clamp(3.15rem, 5.15vw, 5.65rem);
-    line-height: .98;
+    margin: 0 0 1.6rem;
+    max-width: 680px;
+    font-size: clamp(3.7rem, 6.15vw, 6.35rem);
+    line-height: .91;
     font-weight: 700;
-    letter-spacing: -.055em;
+    letter-spacing: -.06em;
     color: var(--text-main);
 }
 
-.hero.hero-reference .hero-title .hero-question {
+.hero.hero-reference .hero-title .hero-greeting,
+.hero.hero-reference .hero-title .hero-name {
     display: block;
+}
+
+.hero.hero-reference .hero-title .hero-name {
+    color: #ff2b2b;
+    max-width: 680px;
 }
 
 .hero.hero-reference .hero-desc {
     max-width: 690px;
-    margin: 0 0 1.15rem;
+    margin: 0 0 2rem;
     color: rgba(255,255,255,.68);
     font-size: clamp(1rem, 1.45vw, 1.3rem);
     line-height: 1.65;
-}
-
-.hero.hero-reference .hero-desc .hero-solution {
-    display: block;
-    color: rgba(255,255,255,.82);
-}
-
-.hero-reference-focus {
-    margin: 0 0 2rem;
-    color: rgba(255,255,255,.42);
-    font-size: .72rem;
-    font-weight: 600;
-    letter-spacing: .16em;
-    text-transform: uppercase;
 }
 
 .hero-reference-tagline {
@@ -102,6 +94,26 @@
     box-shadow: 0 14px 34px rgba(204,0,0,.12);
 }
 
+.hero-reference-section-marker {
+    position: absolute;
+    left: 5%;
+    bottom: 2.8rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    color: rgba(255,255,255,.58);
+    font-size: .76rem;
+    letter-spacing: .16em;
+    z-index: 3;
+}
+
+.hero-reference-section-marker::after {
+    content: '';
+    width: 17rem;
+    height: 1px;
+    background: rgba(255,255,255,.24);
+}
+
 @media (max-width: 900px) {
     .hero.hero-reference {
         padding-top: 8rem;
@@ -115,7 +127,7 @@
 
     .hero.hero-reference .hero-title {
         max-width: 620px;
-        font-size: clamp(2.9rem, 8vw, 5rem);
+        font-size: clamp(3.2rem, 10vw, 5.6rem);
     }
 }
 
@@ -142,25 +154,30 @@
 
     .hero.hero-reference .hero-title {
         max-width: 100%;
-        font-size: clamp(2.55rem, 12vw, 4.3rem);
-        letter-spacing: -.05em;
+        font-size: clamp(3rem, 14vw, 4.8rem);
+        letter-spacing: -.055em;
     }
 
     .hero.hero-reference .hero-desc {
         font-size: .98rem;
         line-height: 1.55;
-    }
-
-    .hero-reference-focus {
-        font-size: .62rem;
-        line-height: 1.6;
-        letter-spacing: .1em;
+        max-width: 36rem;
     }
 
     .hero.hero-reference .btn-primary {
         min-width: 0;
         width: auto;
         padding: 1rem 1.35rem;
+    }
+
+    .hero-reference-section-marker {
+        left: 6%;
+        bottom: 1.6rem;
+        font-size: .68rem;
+    }
+
+    .hero-reference-section-marker::after {
+        width: min(12rem, 30vw);
     }
 }
 
