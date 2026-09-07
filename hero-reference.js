@@ -27,10 +27,10 @@
 
         const name = document.createElement('span');
         name.className = 'hero-name';
-        name.textContent = 'Santhosh Kumar';
+        name.textContent = 'Santhosh';
 
         title.append(greeting, name);
-        title.setAttribute('aria-label', 'Hi, I’m Santhosh Kumar');
+        title.setAttribute('aria-label', 'Hi, I’m Santhosh');
 
         const brand = document.querySelector('.nav-brand');
         if (brand) brand.textContent = 'Santhosh Kumar';
