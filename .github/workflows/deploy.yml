@@ -87,6 +87,38 @@ jobs:
               html = html.replace('</head>', f'    {css}\n</head>', 1)
           path.write_text(html, encoding='utf-8')
 
+      - name: Apply usability audit fixes
+        shell: python
+        run: |
+          from pathlib import Path
+          path = Path('index.html')
+          html = path.read_text(encoding='utf-8')
+
+          # Reduce the long architecture labels to readable title case.
+          html = html.replace('CIVICFIX / SYSTEM ARCHITECTURE', 'CivicFix / System Architecture')
+          html = html.replace('MEDICAL CLAIM AI / SYSTEM ARCHITECTURE', 'Medical Claim AI / System Architecture')
+
+          # Make the WhatsApp CTA a secondary action; SEND MESSAGE remains primary.
+          html = html.replace(
+              'href="https://wa.me/918495900723" target="_blank" class="btn btn-primary premium-magnetic"',
+              'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary premium-magnetic"'
+          )
+          html = html.replace(
+              'href="https://wa.me/918495900723" target="_blank" class="btn btn-primary"',
+              'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"'
+          )
+
+          # The architecture nodes are informational, not controls.
+          html = html.replace(' class="architecture-node" role="button" tabindex="0"', ' class="architecture-node"')
+          html = html.replace(' class="architecture-node" role="button"', ' class="architecture-node"')
+
+          # Add the final audit stylesheet after all existing presentation layers.
+          css = '<link rel="stylesheet" href="usability-fixes.css?v=20260913">'
+          if 'href="usability-fixes.css' not in html:
+              html = html.replace('</head>', f'    {css}\n</head>', 1)
+
+          path.write_text(html, encoding='utf-8')
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:
