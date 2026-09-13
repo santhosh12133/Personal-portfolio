@@ -87,31 +87,18 @@ jobs:
               html = html.replace('</head>', f'    {css}\n</head>', 1)
           path.write_text(html, encoding='utf-8')
 
-      - name: Apply 18-point usability audit fixes
+      - name: Apply usability audit fixes
         shell: python
         run: |
           from pathlib import Path
           path = Path('index.html')
           html = path.read_text(encoding='utf-8')
 
-          # 4. Keep long labels in sentence case.
+          # Reduce the long architecture labels to readable title case.
           html = html.replace('CIVICFIX / SYSTEM ARCHITECTURE', 'CivicFix / System Architecture')
           html = html.replace('MEDICAL CLAIM AI / SYSTEM ARCHITECTURE', 'Medical Claim AI / System Architecture')
 
-          # 5. Avoid a long all-caps run while retaining the conference and IEEE attribution.
-          html = html.replace('IEEE ICECCC 2026', 'ICECCC 2026 · IEEE')
-
-          # 10/17. The stylesheet keeps the single icon back-to-top control; remove the redundant text link from the rendered page.
-          import re
-          html = re.sub(r'\s*<a[^>]*class="footer-top-link"[^>]*>\s*Back to top[^<]*</a>', '', html, flags=re.I)
-
-          # 9. Add an accessible disclosure control so the long project section starts compactly.
-          toggle = '''<button class="projects-more-toggle" type="button" aria-expanded="false" aria-controls="projects">Show older projects &darr;</button>'''
-          if 'class="projects-more-toggle"' not in html:
-              marker = '<div class="section-number fade-in-section">04 / PROJECTS</div>'
-              html = html.replace(marker, marker + '\n\n            ' + toggle, 1)
-
-          # 10/17. Ensure any external WhatsApp CTA has safe target behavior and remains a secondary action.
+          # Make the WhatsApp CTA a secondary action; SEND MESSAGE remains primary.
           html = html.replace(
               'href="https://wa.me/918495900723" target="_blank" class="btn btn-primary premium-magnetic"',
               'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary premium-magnetic"'
@@ -121,26 +108,14 @@ jobs:
               'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"'
           )
 
-          # Load the final audit stylesheet after every other presentation layer so the tokens and spacing rules win.
-          css = '<link rel="stylesheet" href="usability-fixes.css?v=20260913-18">'
+          # The architecture nodes are informational, not controls.
+          html = html.replace(' class="architecture-node" role="button" tabindex="0"', ' class="architecture-node"')
+          html = html.replace(' class="architecture-node" role="button"', ' class="architecture-node"')
+
+          # Add the final audit stylesheet after all existing presentation layers.
+          css = '<link rel="stylesheet" href="usability-fixes.css?v=20260913">'
           if 'href="usability-fixes.css' not in html:
               html = html.replace('</head>', f'    {css}\n</head>', 1)
-
-          # Toggle the compact project list without changing the underlying project content.
-          script = '''<script>
-          (() => {
-              const projects = document.getElementById('projects');
-              const toggle = document.querySelector('.projects-more-toggle');
-              if (!projects || !toggle) return;
-              toggle.addEventListener('click', () => {
-                  const expanded = projects.classList.toggle('projects-expanded');
-                  toggle.setAttribute('aria-expanded', String(expanded));
-                  toggle.textContent = expanded ? 'Show fewer projects ↑' : 'Show older projects ↓';
-              });
-          })();
-          </script>'''
-          if 'projects-more-toggle' in html and 'projects-expanded' not in html:
-              html = html.replace('</body>', script + '\n</body>', 1)
 
           path.write_text(html, encoding='utf-8')
 
