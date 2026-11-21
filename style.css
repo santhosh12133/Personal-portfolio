@@ -913,7 +913,6 @@ dialog[open] { animation: dialog-in 0.35s var(--ease); }
 
 /* ---------- 8b. Extras: roles, filters, spotlight, section rail, terminal ---------- */
 .hero-content > :nth-child(6) { animation-delay: 0.4s; }
-.hero-content > :nth-child(7) { animation-delay: 0.48s; }
 
 /* Rotating focus-area line in the hero */
 .hero-roles { display: flex; align-items: center; min-height: 1.9rem; margin: -0.4rem 0 1.2rem; color: var(--accent-text); font-family: ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Consolas, monospace; font-size: clamp(0.95rem, 1.5vw, 1.15rem); letter-spacing: 0.01em; }
@@ -921,9 +920,6 @@ dialog[open] { animation: dialog-in 0.35s var(--ease); }
 .hero-roles-text { white-space: nowrap; }
 .hero-roles-caret { width: 2px; height: 1.15em; margin-left: 3px; background: var(--accent-bright); animation: caret 1.05s steps(1) infinite; }
 @keyframes caret { 50% { opacity: 0; } }
-.hero-hint { display: none; margin-top: 1.6rem; color: var(--text-3); font-size: 0.78rem; }
-kbd { display: inline-block; min-width: 1.6em; padding: 0.1em 0.45em; border: 1px solid var(--line-strong); border-radius: 5px; background: rgba(255, 255, 255, 0.05); color: var(--text-2); font: 600 0.74rem/1.5 ui-monospace, 'SF Mono', Menlo, Consolas, monospace; text-align: center; }
-@media (hover: hover) and (min-width: 1081px) { .hero-hint { display: block; } }
 
 /* Project filters */
 .project-filters { display: flex; flex-wrap: wrap; gap: 0.6rem; margin-top: 2rem; scroll-margin-top: calc(var(--nav-h) + 1rem); }
