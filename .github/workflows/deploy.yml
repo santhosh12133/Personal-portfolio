@@ -47,6 +47,10 @@ jobs:
           print('All', len(refs), 'local assets found')
           PY
 
+      # Stamp the CSS/JS links with this commit so browsers never mix old and new files.
+      - name: Version CSS and JS links
+        run: sed -i -E "s#(style\.css|script\.js)\?v=[A-Za-z0-9]+#\1?v=${GITHUB_SHA::8}#g" index.html
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v3
         with:

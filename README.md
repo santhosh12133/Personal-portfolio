@@ -5,7 +5,6 @@ A modern, cinematic personal portfolio website for **Santhosh Kumar N**, focused
 ## ✨ Highlights
 
 - Cinematic dark UI with a restrained red-accent design system
-- Intro screen: the SK logo draws in with a progress counter, waits for the page, fonts and first hero frame (6-7s at most), then a curtain opens onto the hero. Skipped with reduced motion.
 - Per-element scroll reveals with staggered, eased transitions (no heavy full-screen overlays)
 - Animated mobile menu sheet: tap outside or press Escape to close, hides on scroll down and returns on scroll up
 - Responsive from 320px phones to wide desktops, with 44px minimum tap targets and no horizontal overflow
