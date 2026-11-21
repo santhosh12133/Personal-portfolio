@@ -376,7 +376,8 @@
             previousY = y;
         }
         navbar.classList.toggle('nav-scrolled', y > 40);
-        topButton.classList.toggle('is-visible', y > window.innerHeight * 0.65);
+        // Hidden near the bottom, where the footer has its own "Back to top" link.
+        topButton.classList.toggle('is-visible', y > window.innerHeight * 0.65 && y < range - 220);
         chromeTicking = false;
     };
     window.addEventListener('scroll', () => {
