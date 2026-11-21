@@ -1,6 +1,7 @@
 /* Portfolio behaviour — one script, loaded once at the end of <body>.
    1 background video · 2 reveal on scroll · 3 navigation · 4 dialogs
-   5 project architecture panels · 6 cursor · 7 contact · 8 scroll chrome */
+   5 project architecture panels · 6 cursor · 7 contact · 8 scroll chrome
+   9 extras (hero roles, count-up, project filters, card spotlight, section rail, terminal) */
 (() => {
     'use strict';
 
@@ -384,4 +385,297 @@
         requestAnimationFrame(updateChrome);
     }, { passive: true });
     updateChrome();
+
+    /* ---------------------------------------------------------------- 9. Extras */
+
+    // 9a. Rotating focus-area line in the hero (types, holds, deletes).
+    const rolesEl = $('#hero-roles');
+    if (rolesEl && !reduceMotion) {
+        const roles = rolesEl.dataset.roles.split('|');
+        let roleIndex = 0;
+        let heroVisible = true;
+        const wait = ms => new Promise(resolve => setTimeout(resolve, ms));
+        if ('IntersectionObserver' in window) {
+            new IntersectionObserver(entries => { heroVisible = entries[0].isIntersecting; }, { threshold: 0 }).observe(homeSection);
+        }
+        const idle = async () => { while (document.hidden || !heroVisible) await wait(400); };
+        (async () => {
+            await wait(2400);
+            for (;;) {
+                await idle();
+                while (rolesEl.textContent.length) { rolesEl.textContent = rolesEl.textContent.slice(0, -1); await wait(26); }
+                roleIndex = (roleIndex + 1) % roles.length;
+                for (const char of roles[roleIndex]) { rolesEl.textContent += char; await wait(52); }
+                await wait(2000);
+            }
+        })();
+    }
+
+    // 9b. Count-up numbers when the stat rows scroll into view.
+    const counters = $$('[data-count]');
+    if (counters.length && 'IntersectionObserver' in window && !reduceMotion) {
+        const format = (el, value) => { el.textContent = `${Math.round(value)}${el.dataset.suffix || ''}`; };
+        const run = el => {
+            const target = Number(el.dataset.count);
+            const start = performance.now();
+            const duration = 1300;
+            const tick = now => {
+                const t = Math.min(1, (now - start) / duration);
+                format(el, target * (1 - Math.pow(1 - t, 3)));
+                if (t < 1) requestAnimationFrame(tick);
+            };
+            requestAnimationFrame(tick);
+        };
+        const countObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                run(entry.target);
+                observer.unobserve(entry.target);
+            });
+        }, { threshold: 0.8 });
+        counters.forEach(el => { format(el, 0); countObserver.observe(el); });
+    }
+
+    // 9c. Project filters.
+    const filterButtons = $$('.filter-btn');
+    const filterStatus = $('#filter-status');
+    const projectCards = $$('#projects .project-showcase');
+    if (filterButtons.length) {
+        const hasTag = (card, key) => key === 'all' || card.dataset.tags.split(' ').includes(key);
+        filterButtons.forEach(button => {
+            $('span', button).textContent = projectCards.filter(card => hasTag(card, button.dataset.filter)).length;
+        });
+        const applyFilter = key => {
+            let shown = 0;
+            projectCards.forEach(card => {
+                const match = hasTag(card, key);
+                card.hidden = !match;
+                if (!match) return;
+                card.classList.add('is-in');
+                card.classList.toggle('reverse', shown % 2 === 1);
+                if (!reduceMotion) {
+                    card.classList.remove('filter-in');
+                    void card.offsetWidth; // restart the animation
+                    card.classList.add('filter-in');
+                }
+                shown += 1;
+            });
+            filterButtons.forEach(button => {
+                const active = button.dataset.filter === key;
+                button.classList.toggle('is-active', active);
+                button.setAttribute('aria-pressed', String(active));
+            });
+            filterStatus.textContent = key === 'all' ? '' : `Showing ${shown} of ${projectCards.length} projects`;
+            const bar = $('.project-filters');
+            if (bar.getBoundingClientRect().top < 0) bar.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        };
+        filterButtons.forEach(button => button.addEventListener('click', () => applyFilter(button.dataset.filter)));
+    }
+
+    // 9d. Cursor spotlight on cards (fine pointers only).
+    if (finePointer && !reduceMotion) {
+        $$('.pub-card, .edu-card, .cert-card, .process-step, .stat-grid li, .credential-stats li').forEach(el => el.classList.add('spot'));
+        document.addEventListener('pointermove', event => {
+            const el = event.target.closest && event.target.closest('.spot');
+            if (!el) return;
+            const box = el.getBoundingClientRect();
+            el.style.setProperty('--mx', `${event.clientX - box.left}px`);
+            el.style.setProperty('--my', `${event.clientY - box.top}px`);
+        }, { passive: true });
+    }
+
+    // 9e. Section rail: a dot per section on wide screens.
+    const railSections = [['home', 'Home'], ['about', 'About'], ['experience', 'Experience'], ['education', 'Education'],
+        ['projects', 'Projects'], ['skills', 'Skills'], ['research', 'Research'], ['contact', 'Contact']]
+        .filter(([id]) => $(`#${id}`));
+    const rail = document.createElement('nav');
+    rail.className = 'side-rail';
+    rail.setAttribute('aria-label', 'Section progress');
+    railSections.forEach(([id, label]) => {
+        const dot = document.createElement('button');
+        dot.type = 'button';
+        dot.dataset.label = label;
+        dot.dataset.target = id;
+        dot.setAttribute('aria-label', `Go to ${label}`);
+        dot.addEventListener('click', () => {
+            $(`#${id}`).scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+            history.pushState(null, '', `#${id}`);
+        });
+        rail.append(dot);
+    });
+    document.body.append(rail);
+    if ('IntersectionObserver' in window) {
+        const railObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                $$('button', rail).forEach(dot => dot.classList.toggle('is-active', dot.dataset.target === entry.target.id));
+            });
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+        railSections.forEach(([id]) => railObserver.observe($(`#${id}`)));
+    }
+
+    // 9f. Terminal: press ` (or use the footer button) and type "help".
+    const terminal = $('#terminal');
+    const termBody = $('#terminal-body');
+    const termForm = $('#terminal-form');
+    const termInput = $('#terminal-input');
+    const clean = el => (el ? el.textContent.replace(/\s+/g, ' ').trim() : '');
+    const history_ = [];
+    let historyIndex = 0;
+    let booted = false;
+
+    const print = (text = '', className = '') => {
+        const line = document.createElement('p');
+        line.className = `t-line ${className}`.trim();
+        line.textContent = text;
+        termBody.append(line);
+        termBody.scrollTop = termBody.scrollHeight;
+        return line;
+    };
+    const printLink = (label, href) => {
+        const line = print('  ');
+        const anchor = document.createElement('a');
+        anchor.href = href;
+        anchor.textContent = label;
+        if (/^https?:/.test(href)) { anchor.target = '_blank'; anchor.rel = 'noopener noreferrer'; }
+        line.append(anchor);
+        termBody.scrollTop = termBody.scrollHeight;
+    };
+    const goTo = id => {
+        const target = $(`#${id}`);
+        if (!target) return false;
+        terminal.close();
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        history.pushState(null, '', `#${id}`);
+        return true;
+    };
+
+    const links = {
+        github: 'https://github.com/santhosh12133',
+        linkedin: 'https://www.linkedin.com/in/santhosh-kumar-n-4b4b84310',
+        whatsapp: 'https://wa.me/918495900723',
+        email: 'mailto:santhoshkumar12133@gmail.com'
+    };
+    const sectionNames = ['home', 'about', 'experience', 'education', 'projects', 'skills', 'workflow', 'research', 'contact'].filter(id => $(`#${id}`));
+
+    const commands = {
+        help: () => {
+            print('Available commands', 't-head');
+            [['about', 'who I am'], ['experience', 'internships and roles'], ['education', 'degrees'], ['skills', 'tech stack by area'],
+                ['projects', 'list all projects'], ['project <n>', 'details for one project, e.g. project 2'], ['research', 'publications'],
+                ['certs', 'certifications'], ['contact', 'ways to reach me'], ['goto <section>', 'jump to a section, e.g. goto projects'],
+                ['open <name>', 'github | linkedin | whatsapp | email'], ['ls', 'list sections'], ['clear', 'clear the screen'], ['exit', 'close the terminal']]
+                .forEach(([name, text]) => print(`  ${name.padEnd(16)}${text}`));
+            print('Tip: Tab completes, ↑ / ↓ browse history.', 't-dim');
+        },
+        about: () => { print(clean($('.about-narrative'))); print('Focus: ' + $$('.tech-pill').map(clean).join(' · '), 't-dim'); },
+        whoami: () => print('santhosh: software engineer, backend & AI'),
+        experience: () => $$('.timeline-item').forEach(item => {
+            print(`${clean($('.timeline-meta h3', item))} — ${clean($('.timeline-role', item))}`, 't-head');
+            print(`  ${clean($('.timeline-date', item))}`, 't-dim');
+        }),
+        education: () => $$('.edu-card').forEach(card => {
+            print(`${clean($('.edu-title', card))} (${clean($('.edu-years', card))})`, 't-head');
+            print(`  ${clean($('.edu-institution', card))}`, 't-dim');
+        }),
+        skills: () => $$('.skill-row').forEach(row => print(`${clean($('.skill-title', row)).padEnd(16)}${$$('.chips li', row).map(clean).join(', ')}`)),
+        projects: () => {
+            projectCards.forEach((card, index) => print(`${String(index + 1).padStart(2, '0')}  ${clean($('.project-title', card))} — ${clean($('.project-subtitle', card))}`));
+            print('Type "project <n>" for details.', 't-dim');
+        },
+        project: arg => {
+            const card = projectCards[Number(arg) - 1];
+            if (!card) return print('Usage: project <1-' + projectCards.length + '>', 't-err');
+            print(clean($('.project-title', card)), 't-head');
+            print(clean($('.project-subtitle', card)), 't-dim');
+            print(clean($('.project-desc', card)));
+            print('Stack: ' + $$('.tech-tags span', card).map(clean).join(', '), 't-dim');
+            const repo = $('.project-links a', card);
+            if (repo) printLink(repo.href, repo.href);
+        },
+        research: () => $$('.pub-card').forEach(card => {
+            print(clean($('.pub-title', card)), 't-head');
+            print(`  ${clean($('.pub-meta', card))}`, 't-dim');
+        }),
+        certs: () => $$('.cert-card').forEach(card => print(`${clean($('.cert-name', card))} — ${clean($('.cert-org', card))}`)),
+        contact: () => {
+            printLink('santhoshkumar12133@gmail.com', links.email);
+            printLink(links.github, links.github);
+            printLink(links.linkedin, links.linkedin);
+        },
+        goto: arg => { if (!arg || !goTo(arg)) print(`Unknown section. Try: ${sectionNames.join(', ')}`, 't-err'); },
+        open: arg => {
+            if (!links[arg]) return print('Usage: open github | linkedin | whatsapp | email', 't-err');
+            print(`Opening ${arg}…`, 't-dim');
+            if (arg === 'email') location.href = links.email;
+            else window.open(links[arg], '_blank', 'noopener');
+        },
+        ls: () => print(sectionNames.join('  ')),
+        clear: () => { termBody.textContent = ''; },
+        exit: () => terminal.close(),
+        sudo: arg => {
+            if (arg !== 'hire-me') return print('sudo: nice try.', 't-err');
+            print('[sudo] password for recruiter: ********', 't-dim');
+            print('Access granted. Taking you to the contact form…');
+            setTimeout(() => goTo('contact'), 700);
+        }
+    };
+    commands.quit = commands.exit;
+    commands.cls = commands.clear;
+
+    const runCommand = raw => {
+        const [name, ...rest] = raw.trim().split(/\s+/);
+        if (!name) return;
+        print(raw.trim(), 't-line t-cmd');
+        const handler = Object.prototype.hasOwnProperty.call(commands, name.toLowerCase()) ? commands[name.toLowerCase()] : null;
+        if (handler) handler(rest.join(' ').toLowerCase());
+        else print(`command not found: ${name}. Type "help".`, 't-err');
+    };
+
+    const openTerminal = () => {
+        if (terminal.open || $('dialog[open]')) return;
+        terminal.showModal();
+        if (!booted) {
+            booted = true;
+            print('Santhosh Kumar N — portfolio shell', 't-head');
+            print('Type "help" to see what you can do.', 't-dim');
+        }
+        termInput.focus();
+    };
+    document.addEventListener('keydown', event => {
+        const typing = /^(input|textarea|select)$/i.test(event.target.tagName) || event.target.isContentEditable;
+        if (event.key === '`' && !typing && !event.ctrlKey && !event.metaKey && !event.altKey) {
+            event.preventDefault();
+            openTerminal();
+        }
+    });
+    $$('[data-open-terminal]').forEach(button => button.addEventListener('click', openTerminal));
+    $('#terminal-close').addEventListener('click', () => terminal.close());
+    terminal.addEventListener('click', event => {
+        if (event.target === terminal) terminal.close();
+        else if (!window.getSelection().toString()) termInput.focus();
+    });
+    termForm.addEventListener('submit', event => {
+        event.preventDefault();
+        const value = termInput.value;
+        if (value.trim()) { history_.push(value); historyIndex = history_.length; }
+        termInput.value = '';
+        runCommand(value);
+    });
+    termInput.addEventListener('keydown', event => {
+        if (event.key === 'ArrowUp' && history_.length) {
+            event.preventDefault();
+            historyIndex = Math.max(0, historyIndex - 1);
+            termInput.value = history_[historyIndex];
+        } else if (event.key === 'ArrowDown') {
+            event.preventDefault();
+            historyIndex = Math.min(history_.length, historyIndex + 1);
+            termInput.value = history_[historyIndex] || '';
+        } else if (event.key === 'Tab') {
+            event.preventDefault();
+            const typed = termInput.value.trim().toLowerCase();
+            const match = Object.keys(commands).filter(name => name.startsWith(typed))[0];
+            if (typed && match) termInput.value = match;
+        }
+    });
 })();

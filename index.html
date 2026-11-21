@@ -91,6 +91,19 @@
             </div>
         </dialog>
 
+        <dialog class="terminal" id="terminal" aria-label="Terminal">
+            <div class="terminal-bar">
+                <span class="terminal-dots" aria-hidden="true"><i></i><i></i><i></i></span>
+                <strong>santhosh@portfolio: ~</strong>
+                <button class="quick-nav-close" type="button" id="terminal-close" aria-label="Close terminal">&times;</button>
+            </div>
+            <div class="terminal-body" id="terminal-body" role="log" aria-live="polite"></div>
+            <form class="terminal-form" id="terminal-form" autocomplete="off">
+                <label class="terminal-prompt" for="terminal-input">&#10095;</label>
+                <input class="terminal-input" id="terminal-input" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" autocorrect="off" aria-label="Terminal command">
+            </form>
+        </dialog>
+
         <main id="main">
         <!-- Hero Section -->
         <section id="home" class="hero">
@@ -98,6 +111,7 @@
                 <p class="hero-status">Open to software engineering opportunities</p>
                 <div class="hero-reference-tagline">Software Engineer · Backend &amp; AI</div>
                 <h1 class="hero-title"><span class="hero-greeting">Hi, I’m</span><span class="hero-name">Santhosh</span></h1>
+                <p class="hero-roles"><span class="hero-roles-prefix" aria-hidden="true">&gt;</span><span class="hero-roles-text" id="hero-roles" data-roles="Backend systems|REST APIs &amp; microservices|AI &amp; OCR pipelines|Realtime applications">Backend systems</span><span class="hero-roles-caret" aria-hidden="true"></span></p>
                 <p class="hero-desc">
                     I build backend systems, APIs and AI-powered applications. What’s worth building next? I’m here to find out.
                 </p>
@@ -105,6 +119,7 @@
                     <a href="#projects" class="btn btn-primary">View My Work &rarr;</a>
                     <a href="#contact" class="btn btn-secondary">Get in touch</a>
                 </div>
+                <p class="hero-hint"><kbd>`</kbd> open terminal <span aria-hidden="true">·</span> <kbd>Ctrl</kbd> <kbd>K</kbd> jump to a section</p>
             </div>
             <div class="hero-scroll" aria-hidden="true">Scroll to explore</div>
         </section>
@@ -131,9 +146,9 @@
                     </div>
 
                     <ul class="stat-grid" aria-label="At a glance">
-                        <li><strong>8</strong><span>Projects built</span></li>
-                        <li><strong>2</strong><span>IEEE publications</span></li>
-                        <li><strong>2</strong><span>Internships</span></li>
+                        <li><strong data-count="8">8</strong><span>Projects built</span></li>
+                        <li><strong data-count="2">2</strong><span>IEEE publications</span></li>
+                        <li><strong data-count="2">2</strong><span>Internships</span></li>
                         <li><strong>MCA</strong><span>2024 &ndash; 2026</span></li>
                     </ul>
                 </div>
@@ -215,10 +230,17 @@
                 <div class="section-number">04 / PROJECTS</div>
                 <h2 class="section-title">Selected work.</h2>
                 <p class="section-lead">Eight projects across backend APIs, AI pipelines and full-stack products. Each one has a system architecture diagram &mdash; open any component for details.</p>
+                <div class="project-filters" role="group" aria-label="Filter projects by focus">
+                    <button type="button" class="filter-btn is-active" data-filter="all" aria-pressed="true">All <span></span></button>
+                    <button type="button" class="filter-btn" data-filter="backend" aria-pressed="false">Backend <span></span></button>
+                    <button type="button" class="filter-btn" data-filter="fullstack" aria-pressed="false">Full-stack <span></span></button>
+                    <button type="button" class="filter-btn" data-filter="ai" aria-pressed="false">AI / ML <span></span></button>
+                </div>
+                <p class="filter-status" id="filter-status" role="status" aria-live="polite"></p>
             </div>
 
             <!-- Project 01 -->
-            <div class="project-showcase">
+            <div class="project-showcase" data-tags="fullstack ai">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">01</span><span class="project-kind">Full-stack · AI</span></div>
                     <h3 class="project-title">CivicFix</h3>
@@ -268,7 +290,7 @@
             </div>
 
             <!-- Project 02 -->
-            <div class="project-showcase reverse">
+            <div class="project-showcase reverse" data-tags="backend ai">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">02</span><span class="project-kind">Backend · AI / OCR</span></div>
                     <h3 class="project-title">Medical Expense Processing</h3>
@@ -318,7 +340,7 @@
             </div>
 
             <!-- Project 03 -->
-            <div class="project-showcase">
+            <div class="project-showcase" data-tags="fullstack">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">03</span><span class="project-kind">Full-stack · Realtime</span></div>
                     <h3 class="project-title">Learnato Discussion Forum — Microservice</h3>
@@ -384,7 +406,7 @@
             </div>
 
             <!-- Project 04 -->
-            <div class="project-showcase reverse">
+            <div class="project-showcase reverse" data-tags="fullstack ai">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">04</span><span class="project-kind">Full-stack · AI</span></div>
                     <h3 class="project-title">Task App — AI-Powered Task Management</h3>
@@ -434,7 +456,7 @@
             </div>
 
             <!-- Project 05 -->
-            <div class="project-showcase">
+            <div class="project-showcase" data-tags="ai">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">05</span><span class="project-kind">Data · ML</span></div>
                     <h3 class="project-title">Telco Customer Churn Dashboard</h3>
@@ -496,7 +518,7 @@
             </div>
 
             <!-- Project 06 -->
-            <div class="project-showcase reverse">
+            <div class="project-showcase reverse" data-tags="fullstack">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">06</span><span class="project-kind">Full-stack · PHP</span></div>
                     <h3 class="project-title">E-Commerce Platform</h3>
@@ -563,7 +585,7 @@
             </div>
 
             <!-- Project 07 -->
-            <div class="project-showcase">
+            <div class="project-showcase" data-tags="fullstack">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">07</span><span class="project-kind">Full-stack · Next.js</span></div>
                     <h3 class="project-title">Smart Bookmark App</h3>
@@ -621,7 +643,7 @@
             </div>
 
             <!-- Project 08 -->
-            <div class="project-showcase reverse">
+            <div class="project-showcase reverse" data-tags="backend">
                 <div class="project-meta">
                     <div class="project-head"><span class="project-num">08</span><span class="project-kind">Backend · Automation</span></div>
                     <h3 class="project-title">FNOL Claims Processing Agent</h3>
@@ -752,10 +774,10 @@
             <h2 class="section-title mb-medium credentials-heading">Published work &amp; certified skills.</h2>
 
             <ul class="credential-stats" aria-label="Research and credentials at a glance">
-                <li><strong>2</strong><span>IEEE publications</span></li>
-                <li><strong>4</strong><span>Certifications</span></li>
-                <li><strong>92%</strong><span>Detection accuracy reported</span></li>
-                <li><strong>69%</strong><span>Faster issue resolution reported</span></li>
+                <li><strong data-count="2">2</strong><span>IEEE publications</span></li>
+                <li><strong data-count="4">4</strong><span>Certifications</span></li>
+                <li><strong data-count="92" data-suffix="%">92%</strong><span>Detection accuracy reported</span></li>
+                <li><strong data-count="69" data-suffix="%">69%</strong><span>Faster issue resolution reported</span></li>
             </ul>
 
             <div class="credentials-grid">
@@ -890,6 +912,7 @@
                         <a href="#skills">Skills</a>
                         <a href="#research">Research</a>
                         <a href="#contact">Contact</a>
+                        <button class="footer-term" type="button" data-open-terminal>&gt;_ Terminal</button>
                     </nav>
                 </div>
 

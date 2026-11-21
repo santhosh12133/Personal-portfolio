@@ -12,6 +12,10 @@ A modern, cinematic personal portfolio website for **Santhosh Kumar N**, focused
 - Eight project cards; each system-architecture diagram collapses behind a toggle on mobile and opens a detail dialog when a node is clicked
 - Skills matrix, four-step working process, and a Research & credentials section with publication and certification cards
 - Quick-navigation dialog (Ctrl/Cmd + K), scroll progress bar, active-section highlighting, scroll-to-top button
+- Hero line that types through focus areas (backend systems, REST APIs, AI & OCR pipelines, realtime apps)
+- Animated count-up stats, a cursor spotlight on cards, and a dot rail that tracks the current section on wide screens
+- Project filters (All / Backend / Full-stack / AI & ML) with live counts
+- Built-in terminal: press `` ` `` or use the footer button, then try `help`, `projects`, `project 2`, `skills`, `goto contact`, or `sudo hire-me`
 - Contact form that opens your email client (no backend needed), plus copy-email and direct GitHub, LinkedIn, and WhatsApp links
 - Custom cursor on fine pointers only
 - Full `prefers-reduced-motion` support, and content stays visible if JavaScript is off
@@ -201,7 +205,7 @@ Personal-portfolio/
 └── README.md
 ```
 
-`index.html` links `style.css` and `script.js` directly, so the code in this repository is exactly what gets deployed. `style.css` is organised into numbered sections (tokens and base, navigation, sections, project cards, architecture diagrams, responsive rules), and `script.js` into eight numbered sections (background video, reveals, navigation, dialogs, architecture panels, cursor, contact, scroll chrome).
+`index.html` links `style.css` and `script.js` directly, so the code in this repository is exactly what gets deployed. `style.css` is organised into numbered sections (tokens and base, navigation, sections, project cards, architecture diagrams, responsive rules), and `script.js` into nine numbered sections (background video, reveals, navigation, dialogs, architecture panels, cursor, contact, scroll chrome, extras).
 
 ## 🚀 Run Locally
 
