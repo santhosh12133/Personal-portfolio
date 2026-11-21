@@ -30,94 +30,22 @@ jobs:
       - name: Configure GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Enable premium portfolio enhancements
-        shell: python
+      # index.html links style.css and script.js directly, so the site that is
+      # published is exactly the site in the repository.
+      - name: Check that every local asset referenced by index.html exists
         run: |
+          python3 - <<'PY'
+          import re, sys
           from pathlib import Path
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="enhancements.css?v=20260907">'
-          js = '<script src="enhancements.js?v=20260907" defer></script>'
-          if 'href="enhancements.css"' not in html and 'href="enhancements.css?v=' not in html:
-              html = html.replace('</head>', f'    {css}\n</head>', 1)
-          elif 'href="enhancements.css"' in html:
-              html = html.replace('href="enhancements.css"', 'href="enhancements.css?v=20260907"', 1)
-          if 'src="enhancements.js"' not in html and 'src="enhancements.js?v=' not in html:
-              html = html.replace('</body>', f'    {js}\n</body>', 1)
-          elif 'src="enhancements.js"' in html:
-              html = html.replace('src="enhancements.js"', 'src="enhancements.js?v=20260907"', 1)
-          path.write_text(html, encoding='utf-8')
-
-      - name: Enable Phase 2 editorial hero
-        shell: python
-        run: |
-          from pathlib import Path
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="phase2.css?v=20260907-p2">'
-          js = '<script src="phase2.js?v=20260907-p2" defer></script>'
-          if 'href="phase2.css"' not in html and 'href="phase2.css?v=' not in html:
-              html = html.replace('</head>', f'    {css}\n</head>', 1)
-          if 'src="phase2.js"' not in html and 'src="phase2.js?v=' not in html:
-              html = html.replace('</body>', f'    {js}\n</body>', 1)
-          path.write_text(html, encoding='utf-8')
-
-      - name: Enable hero reference presentation
-        shell: python
-        run: |
-          from pathlib import Path
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="hero-reference.css?v=20260907-p3hero">'
-          js = '<script src="hero-reference.js?v=20260907-p3hero" defer></script>'
-          if 'href="hero-reference.css"' not in html and 'href="hero-reference.css?v=' not in html:
-              html = html.replace('</head>', f'    {css}\n</head>', 1)
-          if 'src="hero-reference.js"' not in html and 'src="hero-reference.js?v=' not in html:
-              html = html.replace('</body>', f'    {js}\n</body>', 1)
-          path.write_text(html, encoding='utf-8')
-
-      - name: Enable mobile presentation
-        shell: python
-        run: |
-          from pathlib import Path
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-          css = '<link rel="stylesheet" href="mobile.css?v=20260907-mobile1">'
-          if 'href="mobile.css"' not in html and 'href="mobile.css?v=' not in html:
-              html = html.replace('</head>', f'    {css}\n</head>', 1)
-          path.write_text(html, encoding='utf-8')
-
-      - name: Apply usability audit fixes
-        shell: python
-        run: |
-          from pathlib import Path
-          path = Path('index.html')
-          html = path.read_text(encoding='utf-8')
-
-          # Reduce the long architecture labels to readable title case.
-          html = html.replace('CIVICFIX / SYSTEM ARCHITECTURE', 'CivicFix / System Architecture')
-          html = html.replace('MEDICAL CLAIM AI / SYSTEM ARCHITECTURE', 'Medical Claim AI / System Architecture')
-
-          # Make the WhatsApp CTA a secondary action; SEND MESSAGE remains primary.
-          html = html.replace(
-              'href="https://wa.me/918495900723" target="_blank" class="btn btn-primary premium-magnetic"',
-              'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary premium-magnetic"'
-          )
-          html = html.replace(
-              'href="https://wa.me/918495900723" target="_blank" class="btn btn-primary"',
-              'href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"'
-          )
-
-          # The architecture nodes are informational, not controls.
-          html = html.replace(' class="architecture-node" role="button" tabindex="0"', ' class="architecture-node"')
-          html = html.replace(' class="architecture-node" role="button"', ' class="architecture-node"')
-
-          # Add the final audit stylesheet after all existing presentation layers.
-          css = '<link rel="stylesheet" href="usability-fixes.css?v=20260913">'
-          if 'href="usability-fixes.css' not in html:
-              html = html.replace('</head>', f'    {css}\n</head>', 1)
-
-          path.write_text(html, encoding='utf-8')
+          html = Path('index.html').read_text(encoding='utf-8')
+          refs = set(re.findall(r'(?:src|href)="([^"#:?]+\.[a-z0-9]+)(?:\?[^"]*)?"', html))
+          refs |= set(re.findall(r"'\./([^']+)'", Path('script.js').read_text(encoding='utf-8')))
+          missing = sorted(r for r in refs if not Path(r.lstrip('./')).exists())
+          if missing:
+              print('Missing assets:', ', '.join(missing))
+              sys.exit(1)
+          print('All', len(refs), 'local assets found')
+          PY
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v3

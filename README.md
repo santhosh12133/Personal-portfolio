@@ -11,7 +11,10 @@ A modern, cinematic personal portfolio website for **Santhosh Kumar N**, focused
 - Scroll progress indicator
 - Quick-navigation dialog
 - Interactive project architecture showcases
-- Scroll-driven animated WebM background
+- Scroll-driven animated WebM background (first frame paints immediately, including on phones)
+- Eight project cards, each with an interactive architecture diagram (click any node for details)
+- Research & credentials section with publication and certification detail cards
+- Contact form that opens your email client (no backend needed)
 - Reduced-motion support with `prefers-reduced-motion`
 - SEO and social sharing metadata
 - Direct GitHub, LinkedIn, email, and WhatsApp contact actions
@@ -103,6 +106,24 @@ A full-stack e-commerce website with customer and admin modules for authenticati
 
 Repository: https://github.com/santhosh12133/e-commerce
 
+### Smart Bookmark App
+**Production-Ready Bookmark Management Platform**
+
+A full-stack bookmark manager with Google OAuth, bookmark CRUD, search, filtering, sorting, favorites, per-user data isolation through Row Level Security, and dashboard analytics. Deployed on Vercel.
+
+**Core technologies:** Next.js 16 (App Router), TypeScript, React, Tailwind CSS, Supabase (PostgreSQL + Auth), Google OAuth, Vercel.
+
+Repository: https://github.com/santhosh12133/smart-bookmark-app
+
+### FNOL Claims Processing Agent
+**Deterministic Insurance Claims Triage Pipeline**
+
+A lightweight agent that extracts key fields from FNOL (first notice of loss) `.txt` and `.pdf` documents, flags missing or inconsistent data, and routes each claim to a workflow with a plain-English explanation. Available as a CLI and a Flask web UI, with 23 automated tests.
+
+**Core technologies:** Python, Flask, regex extraction, pdfplumber, pytest.
+
+Repository: https://github.com/santhosh12133/FNOL-Claims-Processing-Agent
+
 ## 👨‍💻 Experience
 
 ### Truyon Technologies — Software Developer Intern
@@ -175,14 +196,17 @@ The website is implemented without a frontend framework and uses browser-native 
 
 ```text
 Personal-portfolio/
-├── .github/
-├── .gitignore
-├── index.html
-├── style.css
-├── background-animation.webm
-├── 54ae41f975c65f1c4ec74a15f829a242.jpg
+├── .github/workflows/deploy.yml   # GitHub Pages deploy (no build step)
+├── index.html                     # all markup and content
+├── style.css                      # the single stylesheet
+├── script.js                      # the single script
+├── background-animation.webm      # scroll-scrubbed hero video
+├── og-image.jpg                   # social-share preview (1200x630)
+├── favicon.svg
 └── README.md
 ```
+
+`index.html` links `style.css` and `script.js` directly, so the code in this repository is exactly what gets deployed. `style.css` is organised as the base design followed by clearly labelled layers (enhancements, hero, mobile, research & credentials), and `script.js` is split into numbered sections (background video, reveals, navigation, dialogs, pointer effects, contact, scroll chrome).
 
 ## 🚀 Run Locally
 
@@ -204,7 +228,7 @@ http://localhost:8000
 
 As a static HTML/CSS/JavaScript site, the portfolio can be deployed to GitHub Pages, Vercel, Netlify, Cloudflare Pages, or another static web server.
 
-The repository uses the `main` branch.
+The repository uses the `main` branch. Every push to `main` runs `.github/workflows/deploy.yml`, which checks that every local asset referenced by `index.html` exists and then publishes the folder to GitHub Pages.
 
 ## 📬 Contact
 
