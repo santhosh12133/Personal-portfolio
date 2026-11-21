@@ -30,11 +30,38 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <meta name="theme-color" content="#050505">
-    <script>document.documentElement.classList.add('js');</script>
+    <script>
+        /* Mark JS as available and show the intro screen. The timer is a safety net: the intro can never hang. */
+        (function (d) {
+            var r = d.documentElement;
+            r.classList.add('js');
+            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+                r.classList.add('is-loading');
+                setTimeout(function () { r.classList.remove('is-loading'); }, 9000);
+            }
+        })(document);
+    </script>
     <link rel="stylesheet" href="style.css">
 </head>
 
 <body>
+    <div class="preloader" id="preloader" aria-hidden="true">
+        <div class="preloader-panel preloader-panel-top"></div>
+        <div class="preloader-panel preloader-panel-bottom"></div>
+        <div class="preloader-core">
+            <svg class="preloader-mark" viewBox="0 0 64 64" focusable="false">
+                <rect class="pl-badge" x="1.5" y="1.5" width="61" height="61" rx="15" pathLength="1"/>
+                <path class="pl-s" pathLength="1" d="M27 18.5C27 13.5 10 13 10 22c0 9.5 17 9 17 19.5 0 8.5-17 8-17 3"/>
+                <path class="pl-k1" pathLength="1" d="M38 14v36"/>
+                <path class="pl-k2" pathLength="1" d="M53 14 38 32.5"/>
+                <path class="pl-k3" pathLength="1" d="M43.5 28 54 50"/>
+            </svg>
+            <p class="preloader-name">Santhosh Kumar N</p>
+            <p class="preloader-role">Software Engineer &middot; Backend &amp; AI</p>
+            <div class="preloader-meter"><span class="preloader-bar" id="preloader-bar"></span></div>
+            <p class="preloader-count"><span id="preloader-count">0</span>%</p>
+        </div>
+    </div>
     <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><symbol id="logo-mark" viewBox="0 0 64 64"><defs><linearGradient id="lg" x1="6" y1="4" x2="58" y2="60" gradientUnits="userSpaceOnUse"><stop offset="0" stop-color="#2a0a0a"/><stop offset="1" stop-color="#0a0a0a"/></linearGradient><linearGradient id="lr" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#ff5a5a"/><stop offset="1" stop-color="#cc0000"/></linearGradient></defs><rect x="1.5" y="1.5" width="61" height="61" rx="15" fill="url(#lg)" stroke="#ff2b2b" stroke-opacity=".55" stroke-width="2"/><g fill="none" stroke-width="5.6" stroke-linecap="round" stroke-linejoin="round"><path d="M27 18.5C27 13.5 10 13 10 22c0 9.5 17 9 17 19.5 0 8.5-17 8-17 3" stroke="#fff"/><path d="M38 14v36" stroke="#fff"/><path d="M53 14 38 32.5" stroke="url(#lr)"/><path d="M43.5 28 54 50" stroke="#fff"/></g></symbol></svg>
     <a class="skip-link" href="#main">Skip to content</a>
     <!-- Custom Cursor -->

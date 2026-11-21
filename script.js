@@ -1,5 +1,5 @@
 /* Portfolio behaviour — one script, loaded once at the end of <body>.
-   1 background video · 2 reveal on scroll · 3 navigation · 4 dialogs
+   1 background video + intro screen · 2 reveal on scroll · 3 navigation · 4 dialogs
    5 project architecture panels · 6 cursor · 7 contact · 8 scroll chrome
    9 extras (hero roles, count-up, project filters, card spotlight, section rail, terminal) */
 (() => {
@@ -105,19 +105,72 @@
         requestAnimationFrame(() => { updateBackground(); scrollTicking = false; });
     }, { passive: true });
 
+    // Resolves once a hero frame has been painted (the intro screen waits for it, with a time limit).
+    let markVideoReady;
+    const videoReady = new Promise(resolve => { markVideoReady = resolve; });
+
     video.addEventListener('loadedmetadata', () => {
         updateBackground();
         // preload="metadata" (phones) decodes no frame until a seek, which left the hero empty.
         if (video.currentTime === 0) video.currentTime = 0.001;
     });
-    video.addEventListener('loadeddata', drawVideoFrame);
-    video.addEventListener('seeked', drawVideoFrame);
+    video.addEventListener('loadeddata', () => { drawVideoFrame(); markVideoReady(); });
+    video.addEventListener('seeked', () => { drawVideoFrame(); markVideoReady(); });
+    video.addEventListener('error', markVideoReady);
     video.pause();
 
     // Setting src starts the download; wait until the page is idle so it never blocks first paint.
     const startVideo = () => { video.src = './background-animation.webm'; };
     if ('requestIdleCallback' in window) requestIdleCallback(startVideo, { timeout: 2000 });
     else setTimeout(startVideo, 0);
+
+    /* ---------------------------------------------------------------- 1b. Intro screen
+       Waits for the page, fonts and the first hero frame (never longer than MAX), keeps the
+       animation on screen for at least MIN so it reads as intentional, then opens the curtain. */
+    const root = document.documentElement;
+    const preloader = $('#preloader');
+    const finishIntro = () => {
+        root.classList.remove('is-loading');
+        if (preloader) setTimeout(() => preloader.remove(), 1600);
+    };
+    if (preloader && root.classList.contains('is-loading')) {
+        const counter = $('#preloader-count');
+        const bar = $('#preloader-bar');
+        const MIN = 1700;
+        const MAX = 7000;
+        const started = performance.now();
+        let ready = false;
+        let shown = 0;
+        let leaving = false;
+
+        const withLimit = (promise, ms) => Promise.race([promise, new Promise(resolve => setTimeout(resolve, ms))]);
+        const pageLoaded = document.readyState === 'complete' ? Promise.resolve() : new Promise(resolve => window.addEventListener('load', resolve, { once: true }));
+        const fontsLoaded = document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve();
+        Promise.all([pageLoaded, withLimit(fontsLoaded, 3000), withLimit(videoReady, 5000)]).then(() => { ready = true; });
+
+        const leave = () => {
+            leaving = true;
+            preloader.classList.add('is-leaving');
+            setTimeout(finishIntro, 330); // hero text starts rising as the curtain opens
+        };
+        const step = now => {
+            const elapsed = now - started;
+            const t = Math.min(1, elapsed / MIN);
+            const eased = 1 - Math.pow(1 - t, 3);
+            const cap = ready || elapsed > MAX ? 100 : 90;
+            shown += (Math.min(eased * 100, cap) - shown) * 0.14;
+            if (shown > 99.4) shown = 100;
+            counter.textContent = Math.round(shown);
+            bar.style.transform = `scaleX(${shown / 100})`;
+            if (shown >= 100 && !leaving) { setTimeout(leave, 260); leaving = true; return; }
+            requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
+        // Coming back from the back/forward cache: never show the intro again.
+        window.addEventListener('pageshow', event => { if (event.persisted) { preloader.remove(); root.classList.remove('is-loading'); } });
+    } else if (preloader) {
+        preloader.remove();
+    }
 
     /* ---------------------------------------------------------------- 2. Reveal on scroll
        Every block reveals on its own as it approaches the viewport (not whole sections), so tall
