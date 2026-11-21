@@ -1,6 +1,6 @@
-/* Portfolio behaviour — a single script, loaded once at the end of <body>.
-   Sections: 1 background video · 2 scroll reveals · 3 navigation · 4 dialogs
-   · 5 pointer effects · 6 contact · 7 scroll chrome */
+/* Portfolio behaviour — one script, loaded once at the end of <body>.
+   1 background video · 2 reveal on scroll · 3 navigation · 4 dialogs
+   5 project architecture panels · 6 cursor · 7 contact · 8 scroll chrome */
 (() => {
     'use strict';
 
@@ -9,7 +9,9 @@
     const $ = (selector, root = document) => root.querySelector(selector);
     const $$ = (selector, root = document) => [...root.querySelectorAll(selector)];
 
-    /* ---------------------------------------------------------------- 1. Background video */
+    /* ---------------------------------------------------------------- 1. Background video
+       The portrait is a video scrubbed by scroll position inside the hero. It fades out as the
+       hero leaves the screen instead of disappearing in one frame. */
     const canvas = $('#scroll-canvas');
     const context = canvas.getContext('2d', { alpha: false });
     const homeSection = $('#home');
@@ -27,7 +29,6 @@
     let scrollTicking = false;
     let resizeTimeout = null;
 
-    // Cap DPR on mobile to keep the canvas cheap.
     const getDPR = () => {
         if (reduceMotion) return 1;
         const dpr = window.devicePixelRatio || 1;
@@ -60,12 +61,11 @@
         renderedTime += (targetTime - renderedTime) * 0.12;
         if (Math.abs(targetTime - renderedTime) < 0.015) renderedTime = targetTime;
 
-        // Seeking is expensive on phones, so require a bigger jump there.
+        // Seeking is expensive on phones, so require a larger jump there.
         const seekThreshold = isMobile ? 0.1 : 0.025;
         if (video.readyState >= 1 && !video.seeking && Math.abs(video.currentTime - renderedTime) > seekThreshold) {
             video.currentTime = renderedTime;
         }
-
         if (Math.abs(targetTime - renderedTime) > 0.001 || video.seeking) {
             frameRequest = requestAnimationFrame(animateBackground);
         }
@@ -74,18 +74,20 @@
     const updateBackground = () => {
         const top = homeSection.offsetTop;
         const height = homeSection.offsetHeight;
-        const inHome = window.scrollY >= top && window.scrollY < top + height;
+        const progress = height > 0 ? (window.scrollY - top) / height : 0;
 
-        canvas.style.visibility = inHome ? 'visible' : 'hidden';
+        // Fully visible for the first half of the hero, then a smooth fade to black.
+        const opacity = progress < 0.45 ? 1 : Math.max(0, 1 - (progress - 0.45) / 0.5);
+        canvas.style.opacity = opacity.toFixed(3);
+        canvas.style.visibility = opacity <= 0 || progress >= 1 ? 'hidden' : 'visible';
 
-        if (!inHome) {
+        if (canvas.style.visibility === 'hidden') {
             if (frameRequest) cancelAnimationFrame(frameRequest);
             frameRequest = null;
             return;
         }
 
-        const fraction = height > 0 ? (window.scrollY - top) / height : 0;
-        targetTime = Math.min(VIDEO_DURATION, Math.max(0, fraction * VIDEO_DURATION));
+        targetTime = Math.min(VIDEO_DURATION, Math.max(0, progress * VIDEO_DURATION));
         if (!frameRequest && !reduceMotion) frameRequest = requestAnimationFrame(animateBackground);
     };
 
@@ -104,58 +106,66 @@
 
     video.addEventListener('loadedmetadata', () => {
         updateBackground();
-        // With preload="metadata" (phones) no frame is decoded until a seek happens,
-        // which left the hero empty. Seeking to the first frame paints the portrait.
+        // preload="metadata" (phones) decodes no frame until a seek, which left the hero empty.
         if (video.currentTime === 0) video.currentTime = 0.001;
     });
     video.addEventListener('loadeddata', drawVideoFrame);
     video.addEventListener('seeked', drawVideoFrame);
     video.pause();
 
-    // Assigning src is what starts the download, so do it once the page is idle.
-    // (The old code set src immediately and then called load() again, which
-    // restarted the request and threw away the first frame.)
+    // Setting src starts the download; wait until the page is idle so it never blocks first paint.
     const startVideo = () => { video.src = './background-animation.webm'; };
     if ('requestIdleCallback' in window) requestIdleCallback(startVideo, { timeout: 2000 });
     else setTimeout(startVideo, 0);
 
-    /* ---------------------------------------------------------------- 2. Scroll reveals */
-    const revealObserver = new IntersectionObserver((entries, observer) => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            entry.target.classList.add('is-visible');
-            observer.unobserve(entry.target);
-        });
-    }, { threshold: 0.15 });
-    $$('.fade-in-section').forEach(section => revealObserver.observe(section));
+    /* ---------------------------------------------------------------- 2. Reveal on scroll
+       Every block reveals on its own as it approaches the viewport (not whole sections), so tall
+       blocks on phones cannot get stuck hidden. Blocks already scrolled past reveal at once. */
+    const revealSelectors = [
+        '.section-number', '.section-title', '.section-lead', '.huge-title', '.contact-desc',
+        '.about-narrative', '.tech-summary', '.stat-grid', '.credential-stats',
+        '.timeline-item', '.edu-card', '.project-showcase', '.skill-row', '.process-step',
+        '.credentials-subtitle', '.pub-card', '.cert-card', '.contact-links', '.premium-contact-form'
+    ].join(',');
+    const staggerGroups = '.timeline-item, .edu-card, .skill-row, .process-step, .pub-card, .cert-card';
 
-    // The project covers get a clip-path reveal; the project in view gets a red number.
+    const revealTargets = $$(revealSelectors).filter(el => !el.closest('.hero'));
+    revealTargets.forEach(el => el.setAttribute('data-reveal', ''));
+
+    // Stagger siblings that appear together (cards in a row, rows in a list).
+    $$(staggerGroups).forEach(el => {
+        const siblings = [...el.parentElement.children].filter(child => child.matches(staggerGroups));
+        el.style.setProperty('--d', `${Math.min(siblings.indexOf(el), 4) * 0.08}s`);
+    });
+
+    if ('IntersectionObserver' in window && !reduceMotion) {
+        const revealObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting || entry.boundingClientRect.top < 0) {
+                    entry.target.classList.add('is-in');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { rootMargin: '0px 0px -6% 0px', threshold: 0 });
+        revealTargets.forEach(el => revealObserver.observe(el));
+    } else {
+        revealTargets.forEach(el => el.classList.add('is-in'));
+    }
+
+    // The project number turns red for the project currently being read.
     const projects = $$('#projects .project-showcase');
-    if (projects.length) {
+    if ('IntersectionObserver' in window) {
         const currentObserver = new IntersectionObserver(entries => {
             entries.forEach(entry => entry.target.classList.toggle('project-current', entry.isIntersecting));
         }, { rootMargin: '-35% 0px -45% 0px', threshold: 0 });
         projects.forEach(project => currentObserver.observe(project));
-
-        if (!reduceMotion) {
-            const enterObserver = new IntersectionObserver(entries => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) entry.target.classList.add('is-premium-entered');
-                });
-            }, { rootMargin: '-12% 0px -38% 0px', threshold: 0.05 });
-            projects.forEach(project => {
-                project.classList.add('premium-project-choreography');
-                enterObserver.observe(project);
-            });
-        }
     }
 
     /* ---------------------------------------------------------------- 3. Navigation */
     const navbar = $('#navbar');
     const menuButton = $('.mobile-menu-btn');
     const navList = $('#nav-links');
-    const transition = $('.section-transition');
-    const sectionLinks = $$('a[href^="#"]', navList);
+    const sectionLinks = $$('a[href^="#"]:not(.btn)', navList);
 
     const setMenu = open => {
         navbar.classList.toggle('nav-open', open);
@@ -166,48 +176,51 @@
     document.addEventListener('keydown', event => {
         if (event.key === 'Escape' && navbar.classList.contains('nav-open')) { setMenu(false); menuButton.focus(); }
     });
+    // Tapping anywhere outside the open menu closes it.
+    document.addEventListener('click', event => {
+        if (navbar.classList.contains('nav-open') && !navbar.contains(event.target)) setMenu(false);
+    });
+    window.matchMedia('(min-width: 1081px)').addEventListener('change', event => { if (event.matches) setMenu(false); });
 
-    const goToSection = (hash, trigger) => {
-        const target = $(hash);
-        if (!target) return false;
-        if (transition && !reduceMotion) {
-            transition.classList.remove('is-running');
-            void transition.offsetWidth; // restart the animation
-            transition.classList.add('is-running');
-        }
-        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
-        if (location.hash !== hash) history.pushState(null, '', hash);
-        if (trigger) trigger();
-        return true;
-    };
-
-    // One handler for every in-page link (nav, footer, hero CTA, back to top).
+    // One handler for every in-page link (nav, footer, hero buttons).
     document.addEventListener('click', event => {
         const link = event.target.closest('a[href^="#"]');
         if (!link || link.getAttribute('href') === '#') return;
-        if (goToSection(link.getAttribute('href'), () => setMenu(false))) event.preventDefault();
+        const hash = link.getAttribute('href');
+        const target = $(hash);
+        if (!target) return;
+        event.preventDefault();
+        setMenu(false);
+        target.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
+        if (location.hash !== hash) history.pushState(null, '', hash);
     });
 
     const sections = sectionLinks.map(link => $(link.getAttribute('href'))).filter(Boolean);
-    const activeObserver = new IntersectionObserver(entries => {
-        entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            sectionLinks.forEach(link => {
-                const active = link.getAttribute('href') === `#${entry.target.id}`;
-                link.classList.toggle('is-active', active);
-                if (active) link.setAttribute('aria-current', 'true');
-                else link.removeAttribute('aria-current');
+    if ('IntersectionObserver' in window) {
+        const activeObserver = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (!entry.isIntersecting) return;
+                sectionLinks.forEach(link => {
+                    const active = link.getAttribute('href') === `#${entry.target.id}`;
+                    link.classList.toggle('is-active', active);
+                    if (active) link.setAttribute('aria-current', 'true');
+                    else link.removeAttribute('aria-current');
+                });
             });
-        });
-    }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-    sections.forEach(section => activeObserver.observe(section));
+        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
+        sections.forEach(section => activeObserver.observe(section));
+    }
 
     /* ---------------------------------------------------------------- 4. Dialogs */
     const quickNav = $('#quick-nav');
     const quickNavInput = $('#quick-nav-input');
     const quickNavResults = $('#quick-nav-results');
-    const quickNavLinks = sectionLinks.map(link => link.cloneNode(true));
-
+    const quickNavLinks = sectionLinks.map(link => {
+        const clone = link.cloneNode(true);
+        clone.classList.remove('is-active');
+        clone.removeAttribute('aria-current');
+        return clone;
+    });
     quickNavLinks.forEach(link => {
         link.addEventListener('click', () => quickNav.close());
         quickNavResults.append(link);
@@ -220,11 +233,10 @@
     quickNavInput.addEventListener('input', filterQuickNav);
     quickNavInput.addEventListener('keydown', event => {
         if (event.key !== 'Enter') return;
-        event.preventDefault(); // otherwise the form closes the dialog without going anywhere
+        event.preventDefault();
         const first = quickNavLinks.find(link => !link.hidden);
         if (first) first.click();
     });
-
     document.addEventListener('keydown', event => {
         if ((event.ctrlKey || event.metaKey) && event.key.toLowerCase() === 'k') {
             event.preventDefault();
@@ -246,9 +258,8 @@
             const title = $('strong', node);
             const details = $('span', node);
             detailsTitle.textContent = title ? title.textContent : 'Architecture node';
-            // <br> separators in the markup become line breaks in the dialog.
             detailsCopy.textContent = details
-                ? details.innerHTML.split(/<br\s*\/?>/i).map(part => part.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').trim()).filter(Boolean).join(' · ')
+                ? details.innerHTML.split(/<br\s*\/?>/i).map(part => part.replace(/<[^>]+>/g, '').replace(/&amp;/g, '&').replace(/&nbsp;/g, ' ').trim()).filter(Boolean).join(' · ')
                 : 'Technical component in the system flow.';
             detailsDialog.showModal();
         };
@@ -257,86 +268,60 @@
             if (event.key === 'Enter' || event.key === ' ') { event.preventDefault(); open(); }
         });
     });
-
     $('#architecture-details-close').addEventListener('click', () => detailsDialog.close());
-    // Clicking the dimmed backdrop closes either dialog.
     [detailsDialog, quickNav].forEach(dialog => {
         dialog.addEventListener('click', event => { if (event.target === dialog) dialog.close(); });
     });
 
-    /* ---------------------------------------------------------------- 5. Pointer effects */
+    /* ---------------------------------------------------------------- 5. Architecture panels
+       On phones each diagram is folded away behind a button, so the Projects section is a
+       readable list rather than 11,000px of scrolling. On wider screens nothing is folded. */
+    const compact = window.matchMedia('(max-width: 900px)');
+    const chevron = '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+
+    const panels = $$('.project-visual').map((visual, index) => {
+        visual.id = `architecture-${index + 1}`;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.className = 'arch-toggle';
+        button.setAttribute('aria-expanded', 'false');
+        button.setAttribute('aria-controls', visual.id);
+        button.innerHTML = `<span>View system architecture</span>${chevron}`;
+        visual.before(button);
+
+        const setOpen = open => {
+            visual.classList.toggle('is-open', open);
+            button.setAttribute('aria-expanded', String(open));
+            $('span', button).textContent = open ? 'Hide system architecture' : 'View system architecture';
+            visual.style.maxHeight = open ? `${visual.scrollHeight}px` : '';
+        };
+        button.addEventListener('click', () => setOpen(!visual.classList.contains('is-open')));
+        return { visual, setOpen };
+    });
+
+    const syncPanels = () => {
+        panels.forEach(({ visual, setOpen }) => {
+            if (!compact.matches) { visual.style.maxHeight = ''; return; }
+            if (visual.classList.contains('is-open')) setOpen(true); // re-measure after a resize
+        });
+    };
+    compact.addEventListener('change', syncPanels);
+    window.addEventListener('resize', () => { clearTimeout(syncPanels.t); syncPanels.t = setTimeout(syncPanels, 150); });
+
+    /* ---------------------------------------------------------------- 6. Cursor (fine pointers) */
     const cursor = $('#custom-cursor');
     if (finePointer) {
-        const cursorText = $('.cursor-text', cursor);
-
         document.addEventListener('mousemove', event => {
             cursor.style.transform = `translate(${event.clientX}px, ${event.clientY}px)`;
-        });
-
-        const cursorLabel = element => {
-            if (element.classList.contains('project-visual')) return ['project', 'EXPLORE'];
-            if (element.dataset.cursor === 'project') return ['project', 'VIEW'];
-            if (element.matches('.btn-primary, .nav-cta')) return ['link', 'OPEN'];
-            return ['link', 'LINK'];
-        };
-        const clearCursor = () => {
-            cursor.classList.remove('cursor-active', 'cursor-explore', 'premium-cursor-context', 'cursor-context-link', 'cursor-context-project');
-            cursorText.textContent = '';
-        };
-
-        const targets = $$('.project-visual, .nav-links a, .btn, .footer-links a, .footer-socials a, .footer-top-link, .copy-contact');
-        targets.forEach(element => {
-            element.addEventListener('pointerenter', () => {
-                const [kind, label] = cursorLabel(element);
-                clearCursor();
-                cursor.classList.add('cursor-active', 'premium-cursor-context', `cursor-context-${kind}`);
-                if (kind === 'project') cursor.classList.add('cursor-explore');
-                cursorText.textContent = label;
-            });
-            element.addEventListener('pointerleave', clearCursor);
-        });
+        }, { passive: true });
+        const interactive = 'a, button, .architecture-node, input, textarea';
+        document.addEventListener('mouseover', event => { if (event.target.closest(interactive)) cursor.classList.add('cursor-active'); });
+        document.addEventListener('mouseout', event => { if (event.target.closest(interactive)) cursor.classList.remove('cursor-active'); });
     } else {
         cursor.style.display = 'none';
     }
 
-    if (!reduceMotion && finePointer) {
-        // Spotlight + very slight tilt on the project covers.
-        $$('.project-visual').forEach(card => {
-            card.classList.add('premium-tilt', 'premium-spotlight');
-            card.addEventListener('pointermove', event => {
-                const rect = card.getBoundingClientRect();
-                const x = (event.clientX - rect.left) / rect.width;
-                const y = (event.clientY - rect.top) / rect.height;
-                card.style.setProperty('--spotlight-x', `${(x * 100).toFixed(1)}%`);
-                card.style.setProperty('--spotlight-y', `${(y * 100).toFixed(1)}%`);
-                card.style.transform = `perspective(1100px) rotateX(${(-(y - 0.5) * 2.2).toFixed(2)}deg) rotateY(${((x - 0.5) * 2.2).toFixed(2)}deg) translateY(-3px)`;
-            });
-            card.addEventListener('pointerleave', () => {
-                card.style.transform = '';
-                card.style.removeProperty('--spotlight-x');
-                card.style.removeProperty('--spotlight-y');
-            });
-        });
-
-        // Magnetic buttons stay subtle so they are never hard to click.
-        $$('.btn-primary, .btn-secondary, .btn-outline, .nav-cta').forEach(element => {
-            element.classList.add('premium-magnetic');
-            const strength = element.classList.contains('nav-cta') ? 7 : 9;
-            element.addEventListener('pointermove', event => {
-                const rect = element.getBoundingClientRect();
-                const x = (event.clientX - (rect.left + rect.width / 2)) / rect.width;
-                const y = (event.clientY - (rect.top + rect.height / 2)) / rect.height;
-                element.classList.add('is-magnetic-active');
-                element.style.transform = `translate3d(${(x * strength).toFixed(2)}px, ${(y * strength).toFixed(2)}px, 0)`;
-            });
-            element.addEventListener('pointerleave', () => {
-                element.classList.remove('is-magnetic-active');
-                element.style.transform = '';
-            });
-        });
-    }
-
-    /* ---------------------------------------------------------------- 6. Contact */
+    /* ---------------------------------------------------------------- 7. Contact */
     $$('.copy-contact').forEach(button => {
         button.addEventListener('click', async () => {
             const label = button.textContent;
@@ -354,7 +339,6 @@
     if (form) {
         const status = $('#contact-status');
         const setStatus = (text, state) => { status.textContent = `● ${text}`; status.dataset.state = state || ''; };
-
         form.addEventListener('submit', event => {
             event.preventDefault();
             const name = form.elements.name.value.trim();
@@ -371,24 +355,27 @@
         });
     }
 
-    /* ---------------------------------------------------------------- 7. Scroll chrome */
+    /* ---------------------------------------------------------------- 8. Scroll chrome */
     const progress = $('#scroll-progress');
     const topButton = $('.scroll-top-control');
     let previousY = window.scrollY;
     let chromeTicking = false;
 
+    topButton.addEventListener('click', () => window.scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }));
+
     const updateChrome = () => {
-        const y = window.scrollY;
+        const y = Math.max(0, window.scrollY); // iOS rubber-banding reports negative values
         const range = document.documentElement.scrollHeight - window.innerHeight;
-        progress.style.transform = `scaleX(${range > 0 ? y / range : 0})`;
+        progress.style.transform = `scaleX(${range > 0 ? Math.min(1, y / range) : 0})`;
 
-        const scrollingDown = y > previousY;
-        // Never hide the bar while the mobile menu is open.
-        navbar.classList.toggle('nav-hidden', scrollingDown && y > 100 && !navbar.classList.contains('nav-open'));
-        navbar.classList.toggle('nav-scrolled', y > 50);
+        const delta = y - previousY;
+        // Small jitters never toggle the bar; it stays put while the menu is open.
+        if (Math.abs(delta) > 6) {
+            navbar.classList.toggle('nav-hidden', delta > 0 && y > 140 && !navbar.classList.contains('nav-open'));
+            previousY = y;
+        }
+        navbar.classList.toggle('nav-scrolled', y > 40);
         topButton.classList.toggle('is-visible', y > window.innerHeight * 0.65);
-
-        previousY = y;
         chromeTicking = false;
     };
     window.addEventListener('scroll', () => {

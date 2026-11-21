@@ -29,13 +29,12 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
     <meta name="theme-color" content="#050505">
+    <script>document.documentElement.classList.add('js');</script>
     <link rel="stylesheet" href="style.css">
-    <noscript><style>.fade-in-section, .fade-in-section * { opacity: 1 !important; transform: none !important; }</style></noscript>
 </head>
 
 <body>
-    <a class="skip-link" href="#about">Skip to content</a>
-    <div class="section-transition" aria-hidden="true"></div>
+    <a class="skip-link" href="#main">Skip to content</a>
     <!-- Custom Cursor -->
     <div class="cursor" id="custom-cursor">
         <span class="cursor-text"></span>
@@ -48,12 +47,11 @@
     </div>
 
     <!-- Main Content -->
-    <main class="content-wrapper">
+    <div class="content-wrapper">
         <!-- Navigation -->
-        <nav class="navbar" id="navbar">
+        <nav class="navbar" id="navbar" aria-label="Primary">
             <a class="nav-brand" href="#home">Santhosh Kumar<span class="brand-dot">.</span></a>
             <ul class="nav-links" id="nav-links">
-                <li><a href="#home">Home</a></li>
                 <li><a href="#about">About</a></li>
                 <li><a href="#experience">Experience</a></li>
                 <li><a href="#education">Education</a></li>
@@ -61,8 +59,9 @@
                 <li><a href="#skills">Skills</a></li>
                 <li><a href="#research">Research</a></li>
                 <li><a href="#contact">Contact</a></li>
+                <li class="nav-links-cta"><a class="btn btn-primary" href="#contact">Let's Connect</a></li>
             </ul>
-            <a href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="nav-cta" data-cursor="hover">Let's Connect</a>
+            <a href="#contact" class="nav-cta">Let's Connect</a>
 
             <!-- Mobile Menu Toggle -->
             <button class="mobile-menu-btn" type="button" aria-label="Open navigation menu" aria-expanded="false" aria-controls="nav-links">
@@ -92,9 +91,11 @@
             </div>
         </dialog>
 
+        <main id="main">
         <!-- Hero Section -->
-        <section id="home" class="hero hero-reference fade-in-section">
+        <section id="home" class="hero">
             <div class="hero-content">
+                <p class="hero-status">Open to software engineering opportunities</p>
                 <div class="hero-reference-tagline">Software Engineer · Backend &amp; AI</div>
                 <h1 class="hero-title"><span class="hero-greeting">Hi, I’m</span><span class="hero-name">Santhosh</span></h1>
                 <p class="hero-desc">
@@ -102,19 +103,14 @@
                 </p>
                 <div class="hero-actions">
                     <a href="#projects" class="btn btn-primary">View My Work &rarr;</a>
+                    <a href="#contact" class="btn btn-secondary">Get in touch</a>
                 </div>
             </div>
-
-            <div class="hero-visual">
-                <div class="portrait-container">
-                    <div class="portrait-glow"></div>
-                </div>
-            </div>
+            <div class="hero-scroll" aria-hidden="true">Scroll to explore</div>
         </section>
 
-
         <!-- About Section -->
-        <section id="about" class="about section-padding fade-in-section">
+        <section id="about" class="about section-padding">
             <div class="section-number">01 / ABOUT</div>
             <div class="about-grid">
                 <h2 class="section-title">Engineering With Purpose.</h2>
@@ -133,12 +129,19 @@
                         <div class="tech-pill">Testing & Debugging</div>
                         <div class="tech-pill">AI-powered Automation</div>
                     </div>
+
+                    <ul class="stat-grid" aria-label="At a glance">
+                        <li><strong>8</strong><span>Projects built</span></li>
+                        <li><strong>2</strong><span>IEEE publications</span></li>
+                        <li><strong>2</strong><span>Internships</span></li>
+                        <li><strong>MCA</strong><span>2024 &ndash; 2026</span></li>
+                    </ul>
                 </div>
             </div>
         </section>
 
         <!-- Experience Section -->
-        <section id="experience" class="experience section-padding fade-in-section">
+        <section id="experience" class="experience section-padding">
             <div class="section-number">02 / EXPERIENCE</div>
             <h2 class="section-title mb-large">Professional Journey</h2>
 
@@ -157,10 +160,7 @@
                             <li>Engineered secure REST APIs for robust client-server communication.</li>
                             <li>Designed relational database schemas to ensure data integrity and query efficiency.</li>
                         </ul>
-                        <div class="tech-stack-inline">
-                            <span>Node.js</span> • <span>Express.js</span> • <span>SQL</span> • <span>REST APIs</span> •
-                            <span>Git</span>
-                        </div>
+                        <ul class="chips" aria-label="Technologies"><li>Node.js</li><li>Express.js</li><li>SQL</li><li>REST APIs</li><li>Git</li></ul>
                     </div>
                 </div>
 
@@ -177,17 +177,14 @@
                             <li>Maintained robust SQL databases and optimized query execution.</li>
                             <li>Collaborated using Git/GitHub for version control and streamlined integration.</li>
                         </ul>
-                        <div class="tech-stack-inline">
-                            <span>Python REST services</span> • <span>SQL</span> • <span>Git/GitHub</span> •
-                            <span>Responsive UI</span>
-                        </div>
+                        <ul class="chips" aria-label="Technologies"><li>Python REST services</li><li>SQL</li><li>Git/GitHub</li><li>Responsive UI</li></ul>
                     </div>
                 </div>
             </div>
         </section>
 
         <!-- Education Section -->
-        <section id="education" class="education section-padding fade-in-section">
+        <section id="education" class="education section-padding">
             <div class="section-number">03 / EDUCATION</div>
             <h2 class="section-title mb-large">Academic Foundation</h2>
 
@@ -214,12 +211,16 @@
 
         <!-- Projects Section -->
         <section id="projects" class="projects section-padding">
-            <div class="section-number fade-in-section">04 / PROJECTS</div>
+            <div class="projects-head">
+                <div class="section-number">04 / PROJECTS</div>
+                <h2 class="section-title">Selected work.</h2>
+                <p class="section-lead">Eight projects across backend APIs, AI pipelines and full-stack products. Each one has a system architecture diagram &mdash; open any component for details.</p>
+            </div>
 
             <!-- Project 01 -->
-            <div class="project-showcase fade-in-section">
+            <div class="project-showcase">
                 <div class="project-meta">
-                    <div class="project-num">01</div>
+                    <div class="project-head"><span class="project-num">01</span><span class="project-kind">Full-stack · AI</span></div>
                     <h3 class="project-title">CivicFix</h3>
                     <p class="project-subtitle">Crowdsourced Civic Issue Reporting Platform</p>
 
@@ -246,12 +247,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhoshkumar12133/CivicFix" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture civicfix-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture civicfix-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">CivicFix / System Architecture</span><span class="architecture-status">01 / 08</span></div>
                         <div class="architecture-flow">
                             <div class="architecture-stage"><span class="stage-label">01 / ACTORS</span><div class="architecture-node"><strong>Citizen / Officer</strong><span>Mobile and operational users</span></div></div><span class="architecture-arrow">&rarr;</span>
@@ -267,9 +268,9 @@
             </div>
 
             <!-- Project 02 -->
-            <div class="project-showcase reverse fade-in-section">
+            <div class="project-showcase reverse">
                 <div class="project-meta">
-                    <div class="project-num">02</div>
+                    <div class="project-head"><span class="project-num">02</span><span class="project-kind">Backend · AI / OCR</span></div>
                     <h3 class="project-title">Medical Expense Processing</h3>
                     <p class="project-subtitle">AI-Powered Automated Pipeline</p>
 
@@ -294,12 +295,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/medical-claim-ai" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture medical-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture medical-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">Medical Claim AI / System Architecture</span><span class="architecture-status">02 / 08</span></div>
                         <div class="architecture-flow">
                             <div class="architecture-stage"><span class="stage-label">01 / ACTOR</span><div class="architecture-node"><strong>Employee</strong><span>Claim submitter</span></div></div><span class="architecture-arrow">&rarr;</span>
@@ -317,9 +318,9 @@
             </div>
 
             <!-- Project 03 -->
-            <div class="project-showcase fade-in-section">
+            <div class="project-showcase">
                 <div class="project-meta">
-                    <div class="project-num">03</div>
+                    <div class="project-head"><span class="project-num">03</span><span class="project-kind">Full-stack · Realtime</span></div>
                     <h3 class="project-title">Learnato Discussion Forum — Microservice</h3>
                     <p class="project-subtitle">Real-Time Discussion Forum for E-Learning Platforms</p>
 
@@ -346,12 +347,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/learnato-forum" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture learnato-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture learnato-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">LEARNATO FORUM / MICROSERVICE ARCHITECTURE</span><span class="architecture-status">03 / 08</span></div>
                         <div class="learnato-layer-label">01 / CLIENT / UI</div>
                         <div class="learnato-node-row">
@@ -383,9 +384,9 @@
             </div>
 
             <!-- Project 04 -->
-            <div class="project-showcase reverse fade-in-section">
+            <div class="project-showcase reverse">
                 <div class="project-meta">
-                    <div class="project-num">04</div>
+                    <div class="project-head"><span class="project-num">04</span><span class="project-kind">Full-stack · AI</span></div>
                     <h3 class="project-title">Task App — AI-Powered Task Management</h3>
                     <p class="project-subtitle">Full-Stack Realtime Task Management Application</p>
 
@@ -411,12 +412,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/task-app" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture task-app-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture task-app-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">TASK APP / TECHNICAL ARCHITECTURE</span><span class="architecture-status">04 / 08</span></div>
                         <div class="architecture-flow">
                             <div class="architecture-stage"><span class="stage-label">01 / CLIENT LAYER</span><div class="architecture-node"><strong>React + Vite + Tailwind</strong><span>Responsive frontend</span></div></div><span class="architecture-arrow">&rarr;</span>
@@ -433,9 +434,9 @@
             </div>
 
             <!-- Project 05 -->
-            <div class="project-showcase fade-in-section">
+            <div class="project-showcase">
                 <div class="project-meta">
-                    <div class="project-num">05</div>
+                    <div class="project-head"><span class="project-num">05</span><span class="project-kind">Data · ML</span></div>
                     <h3 class="project-title">Telco Customer Churn Dashboard</h3>
                     <p class="project-subtitle">Telecom Churn Analysis with Python and Power BI</p>
 
@@ -461,12 +462,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/Telco-Customer-Churn-Dashboard" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture telco-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture telco-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">TELCO CHURN / DATA &amp; ML PIPELINE</span><span class="architecture-status">05 / 08</span></div>
                         <div class="telco-pipeline-label">01 / DATA SOURCE</div>
                         <div class="telco-pipeline">
@@ -495,9 +496,9 @@
             </div>
 
             <!-- Project 06 -->
-            <div class="project-showcase reverse fade-in-section">
+            <div class="project-showcase reverse">
                 <div class="project-meta">
-                    <div class="project-num">06</div>
+                    <div class="project-head"><span class="project-num">06</span><span class="project-kind">Full-stack · PHP</span></div>
                     <h3 class="project-title">E-Commerce Platform</h3>
                     <p class="project-subtitle">PHP-Based Customer and Admin Commerce System</p>
 
@@ -523,12 +524,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/e-commerce" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture ecommerce-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture ecommerce-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">E-COMMERCE PLATFORM / SYSTEM ARCHITECTURE</span><span class="architecture-status">06 / 08</span></div>
                         <div class="ecommerce-layer-label">01 / CUSTOMER &amp; ADMIN FLOWS</div>
                         <div class="ecommerce-flow-grid">
@@ -562,9 +563,9 @@
             </div>
 
             <!-- Project 07 -->
-            <div class="project-showcase fade-in-section">
+            <div class="project-showcase">
                 <div class="project-meta">
-                    <div class="project-num">07</div>
+                    <div class="project-head"><span class="project-num">07</span><span class="project-kind">Full-stack · Next.js</span></div>
                     <h3 class="project-title">Smart Bookmark App</h3>
                     <p class="project-subtitle">Production-Ready Bookmark Management Platform</p>
 
@@ -591,12 +592,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/smart-bookmark-app" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture smart-bookmark-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture smart-bookmark-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">SMART BOOKMARK APP / TECHNICAL ARCHITECTURE</span><span class="architecture-status">07 / 08</span></div>
                         <div class="smart-bookmark-layer-label">01 / CLIENT / FRONTEND</div>
                         <div class="smart-bookmark-node-row"><div class="architecture-node"><strong>User</strong></div></div>
@@ -620,9 +621,9 @@
             </div>
 
             <!-- Project 08 -->
-            <div class="project-showcase reverse fade-in-section">
+            <div class="project-showcase reverse">
                 <div class="project-meta">
-                    <div class="project-num">08</div>
+                    <div class="project-head"><span class="project-num">08</span><span class="project-kind">Backend · Automation</span></div>
                     <h3 class="project-title">FNOL Claims Processing Agent</h3>
                     <p class="project-subtitle">Deterministic Insurance Claims Triage Pipeline</p>
 
@@ -649,12 +650,12 @@
 
                     <div class="project-links">
                         <a href="https://github.com/santhosh12133/FNOL-Claims-Processing-Agent" target="_blank" rel="noopener noreferrer" class="btn btn-outline"
-                            data-cursor="project">View Project &rarr;</a>
+                           >View Project &rarr;</a>
                     </div>
                 </div>
 
-                <div class="project-visual" data-cursor="explore">
-                    <div class="architecture fnol-architecture fade-in-arch">
+                <div class="project-visual">
+                    <div class="architecture fnol-architecture">
                         <div class="architecture-heading"><span class="architecture-kicker">FNOL CLAIMS / DETERMINISTIC PROCESSING</span><span class="architecture-status">08 / 08</span></div>
                         <div class="fnol-layer-label">01 / INPUT &amp; INTERFACES</div>
                         <div class="fnol-interface-row">
@@ -684,113 +685,69 @@
         </section>
 
         <!-- Technical Skills Section -->
-        <section id="skills" class="skills section-padding fade-in-section">
+        <section id="skills" class="skills section-padding">
             <div class="section-number">05 / SKILLS</div>
             <h2 class="section-title mb-large">Technical Capabilities</h2>
 
-            <div class="skill-cards">
-                <div class="skill-card">
+            <div class="skill-matrix">
+                <div class="skill-row">
                     <h3 class="skill-title">Languages</h3>
-                    <ul class="skill-list">
-                        <li>Java</li>
-                        <li>Python</li>
-                        <li>JavaScript</li>
-                        <li>SQL</li>
-                    </ul>
+                    <ul class="chips"><li>Java</li><li>Python</li><li>JavaScript</li><li>SQL</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">Backend & APIs</h3>
-                    <ul class="skill-list">
-                        <li>Node.js</li>
-                        <li>Express.js</li>
-                        <li>REST APIs</li>
-                    </ul>
+                    <ul class="chips"><li>Node.js</li><li>Express.js</li><li>REST APIs</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">Databases</h3>
-                    <ul class="skill-list">
-                        <li>MySQL</li>
-                        <li>PostgreSQL</li>
-                        <li>MongoDB</li>
-                    </ul>
+                    <ul class="chips"><li>MySQL</li><li>PostgreSQL</li><li>MongoDB</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">Testing</h3>
-                    <ul class="skill-list">
-                        <li>Manual Testing</li>
-                        <li>Functional & Regression</li>
-                        <li>API Testing</li>
-                        <li>UAT & STLC</li>
-                    </ul>
+                    <ul class="chips"><li>Manual Testing</li><li>Functional & Regression</li><li>API Testing</li><li>UAT & STLC</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">DevOps & CI/CD</h3>
-                    <ul class="skill-list">
-                        <li>Git & GitHub</li>
-                        <li>Jenkins</li>
-                        <li>CI/CD</li>
-                        <li>Docker</li>
-                    </ul>
+                    <ul class="chips"><li>Git & GitHub</li><li>Jenkins</li><li>CI/CD</li><li>Docker</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">Engineering</h3>
-                    <ul class="skill-list">
-                        <li>SDLC & Agile</li>
-                        <li>Scrum</li>
-                        <li>Debugging</li>
-                    </ul>
+                    <ul class="chips"><li>SDLC & Agile</li><li>Scrum</li><li>Debugging</li></ul>
                 </div>
-                <div class="skill-card">
+                <div class="skill-row">
                     <h3 class="skill-title">AI & Intelligent Systems</h3>
-                    <ul class="skill-list">
-                        <li>OCR & Document Processing</li>
-                        <li>NLP</li>
-                        <li>RAG Pipelines</li>
-                        <li>AI Automation</li>
-                        <li>Embeddings</li>
-                        <li>ChromaDB</li>
-                    </ul>
+                    <ul class="chips"><li>OCR & Document Processing</li><li>NLP</li><li>RAG Pipelines</li><li>AI Automation</li><li>Embeddings</li><li>ChromaDB</li></ul>
                 </div>
             </div>
         </section>
 
         <!-- What I Work With Section -->
-        <section id="workflow" class="workflow section-padding fade-in-section">
+        <section id="workflow" class="workflow section-padding">
             <div class="section-number">06 / HOW I WORK</div>
-            <h2 class="section-title mb-large">What I Work With</h2>
+            <h2 class="section-title mb-large">Build, test, ship, solve.</h2>
 
-            <div class="workflow-grid">
-                <div class="workflow-card">
-                    <h3 class="workflow-title">BUILD</h3>
-                    <p>Backend APIs</p>
-                    <p>Application Logic</p>
-                    <p>Database Systems</p>
-                </div>
-                <div class="workflow-card">
-                    <h3 class="workflow-title">TEST</h3>
-                    <p>API Testing</p>
-                    <p>Functional Testing</p>
-                    <p>Regression Testing</p>
-                    <p>Debugging</p>
-                </div>
-                <div class="workflow-card">
-                    <h3 class="workflow-title">SHIP</h3>
-                    <p>Git / GitHub</p>
-                    <p>Jenkins / Docker</p>
-                    <p>CI/CD Pipelines</p>
-                </div>
-                <div class="workflow-card accent-card">
-                    <h3 class="workflow-title">SOLVE</h3>
-                    <p>Automation</p>
-                    <p>Document Processing</p>
-                    <p>Data Validation</p>
-                    <p>Real-world Software Problems</p>
-                </div>
-            </div>
+            <ol class="process">
+                <li class="process-step">
+                    <h3>BUILD</h3>
+                    <ul><li>Backend APIs</li><li>Application Logic</li><li>Database Systems</li></ul>
+                </li>
+                <li class="process-step">
+                    <h3>TEST</h3>
+                    <ul><li>API Testing</li><li>Functional Testing</li><li>Regression Testing</li><li>Debugging</li></ul>
+                </li>
+                <li class="process-step">
+                    <h3>SHIP</h3>
+                    <ul><li>Git / GitHub</li><li>Jenkins / Docker</li><li>CI/CD Pipelines</li></ul>
+                </li>
+                <li class="process-step">
+                    <h3>SOLVE</h3>
+                    <ul><li>Automation</li><li>Document Processing</li><li>Data Validation</li><li>Real-world Software Problems</li></ul>
+                </li>
+            </ol>
         </section>
 
         <!-- Research & Credentials Section -->
-        <section id="research" class="credentials section-padding fade-in-section">
+        <section id="research" class="credentials section-padding">
             <div class="section-number">07 / RESEARCH &amp; CREDENTIALS</div>
             <h2 class="section-title mb-medium credentials-heading">Published work &amp; certified skills.</h2>
 
@@ -872,25 +829,27 @@
         </section>
 
         <!-- Contact Section -->
-        <section id="contact" class="contact section-padding fade-in-section">
+        <section id="contact" class="contact section-padding">
             <div class="section-number">08 / CONTACT</div>
 
-            <div class="contact-content">
-                <h2 class="huge-title">Let's Build<br>Something<br><span class="accent-text">Meaningful.</span></h2>
+            <div class="contact-layout">
+                <div class="contact-content">
+                    <h2 class="huge-title">Let's Build<br>Something<br><span class="accent-text">Meaningful.</span></h2>
 
-                <p class="contact-desc">
-                    I'm open to software engineering opportunities, technical conversations, and projects where
-                    thoughtful engineering can create real impact.
-                </p>
+                    <p class="contact-desc">
+                        I'm open to software engineering opportunities, technical conversations, and projects where
+                        thoughtful engineering can create real impact.
+                    </p>
 
-                <div class="contact-actions">
-                    <a href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer" class="btn btn-secondary"
-                        data-cursor="hover">Message on WhatsApp</a>
+                    <div class="contact-links">
+                        <a href="mailto:santhoshkumar12133@gmail.com"><small>Email</small><span>santhoshkumar12133@gmail.com</span></a>
+                        <a href="https://wa.me/918495900723" target="_blank" rel="noopener noreferrer"><small>WhatsApp</small><span>+91 84959 00723</span></a>
+                        <a href="https://www.linkedin.com/in/santhosh-kumar-n-4b4b84310" target="_blank" rel="noopener noreferrer"><small>LinkedIn</small><span>santhosh-kumar-n</span></a>
+                        <a href="https://github.com/santhosh12133" target="_blank" rel="noopener noreferrer"><small>GitHub</small><span>santhosh12133</span></a>
+                    </div>
                 </div>
 
-            </div>
-
-            <form class="premium-contact-form" id="contact-form" data-to="santhoshkumar12133@gmail.com" novalidate>
+                <form class="premium-contact-form" id="contact-form" data-to="santhoshkumar12133@gmail.com" novalidate>
                 <div class="premium-contact-grid">
                     <div class="premium-contact-field">
                         <label for="contact-name">Name</label>
@@ -910,10 +869,12 @@
                     <span class="premium-contact-status" id="contact-status" role="status" aria-live="polite">● Ready to connect</span>
                 </div>
             </form>
+            </div>
         </section>
+        </main>
 
         <!-- Footer -->
-        <footer class="footer fade-in-section">
+        <footer class="footer">
             <div class="footer-inner">
                 <div class="footer-top-bar">
                     <div class="footer-identity">
@@ -956,9 +917,9 @@
                 </div>
             </div>
         </footer>
-    </main>
+    </div>
 
-    <button class="scroll-top-control" type="button" aria-label="Back to top" onclick="window.scrollTo({top:0,behavior:matchMedia('(prefers-reduced-motion: reduce)').matches?'auto':'smooth'})">&uarr;</button>
+    <button class="scroll-top-control" type="button" aria-label="Back to top">&uarr;</button>
     <script src="script.js" defer></script>
 </body>
 

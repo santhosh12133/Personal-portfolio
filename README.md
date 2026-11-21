@@ -4,20 +4,18 @@ A modern, cinematic personal portfolio website for **Santhosh Kumar N**, focused
 
 ## ✨ Highlights
 
-- Cinematic dark UI with a red-accent visual system
-- Responsive desktop, tablet, and mobile layout
-- Smooth scrolling and section navigation
-- Custom cursor interactions on pointer-enabled devices
-- Scroll progress indicator
-- Quick-navigation dialog
-- Interactive project architecture showcases
-- Scroll-driven animated WebM background (first frame paints immediately, including on phones)
-- Eight project cards, each with an interactive architecture diagram (click any node for details)
-- Research & credentials section with publication and certification detail cards
-- Contact form that opens your email client (no backend needed)
-- Reduced-motion support with `prefers-reduced-motion`
+- Cinematic dark UI with a restrained red-accent design system
+- Per-element scroll reveals with staggered, eased transitions (no heavy full-screen overlays)
+- Animated mobile menu sheet: tap outside or press Escape to close, hides on scroll down and returns on scroll up
+- Responsive from 320px phones to wide desktops, with 44px minimum tap targets and no horizontal overflow
+- Scroll-driven WebM hero background that fades out smoothly; the first frame paints immediately on phones
+- Eight project cards; each system-architecture diagram collapses behind a toggle on mobile and opens a detail dialog when a node is clicked
+- Skills matrix, four-step working process, and a Research & credentials section with publication and certification cards
+- Quick-navigation dialog (Ctrl/Cmd + K), scroll progress bar, active-section highlighting, scroll-to-top button
+- Contact form that opens your email client (no backend needed), plus copy-email and direct GitHub, LinkedIn, and WhatsApp links
+- Custom cursor on fine pointers only
+- Full `prefers-reduced-motion` support, and content stays visible if JavaScript is off
 - SEO and social sharing metadata
-- Direct GitHub, LinkedIn, email, and WhatsApp contact actions
 
 ## 🧰 Tech Stack
 
@@ -182,14 +180,11 @@ The portfolio presents reported project outcomes including **92% detection accur
 
 The website is implemented without a frontend framework and uses browser-native APIs and static assets.
 
-- CSS custom properties for the visual design system and motion timings
-- `scroll-behavior: smooth`
-- Pointer-aware custom cursor interactions
-- Canvas-based background rendering
-- Local WebM background animation
-- Responsive and mobile-aware rendering
-- Reduced-motion fallback
-- Accessible labels for interactive controls
+- CSS custom properties for colour, spacing, radius, and motion easing
+- Progressive-enhancement reveal system built on `IntersectionObserver`
+- Canvas-based scroll-scrubbed background video
+- Responsive layout driven by media queries and fluid `clamp()` spacing
+- Accessible by default: skip link, `aria-current` on the active section, labelled controls, visible focus states
 - Native `<dialog>` elements for quick navigation and architecture details
 
 ## 📁 Repository Structure
@@ -206,7 +201,7 @@ Personal-portfolio/
 └── README.md
 ```
 
-`index.html` links `style.css` and `script.js` directly, so the code in this repository is exactly what gets deployed. `style.css` is organised as the base design followed by clearly labelled layers (enhancements, hero, mobile, research & credentials), and `script.js` is split into numbered sections (background video, reveals, navigation, dialogs, pointer effects, contact, scroll chrome).
+`index.html` links `style.css` and `script.js` directly, so the code in this repository is exactly what gets deployed. `style.css` is organised into numbered sections (tokens and base, navigation, sections, project cards, architecture diagrams, responsive rules), and `script.js` into eight numbered sections (background video, reveals, navigation, dialogs, architecture panels, cursor, contact, scroll chrome).
 
 ## 🚀 Run Locally
 
