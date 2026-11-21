@@ -345,9 +345,9 @@ img, svg, canvas, video { display: block; max-width: 100%; }
 .footer-bottom-bar { padding-top: 1.5rem; }
 .footer-identity { display: flex; align-items: center; flex-wrap: wrap; gap: 0.75rem; }
 .footer-name { font-size: 0.95rem; font-weight: 600; }
-.logo-mark { flex: none; width: 36px; height: 36px; transition: transform 0.5s var(--ease), filter 0.5s ease; }
+.logo-mark { flex: none; width: 34px; height: 34px; transition: transform 0.8s var(--ease), filter 0.5s ease; }
 .logo-mark-sm { width: 28px; height: 28px; }
-.nav-brand:hover .logo-mark { transform: rotate(-6deg) scale(1.06); filter: drop-shadow(0 0 10px rgba(255, 43, 43, 0.45)); }
+.nav-brand:hover .logo-mark { transform: rotate(60deg); filter: drop-shadow(0 0 10px rgba(255, 43, 43, 0.5)); }
 .footer-pipe { color: var(--accent-bright); font-weight: 300; }
 .footer-role, .footer-copy { color: var(--text-3); font-size: 0.82rem; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 0.4rem 1.6rem; }
